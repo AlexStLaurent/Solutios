@@ -32,14 +32,21 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+	  labels: ["Main d'oeuvre", "Mat\u00e9riaux", "Sous-traitant", "Location", "Autres", "Co\u00fbts total"],
     datasets: [{
-      label: "Revenue",
-      backgroundColor: "#4e73df",
+      label: "Soumission",
+      backgroundColor: "#666666",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
-    }],
+      data: [41000, 60000, 30000, 2500, 4000, 140500],
+	  },{
+      label: "Projection",
+			backgroundColor: "#40b97e",
+      hoverBackgroundColor: "#2e59d9",
+      borderColor: "#4e73df",
+      data: [31784.17, , 6251, 2731, 3437, 112200.19],
+	  }
+	  ],
   },
   options: {
     maintainAspectRatio: false,
@@ -68,7 +75,7 @@ var myBarChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
+          max: 150000,
           maxTicksLimit: 5,
           padding: 10,
           // Include a dollar sign in the ticks
