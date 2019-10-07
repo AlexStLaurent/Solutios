@@ -10,6 +10,7 @@ namespace Solutios.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Thanksdata"] = "data";
             return View();
         }
     }
