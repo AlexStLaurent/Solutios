@@ -10,6 +10,10 @@ namespace Solutios.Controllers
 {
     public class HomeController : Controller
     {
+        public IActionResult LostPassword()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
