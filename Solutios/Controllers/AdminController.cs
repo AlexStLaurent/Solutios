@@ -13,5 +13,10 @@ namespace Solutios.Controllers
             ViewData["Thanksdata"] = "data";
             return View();
         }
+
+        public IActionResult Param()
+        {
+            return View();
+        }
     }
 }
