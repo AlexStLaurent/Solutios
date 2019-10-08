@@ -6,3 +6,59 @@
 
 <h2>Archive</h2>
 
+<div class="row">
+    <div class="col-xl-6">
+        <!--table des projets-->
+        <div>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Projets Archivés</h6>
+                </div>
+                <div class="card-body" height="500px">
+                    <div class="table-responsive" style="height:500px">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Projet</th>
+                                    <th>Date d'échéance</th>
+                                    <th>jour</th>
+                                    <th>Dernière mise à jour</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Projet</th>
+                                    <th>Date d'échéance</th>
+                                    <th>jour</th>
+                                    <th>Dernière mise à jour</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+
+                                <tr class="table-row" onclick="location.href='@Url.Action("Projet","Admin")'">
+                                    <td>Usine à tit-bob</td>
+                                    <td>2019-10-08</td>
+                                    <td>1/999</td>
+                                    <td>2019-10-08</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Installation de moteur d'arena</td>
+                                    <td>2019-10-08</td>
+                                    <td>1/999</td>
+                                    <td>2019-10-08</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--fin table des projets-->
+    </div>
+
