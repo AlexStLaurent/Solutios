@@ -41,5 +41,17 @@ namespace Solutios.Controllers
             ViewData["Thanksdata"] = "data";
             return View();
         }
+        public IActionResult profil()
+        {
+
+            ViewData["Thanksdata"] = "data";
+            return View();
+        }
+        public IActionResult Activitylog()
+        {
+
+            ViewData["Thanksdata"] = "data";
+            return View();
+        }
     }
 }
