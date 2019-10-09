@@ -1,8 +1,32 @@
 ﻿
 @{
-    ViewData["Title"] = "AddProjet";
-    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+	ViewData["Title"] = "AddProjet";
+	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
 <h2>AddProjet</h2>
+
+<script src="~/js/site.js"></script>
+
+<form>
+	<input type="button" class="add-row btn btn-secondary" value="Add Row">
+</form>
+<div class="card-body">
+	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Dépense</th>
+				<th>Montant</th>
+				<th>Commentaire</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="checkbox" name="record"></td>
+				<td>Peter Parker</td>
+				<td>peterparker@mail.com</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
