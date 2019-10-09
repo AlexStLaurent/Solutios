@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 $(document).ready(function () {
     $(".add-row").click(function () {
-        var markup = "<tr><td><input type='textbox' name='record'></td><td><input type='textbox' name='record'></td><td><input type='textbox' name='record'><button type='button' class='delete'>Delete Row</button></td></tr>";
+        var markup = "<tr><td><input type='textbox' name='record'></td><td><input type='textbox' name='record'></td><td><input type='textbox' name='record'><button type='button' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
         $("table tbody").append(markup);
     });
 

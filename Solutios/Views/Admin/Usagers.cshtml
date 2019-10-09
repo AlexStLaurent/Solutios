@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewData["Title"] = "Usagers";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<h2>Gestion des usagers</h2>
+
+<div class="row">
+    <div class="col-xl-6">
+        <!--table des projets-->
+        <div>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Liste d'usagers</h6>
+                </div>
+                <div class="card-body" height="500px">
+                    <div class="table-responsive" style="height:500px">
+                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Adresse courriel</th>
+                                    <th>Numéro de téléphone</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Adresse courriel</th>
+                                    <th>Numero de téléphone</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+
+                                <tr class="table-row" onclick="location.href='@Url.Action("Projet","Admin")'">
+                                    <td>Roger Mondoux</td>
+                                    <td>Roger.Mondoux&#64;mail.com</td>
+                                    <td>819-525-1236</td>
+                                </tr>
+                                <tr class="table-row" onclick="">
+                                    <td>Edgar Pompidou</td>
+                                    <td>Edgar.Pompidou&#64;mail.com</td>
+                                    <td>819-555-5555</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--fin table des projets-->
+    </div>
+</div>
+
+<button class="btn btn-primary" data-toggle="modal" data-target="#NewUserModal">Ajouter un usager</button>
+
+<div class="modal rounded-0" id="NewUserModal">
+    <div class="modal-body">
+        <div class="container">
+
+            <div class="col-lg-12 border-0 shadow-lg my-5" style="background-color: white">
+                <div class="p-5">
+                    <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Ajouter un nouvel usager</h1>
+                    </div>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputSurname">Prénom</label>
+                                <input type="text" class="form-control" id="inputSurname" placeholder="Prénom">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputName">Nom</label>
+                                <input type="text" class="form-control" id="inputName" placeholder="Nom">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Courriel</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Courriel&#64;mail.com">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Mot de Passe</label>
+                                <input type="password" class="form-control" id="inputPassword4" placeholder="Mot de passe">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Addresse</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Rue Untel">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress2">Addresse 2</label>
+                            <input type="text" class="form-control" id="inputAddress2" placeholder="Appartement, studio ou étage">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">Ville</label>
+                                <input type="text" class="form-control" id="inputCity">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Province</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Choisissez...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputZip">Code Postal</label>
+                                <input type="text" class="form-control" id="inputZip" placeholder="Ex: A1A 1A1">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Créer l'usager</button> <button class="btn btn-danger" id="ModalPWClose" data-dismiss="modal" data-target="#ForgotPWModal">Fermer</button>
+                    </form>
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>

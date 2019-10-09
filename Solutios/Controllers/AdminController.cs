@@ -41,5 +41,11 @@ namespace Solutios.Controllers
             ViewData["Thanksdata"] = "data";
             return View();
         }
+
+        public IActionResult Usagers()
+        {
+            ViewData["Thanksdata"] = "data";
+            return View();
+        }
     }
 }
