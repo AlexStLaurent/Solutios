@@ -4,8 +4,13 @@
 // Write your JavaScript code.
 $(document).ready(function () {
     $(".add-row").click(function () {
-        var markup = "<tr><td><input type='textbox' name='record'></td><td><input type='textbox' name='record'></td><td><input type='textbox' name='record'><button type='button' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
+        var depense = $('#depense').val();
+        var prix = $('#prix').val();
+        var comment = $('#comment').val();
+        $('#total').text(prix);
+        var markup = "<tr><td>" + depense + "</td><td>" + prix + "$</td><td>" + comment +"</td><td><button type='button' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
         $("table tbody").append(markup);
+        formClear();
     });
 
     // Find and remove selected table rows
@@ -17,3 +22,10 @@ $(document).ready(function () {
         });
     });
 });
+
+
+function formClear() {
+    $('#comment').val('');
+    $('#prix').val('');
+    $('#depense').val('');
+}

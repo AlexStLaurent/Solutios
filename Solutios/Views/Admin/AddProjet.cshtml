@@ -8,25 +8,35 @@
 
 <script src="~/js/site.js"></script>
 
-<form>
-	<input type="button" class="add-row btn btn-secondary" value="Add Row">
-</form>
 <div class="card-body">
-	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-		<thead>
-			<tr>
-				<th>Dépense</th>
-				<th>Montant</th>
-				<th>Commentaire</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><input type="checkbox" name="record"></td>
-				<td>Peter Parker</td>
-				<td>peterparker@mail.com</td>
-			</tr>
-		</tbody>
-	</table>
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Dépense</th>
+                <th>Montant</th>
+                <th>Commentaire</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <form>
+                    <th><input type="text" id="depense"></th>
+                    <th><input type="text" id='prix'></th>
+                    <th><input type="text" id='comment'></th>
+                    <th><input type="button" class="add-row btn btn-secondary" value="Confirmer"></th>
+                </form>
+            </tr>
+            <tr>
+                <th><input type="button" class="add-row btn btn-secondary" value="AddRow"></th>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th><span id="total"></span></th>
+            </tr>
+        </tfoot>
+        <tbody>
+        </tbody>
+    </table>
 </div>
 
