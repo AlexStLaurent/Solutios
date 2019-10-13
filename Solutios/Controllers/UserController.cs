@@ -16,6 +16,18 @@ namespace Solutios.Controllers
 
         public IActionResult Param()
         {
+            ViewData["Thanksdata"] = "nop";
+            return View();
+        }
+
+        public IActionResult Projet()
+        {
+            ViewData["Thanksdata"] = "nop";
+            return View();
+        }
+        public IActionResult AddProjet()
+        {
+            ViewData["Thanksdata"] = "nop";
             return View();
         }
 

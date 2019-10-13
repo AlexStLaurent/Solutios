@@ -46,16 +46,16 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" asp-controller="Admin" asp-action="Index">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
             <!-- Divider -->
 
             @if (ViewData["Thanksdata"].ToString() == "data".ToString())
             {
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
                 <hr class="sidebar-divider">
 
                 <!-- Heading -->
@@ -99,18 +99,32 @@
             }
             else
             {
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="User" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
                 <hr class="sidebar-divider">
 
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Utilisateur
+                    Gestionnaire de projet
                 </div>
+
+                <!-- Nav Item - NewProjet -->
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="User" asp-action="AddProjet">
+                        <i class="fas fa-fw fa-plus"></i>
+                        <span>Créer un nouveau projet</span>
+                    </a>
+                </li>
 
                 <!-- Nav Item - Projet courrant -->
                 <li class="nav-item">
                     <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-plus"></i>
-                        <span>Projet courrant</span>
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Archive</span>
                     </a>
                 </li>
 
