@@ -4,24 +4,25 @@ Go
 Use ProjetSolutios
 GO
 
-Create Table utilisateur(
-id int PRIMARY KEY,
-Nom varchar(50),
-Prenom varchar(50),
-email varchar(100),
-"role" varchar(100),
-mdp varchar(400),
-detail nvarchar(max),
-projet nvarchar(max)
+Create Table Users(
+"user_id" int PRIMARY KEY,
+"user_name" varchar(50),
+"user_firstName" varchar(50),
+"user_email" varchar(100),
+"user_role" varchar(100),
+"user_mdp" varchar(400),
+"user_detail" nvarchar(max),
+"user_projet" nvarchar(max)
 )
 Go
 
-Create Table Projet(
-id int PRIMARY KEY,
-nom varchar(50),
-debut date,
-"status" int,
-detail nvarchar(max),
-suivi nvarchar(max)
+Create Table Project(
+project_id int PRIMARY KEY,
+project_name varchar(50),
+project_debut date,
+project_fin date,
+project_status int,
+project_soumission nvarchar(max),
+project_suivi nvarchar(max)
 )
 Go
