@@ -9,6 +9,7 @@ id int PRIMARY KEY,
 Nom varchar(50),
 Prenom varchar(50),
 email varchar(100),
+"role" varchar(100),
 mdp varchar(400),
 detail nvarchar(max),
 projet nvarchar(max)
