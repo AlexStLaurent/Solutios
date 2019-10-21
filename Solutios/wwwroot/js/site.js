@@ -3,26 +3,28 @@
 
 // Write your JavaScript code.
 myarray = [,];
+id = 0;
 
 $(document).ready(function () {
     $(".add-row").click(function () {
         var depense = $('#depense').val();
         var prix = $('#prix').val();
         var comment = $('#comment').val();
-        total = 0;
-        myarray.push(parseInt(prix));
-        total = myarray.reduce((a, b) => a + b, 0);
-        $('#total').text(total.toString());
-        var markup = "<tr><td>" + depense + "</td><td>" + prix + "$</td><td>" + comment + "</td><td><button type='button' onclick='Delete()' name= 'delete-row' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
+        id += 1;
+        myarray.push(parseInt(prix));        
+        var markup = "<tr><td>" + depense + "</td><td>" + prix + "$</td><td>" + comment + "</td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
         $("table tbody").append(markup);
+        showtotal();
         formClear();
     });
 });
 
     // Find and remove selected table rows
-    function Delete() {
-        $("table tbody").find('button[name="delete-row"]').each(function () {
-            $(this).parents("tr").remove();
+function Delete(id) {
+    $("table tbody").find("button[name='delete-row-"+ id + "']").each(function () {
+        $(this).parents("tr").remove();
+        delete myarray[id];
+        showtotal();
         });
     }
 
@@ -30,4 +32,10 @@ function formClear() {
     $('#comment').val('');
     $('#prix').val('');
     $('#depense').val('');
+}
+
+function showtotal() {
+    total = 0;
+    total = myarray.reduce((a, b) => a + b, 0);
+    $('#total').text(total.toString());
 }
