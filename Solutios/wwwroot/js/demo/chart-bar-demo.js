@@ -38,7 +38,7 @@ var myBarChart = new Chart(ctx, {
 			backgroundColor: "#424242",
 			hoverBackgroundColor: "#666666",
 			borderColor: "#4e73df",
-			data: [41000, 60000, 30000, 2500, 7000, 140500],//valeurs des colonnes
+			data: [41000, 60000, 30000, 2500, 7000, 0],//valeurs des colonnes
 		}, {
 			label: "Projection",
 			backgroundColor: "#319163",

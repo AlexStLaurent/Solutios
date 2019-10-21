@@ -29,10 +29,10 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
+/*var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-      labels: ["Jan 2001", "Feb 2001", "Mar 2001", "Apr 2001", "May 2001", "Jun 2001", "Jul 2001", "Aug 2001", "Sep 2001", "Oct 2001", "Nov 2001", "Dec 2001", "Jan 2002", "Feb 2002", "Mar 2002", "Apr 2002", "May 2002", "Jun 2002", "Jul 2002", "Aug 2002", "Sep 2002", "Oct 2002", "Nov 2002", "Dec 2002"],
+      labels: ["Jan 2002", "Feb 2001", "Mar 2001", "Apr 2001", "May 2001", "Jun 2001", "Jul 2001", "Aug 2001", "Sep 2001", "Oct 2001", "Nov 2001", "Dec 2001", "Jan 2002", "Feb 2002", "Mar 2002", "Apr 2002", "May 2002", "Jun 2002", "Jul 2002", "Aug 2002", "Sep 2002", "Oct 2002", "Nov 2002", "Dec 2002"],
     datasets: [{
       label: "Earnings",
       lineTension: 0.2,
@@ -115,13 +115,12 @@ var myLineChart = new Chart(ctx, {
       }
     }
   }
-});
+});*/
 
-var ctx = document.getElementById("myAreaChart2");
 var myLineChart = new Chart(ctx, {
 	type: 'line',
 	data: {
-		labels: ["Jan 2001", "Feb 2001", "Mar 2001", "Apr 2001", "May 2001", "Jun 2001", "Jul 2001", "Aug 2001", "Sep 2001", "Oct 2001", "Nov 2001", "Dec 2001", "Jan 2002", "Feb 2002", "Mar 2002", "Apr 2002", "May 2002", "Jun 2002", "Jul 2002", "Aug 2002", "Sep 2002", "Oct 2002", "Nov 2002", "Dec 2002"],
+		labels: ["Jan 2019", "Feb 2001", "Mar 2001", "Apr 2001", "May 2001", "Jun 2001", "Jul 2001", "Aug 2001", "Sep 2001", "Oct 2001", "Nov 2001", "Dec 2001", "Jan 2002", "Feb 2002", "Mar 2002", "Apr 2002", "May 2002", "Jun 2002", "Jul 2002", "Aug 2002", "Sep 2002", "Oct 2002", "Nov 2002", "Dec 2002"],
 		datasets: [{
 			label: "Earnings",
 			lineTension: 0.3,
@@ -135,7 +134,7 @@ var myLineChart = new Chart(ctx, {
 			pointHoverBorderColor: "rgba(78, 115, 223, 1)",
 			pointHitRadius: 10,
 			pointBorderWidth: 2,
-			data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 1000, 0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 1000],
+			data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 10000, 0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 1000],
 		}],
 	},
 	options: {
