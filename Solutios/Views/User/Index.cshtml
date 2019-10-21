@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
 
@@ -25,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr onclick="location.href='@Url.Action("Projet", "User", new { id = "Tiger"})'">
                                 <td>Tiger</td>
                                 <td>10/10/2020</td>
                                 <td>0/365</td>
