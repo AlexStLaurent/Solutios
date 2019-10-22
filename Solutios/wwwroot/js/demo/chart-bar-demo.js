@@ -44,7 +44,7 @@ var myBarChart = new Chart(ctx, {
 			backgroundColor: "#319163",
 			hoverBackgroundColor: "#40b97e",
 			borderColor: "#4e73df",
-			data: [31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 112200.19],//valeurs des colonnes
+			data: test,//valeurs des colonnes
 		}
 		],
 	},

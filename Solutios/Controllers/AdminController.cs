@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Solutios.Models;
 
 namespace Solutios.Controllers
 {
     public class AdminController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
+
             ViewData["Thanksdata"] = "data";
+            ViewData["test"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
             return View();
         }
 
