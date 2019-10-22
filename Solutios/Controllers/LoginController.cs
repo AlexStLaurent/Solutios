@@ -12,25 +12,26 @@ namespace Solutios.Controllers
 {
     public class LoginController : Controller
     {
+        private UserManager usermanager;
+        public LoginController()
+        {
+            this.usermanager = new UserManager();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(Users user)
         {
-            if (user.UserEmail == "test@test.com" && user.UserMdp == "test2")
-            {
-                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserEmail));
-                var principal = new ClaimsPrincipal(identity);
-                //Creation du jeton
-                await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                return RedirectToAction("Index", "Admin");
+            bool rep = await this.usermanager.loginUser(this.HttpContext, user.UserName, user.UserMdp);
+            if (rep == true)
+            {                
+                return Redirect("/Home/Index");
             }
             else
-
             {
-                return RedirectToAction("Index", "Home");
-            }
+                ModelState.AddModelError(string.Empty, "Erreur de login.");
+                return View();
 
+            }
         }
 
     }    
