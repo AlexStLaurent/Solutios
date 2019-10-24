@@ -11,7 +11,9 @@ Create Table Users(
 "user_email" varchar(100),
 "user_role" varchar(100),
 "user_mdp" varchar(400),
-"user_detail" nvarchar(max),
+"user_phone" varchar(12),
+"user_address" varchar(100),
+"user_address2" varchar(100),
 "user_projet" nvarchar(max)
 )
 Go
