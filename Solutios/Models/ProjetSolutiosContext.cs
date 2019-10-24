@@ -66,7 +66,25 @@ namespace Solutios.Models
                     .HasColumnName("user_id")
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.UserDetail).HasColumnName("user_detail");
+                    entity.Property(e =>e.UserPhone)
+                .HasColumnName("user_phone")
+                .HasMaxLength(12)
+                .IsUnicode(false);
+                
+                entity.Property(e => e.UserZipcode)
+                .HasColumnName("user_zipcode")
+                .HasMaxLength(10)
+                .IsUnicode(false);
+
+                entity.Property(e => e.UserAddress)
+                .HasColumnName("user_address")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+                entity.Property(e => e.UserAddress2)
+                .HasColumnName("user_address2")
+                .HasMaxLength(100)
+                .IsUnicode(false);
 
                 entity.Property(e => e.UserEmail)
                     .HasColumnName("user_email")
@@ -82,6 +100,16 @@ namespace Solutios.Models
                     .HasColumnName("user_mdp")
                     .HasMaxLength(400)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UserCity)
+                .HasColumnName("user_city")
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+                entity.Property(e => e.UserProvince)
+                .HasColumnName("user_province")
+                .HasMaxLength(20)
+                .IsUnicode(false);
 
                 entity.Property(e => e.UserName)
                     .HasColumnName("user_name")
