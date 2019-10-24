@@ -13,7 +13,7 @@ namespace Solutios.Models
 {
     public class UserManager
     {
-        private readonly ProjetSolutiosContext solutiosContext;
+        private readonly ProjetSolutiosContext solutiosContext = new ProjetSolutiosContext();
 
         public UserManager()
         {
@@ -52,7 +52,7 @@ namespace Solutios.Models
         {
             solutiosContext.Users.Add(user);
         }
-        public void UserProjet(Users user)
+        public List<Project> UserProjet(Users user)
         {
             List<Project> listeUser = new List<Project>();
             List<UserProjet> n = JsonConvert.DeserializeObject<List<UserProjet>>(user.UserProjet.ToString());
@@ -61,6 +61,8 @@ namespace Solutios.Models
                 Project p = solutiosContext.Project.Find(user_p.ProjectId);
                 listeUser.Add(p);
             }
+
+            return listeUser;
         }
 
 
