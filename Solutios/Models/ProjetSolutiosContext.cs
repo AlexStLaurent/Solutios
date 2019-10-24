@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Solutios.Models
 {
@@ -10,9 +11,12 @@ namespace Solutios.Models
         {
         }
 
-        public ProjetSolutiosContext(DbContextOptions<ProjetSolutiosContext> options)
+        public IConfiguration Configuration { get; }
+
+        public ProjetSolutiosContext(DbContextOptions<ProjetSolutiosContext> options, IConfiguration configuration)
             : base(options)
         {
+            this.Configuration = configuration;
         }
 
         public virtual DbSet<Project> Project { get; set; }
@@ -22,7 +26,7 @@ namespace Solutios.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-              optionsBuilder.UseSqlServer("Server=.;Database=ProjetSolutios;User Id=sa;Password=sql");
+              optionsBuilder.UseSqlServer(this.Configuration.GetConnectionString("Solutios"));
             }
         }
 
