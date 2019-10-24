@@ -64,5 +64,13 @@ namespace Solutios.Controllers
             ViewData["Thanksdata"] = "data";
             return View();
         }
+
+        [HTTPpost]
+        public IActionResult AddUser(Users user){
+            UserManager.AddUser(user);
+
+            return Redirect("/Admin/Usagers");
+        }
+        
     }
 }
