@@ -13,12 +13,12 @@ namespace Solutios.Models
     public class UserManager
     {
         private readonly ProjetSolutiosContext solutiosContext;
-        private readonly IConfiguration Configuration;
-        public UserManager(IConfiguration configuration)
+
+        public UserManager()
         {
-            this.Configuration = configuration;
-            this.solutiosContext = new ProjetSolutiosContext(this.Configuration.GetConnectionString("Solutios"));
+
         }
+
         private Users FindUserByUserName(string userName)
         {
             Users usager = null;
