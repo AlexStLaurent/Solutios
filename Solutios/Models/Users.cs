@@ -8,7 +8,7 @@ namespace Solutios.Models
     {
         public int UserId { get; set; }
 
-        [Display(Name = "Nom d'utilisateur")]
+        [Display(Name = "Nom de Famille")]
         [Required]
         public string UserName { get; set; }
         [Display(Name = "Prénom")]
