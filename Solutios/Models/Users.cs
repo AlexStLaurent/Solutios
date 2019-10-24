@@ -22,6 +22,9 @@ namespace Solutios.Models
         [Display(Name = "Mot de passe")]
         [Required]
         public string UserMdp { get; set; }
+        public string UserPhone {get; set; }
+        public string UserAddress {get; set; }
+        public string UserAddress2 {get; set; }
         public string UserDetail { get; set; }
         public string UserProjet { get; set; }
     }
