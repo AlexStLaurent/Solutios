@@ -1,8 +1,7 @@
 Create Database ProjetSolutios
 Go
 
-Use ProjetSolutios
-GO
+
 
 Create Table Users(
 "user_id" int PRIMARY KEY,
@@ -32,5 +31,6 @@ project_suivi nvarchar(max)
 )
 Go
 
-
+Use ProjetSolutios
+GO
 SELECT * FROM Users

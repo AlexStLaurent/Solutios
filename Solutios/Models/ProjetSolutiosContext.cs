@@ -26,7 +26,8 @@ namespace Solutios.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-              optionsBuilder.UseSqlServer(this.Configuration.GetConnectionString("Solutios"));
+                optionsBuilder.UseSqlServer("Server=.;Database=ProjetSolutios;User ID=sa;Password=sql");
+                    //Configuration.GetConnectionString("Solutios"));
             }
         }
 
