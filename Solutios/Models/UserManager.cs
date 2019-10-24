@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,17 @@ namespace Solutios.Models
 {
     public class UserManager
     {
-        private ProjetSolutiosContext solutiosContext;
-        public UserManager()
+        private readonly ProjetSolutiosContext solutiosContext;
+        private readonly IConfiguration Configuration;
+        public UserManager(IConfiguration configuration)
         {
-            this.solutiosContext = new ProjetSolutiosContext("Data Source = localhost; Initial Catalog = DbLogin; User ID = sa; Password = sql");
+            this.Configuration = configuration;
+            this.solutiosContext = new ProjetSolutiosContext(this.Configuration.GetConnectionString("Solutios"));
         }
         private Users FindUserByUserName(string userName)
         {
             Users usager = null;
-            usager = this.solutiosContext.GetAllUsers().Find(u => u.UserName.Equals(userName));
+            //usager = this.solutiosContext.GetAllUsers().Find(u => u.UserName.Equals(userName));
             return usager;
         }
         
