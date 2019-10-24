@@ -12,7 +12,7 @@ namespace Solutios.Models
         public DateTime? ProjectDebut { get; set; }
         public DateTime? ProjectFin { get; set; }
         public int? ProjectStatus { get; set; }
-        public string ProjectSoumission { get; set; }
-        public string ProjectSuivi { get; set; }
+        public string jsonProjectSubmission { get; set; }
+        public string jsonProjectFollowUp { get; set; }
     }
 }
