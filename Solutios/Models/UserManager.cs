@@ -68,10 +68,11 @@ namespace Solutios.Models
             return listeUser;
         }
 
-      //  public List<Users> listeUser
-     //   {
-            
-     //   }
+        public List<Users> listeUser()
+        {
+            return solutiosContext.Users.ToList();
+
+        }
 
 
     }
