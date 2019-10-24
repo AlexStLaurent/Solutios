@@ -50,8 +50,10 @@ namespace Solutios.Models
         }
       public void AddUser(Users user)
         {
-            solutiosContext.Users.Add(user);
+            solutiosContext.Add(user);
+            solutiosContext.SaveChanges();
         }
+
         public List<Project> UserProjet(Users user)
         {
             List<Project> listeUser = new List<Project>();
@@ -63,6 +65,11 @@ namespace Solutios.Models
             }
 
             return listeUser;
+        }
+
+        public List<Users> listeUser
+        {
+
         }
 
 
