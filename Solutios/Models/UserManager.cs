@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,13 +45,15 @@ namespace Solutios.Models
         {
 
         }
-        public void AddUser()
+        public void AddUser(Users user)
         {
-
+            solutiosContext.Users.Add(user);
         }
-        public void UserProjet()
+        public void UserProjet(Users user)
         {
+           Project listP = JsonConvert.DeserializeObject<Project>(user.UserProjet);
 
+            solutiosContext.Project.Select("")
         }
 
 
