@@ -14,6 +14,9 @@ Create Table Users(
 "user_phone" varchar(12),
 "user_address" varchar(100),
 "user_address2" varchar(100),
+"user_zipcode" varchar(10),
+"user_city" varchar(50),
+"user_province" varchar(20),
 "user_projet" nvarchar(max)
 )
 Go
