@@ -31,3 +31,6 @@ project_soumission nvarchar(max),
 project_suivi nvarchar(max)
 )
 Go
+
+
+SELECT * FROM Users

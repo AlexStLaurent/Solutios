@@ -10,6 +10,7 @@ namespace Solutios.Controllers
 {
     public class AdminController : Controller
     {
+        UserManager usermanager = new UserManager();
         [Authorize]
         public IActionResult Index()
         {
@@ -65,9 +66,10 @@ namespace Solutios.Controllers
             return View();
         }
 
-        [HTTPpost]
+        [HttpPost]
         public IActionResult AddUser(Users user){
-            UserManager.AddUser(user);
+
+            usermanager.AddUser(user);
 
             return Redirect("/Admin/Usagers");
         }

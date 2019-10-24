@@ -48,7 +48,7 @@ namespace Solutios.Models
         {
 
         }
-      static  public void AddUser(Users user)
+      public void AddUser(Users user)
         {
             solutiosContext.Users.Add(user);
         }
