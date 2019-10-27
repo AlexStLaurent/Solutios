@@ -1,7 +1,10 @@
-﻿
+﻿@using System.Data
+
+@model
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+	
 }
 
 
@@ -89,7 +92,6 @@
 
 <!-- fin de infos rapids -->
 <!--******************************************************************************************************-->
-
 <!--******************************************************************************************************-->
 <!--Table des projets -->
 <!--******************************************************************************************************-->
@@ -123,20 +125,16 @@
 								</tr>
 							</tfoot>
 							<tbody>
+								@foreach (DataRow row in Model.Tables[0].Rows)
+								{
+									<tr>
+										<td>@row[""]</td>
+										<td>@row[""]</td>
+										<td>@row[""]</td>
+										<td>@row[""]</td>
+									</tr>
+								}
 
-								<tr class="table-row" onclick="location.href='@Url.Action("Projet","Admin")'">
-									<td>Usine à tit-bob</td>
-									<td>2019-10-08</td>
-									<td>1/999</td>
-									<td>2019-10-08</td>
-
-								</tr>
-								<tr class="table-row" onclick="">
-									<td>Installation de moteur d'arena</td>
-									<td>2019-10-08</td>
-									<td>1/999</td>
-									<td>2019-10-08</td>
-								</tr>
 
 							</tbody>
 						</table>
@@ -156,9 +154,9 @@
 	<div class="col-xl-6">
 		<!--table des projets-->
 		<div>
-            <script>
+			<script>
                 var test = @ViewData["test"];
-            </script>
+			</script>
 
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
