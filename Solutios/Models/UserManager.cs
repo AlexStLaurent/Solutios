@@ -72,6 +72,7 @@ namespace Solutios.Models
         {
             return solutiosContext.Users.ToList();
 
+
         }
 
 
