@@ -73,6 +73,10 @@ namespace Solutios.Models
             return solutiosContext.Users.ToList();
         }
 
+        //public users finduser (int id)
+        //{
+
+        //}
 
     }
 }
