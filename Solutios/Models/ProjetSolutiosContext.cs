@@ -27,17 +27,25 @@ namespace Solutios.Models
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("Server=.;Database=ProjetSolutios;User ID=sa;Password=sql");
-                    //Configuration.GetConnectionString("Solutios"));
+                //Configuration.GetConnectionString("Solutios"));
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+        //Relit la BD aux models
+
+            //projet
             modelBuilder.Entity<Project>(entity =>
             {
                 entity.Property(e => e.ProjectId)
                     .HasColumnName("project_id")
                     .ValueGeneratedNever();
+
+                entity.Property(e => e.ProjectName)
+                    .HasColumnName("project_name")
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.ProjectDebut)
                     .HasColumnName("project_debut")
@@ -47,18 +55,70 @@ namespace Solutios.Models
                     .HasColumnName("project_fin")
                     .HasColumnType("date");
 
-                entity.Property(e => e.ProjectName)
-                    .HasColumnName("project_name")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-               // entity.Property(e => e.ProjectSoumission).HasColumnName("project_soumission");
-
                 entity.Property(e => e.ProjectStatus).HasColumnName("project_status");
 
-                //entity.Property(e => e.ProjectSuivi).HasColumnName("project_suivi");
+                entity.Property(e => e.jsonProjectSubmission).HasColumnName("project_soumission");
             });
 
+            //suivis|projections d'un projet
+            modelBuilder.Entity<ProjectFollowUp>(entity =>
+            {
+                entity.Property(e => e.FollowUp_ID)
+                    .HasColumnName("FU_id")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.FollowUp_Date)
+                    .HasColumnName("FU_Date")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.jsonFollowUp_Data)
+                    .HasColumnName("FU_Info")
+                    .ValueGeneratedNever();
+
+            });
+            
+            //depenses d'un projet
+            modelBuilder.Entity<ProjectExpense>(entity =>
+            {
+                entity.Property(e => e.Expense_ID)
+                    .HasColumnName("FU_id")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Expense_Date)
+                    .HasColumnName("FU_Date")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.jsonExpense_Data)
+                    .HasColumnName("FU_Info")
+                    .ValueGeneratedNever();
+
+            });
+
+            //relation entre le projet et ses suivis/projections
+            modelBuilder.Entity<Project_FollowUp>(entity =>
+            {
+                entity.Property(e => e.PF_FollowUp_id)
+                    .HasColumnName("PF_FollowUp_id")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.PF_Project_id)
+                    .HasColumnName("PF_Project_id")
+                    .ValueGeneratedNever();
+            });
+
+            //relation entre le projet et ses dépenses
+            modelBuilder.Entity<Project_Expense>(entity =>
+            {
+                entity.Property(e => e.PE_Expense_id)
+                    .HasColumnName("PE_Expense_id")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.PE_Project_id)
+                    .HasColumnName("PE_Project_id")
+                    .ValueGeneratedNever();
+            });
+
+            //usager
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId);
@@ -67,11 +127,11 @@ namespace Solutios.Models
                     .HasColumnName("user_id")
                     .ValueGeneratedNever();
 
-                    entity.Property(e =>e.UserPhone)
-                .HasColumnName("user_phone")
-                .HasMaxLength(12)
-                .IsUnicode(false);
-                
+                entity.Property(e => e.UserPhone)
+            .HasColumnName("user_phone")
+            .HasMaxLength(12)
+            .IsUnicode(false);
+
                 entity.Property(e => e.UserZipcode)
                 .HasColumnName("user_zipcode")
                 .HasMaxLength(10)
