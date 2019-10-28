@@ -36,27 +36,19 @@ namespace Solutios.Controllers
 
         public IActionResult Archive()
         {
-
-            ViewData["Thanksdata"] = "data";
             return View();
         }
 
         public IActionResult Projet()
         {
-
-            ViewData["Thanksdata"] = "data";
             return View();
         }
         public IActionResult profil()
         {
-
-            ViewData["Thanksdata"] = "data";
             return View();
         }
         public IActionResult Activitylog()
         {
-
-            ViewData["Thanksdata"] = "data";
             return View();
         }
         public IActionResult Usagers()

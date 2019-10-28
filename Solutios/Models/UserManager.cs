@@ -57,20 +57,35 @@ namespace Solutios.Models
 
         public List<Project> UserProjet(Users user)
         {
-            List<Project> listeUser = new List<Project>();
+            List<Project> listeProjetUser = new List<Project>();
             List<UserProjet> n = JsonConvert.DeserializeObject<List<UserProjet>>(user.UserProjet.ToString());
             foreach(UserProjet user_p in n)
             {
                 Project p = solutiosContext.Project.Find(user_p.ProjectId);
-                listeUser.Add(p);
+                listeProjetUser.Add(p);
             }
 
-            return listeUser;
+            return listeProjetUser;
         }
 
         public List<Users> listeUser()
         {
             return solutiosContext.Users.ToList();
+        }
+
+        //public users finduser (int id)
+        //{
+
+        //}
+
+        public List<Project> showAllProject()
+        {
+            return solutiosContext.Project.ToList();
+        }
+
+        public string SerialiseUserProjet(List<UserProjet> userProjets)
+        {
+            return (JsonConvert.SerializeObject(userProjets));
         }
 
 

@@ -3,16 +3,20 @@
 
 // Write your JavaScript code.
 myarray = [,];
+var test = [];
 id = 0;
 
 $(document).ready(function () {
     $(".add-row").click(function () {
-        var depense = $('#depense').val();
-        var prix = $('#prix').val();
-        var comment = $('#comment').val();
+        d = $('#depense').val();
+        p = $('#prix').val();
         id += 1;
-        myarray.push(parseInt(prix));        
-        var markup = "<tr><td>" + depense + "</td><td>" + prix + "$</td><td>" + comment + "</td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
+
+        var t = { Depense: d, Prix: p }
+        test.push(t);
+
+        myarray.push(parseInt(p));        
+        var markup = "<tr><td>" + d + "</td><td>" + p + "$</td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
         $("table tbody").append(markup);
         showtotal();
         formClear();
@@ -24,6 +28,7 @@ function Delete(id) {
     $("table tbody").find("button[name='delete-row-"+ id + "']").each(function () {
         $(this).parents("tr").remove();
         delete myarray[id];
+        delete test[id];
         showtotal();
         });
     }
