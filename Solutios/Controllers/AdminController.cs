@@ -61,9 +61,7 @@ namespace Solutios.Controllers
         }
         public IActionResult Usagers()
         {
-
-            ViewData["Thanksdata"] = "data";
-            return View();
+            return View(usermanager.listeUser());
         }
 
         [HttpPost]

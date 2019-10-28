@@ -52,11 +52,11 @@ namespace Solutios.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ProjectSoumission).HasColumnName("project_soumission");
+               // entity.Property(e => e.ProjectSoumission).HasColumnName("project_soumission");
 
                 entity.Property(e => e.ProjectStatus).HasColumnName("project_status");
 
-                entity.Property(e => e.ProjectSuivi).HasColumnName("project_suivi");
+                //entity.Property(e => e.ProjectSuivi).HasColumnName("project_suivi");
             });
 
             modelBuilder.Entity<Users>(entity =>

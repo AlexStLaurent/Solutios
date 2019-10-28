@@ -71,8 +71,6 @@ namespace Solutios.Models
         public List<Users> listeUser()
         {
             return solutiosContext.Users.ToList();
-
-
         }
 
 

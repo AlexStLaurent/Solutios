@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Users>;
 @{
     ViewData["Title"] = "Usagers";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -33,20 +33,20 @@
                                     <th>Numero de téléphone</th>
                                 </tr>
                             </tfoot>
-                            <tbody>
-
-                                <tr class="table-row" onclick="location.href='@Url.Action("profil","Admin")'">
-                                    <td>Roger Mondoux</td>
-                                    <td>Roger.Mondoux&#64;mail.com</td>
-                                    <td>819-525-1236</td>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserFirstName + item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserEmail)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserPhone)
+                                    </td>
                                 </tr>
-                                <tr class="table-row" onclick="">
-                                    <td>Edgar Pompidou</td>
-                                    <td>Edgar.Pompidou&#64;mail.com</td>
-                                    <td>819-555-5555</td>
-                                </tr>
-
-                            </tbody>
+                            }
                         </table>
                     </div>
                 </div>
@@ -60,90 +60,4 @@
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#NewUserModal">Ajouter un usager</button>
 
-<div class="modal rounded-0" id="NewUserModal">
-    <div class="modal-body">
-        <div class="container">
-
-            @model Solutios.Models.Users
-            <div class="col-lg-12 border-0 shadow-lg my-5" style="background-color: white">
-                <div class="p-5">
-                    <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Ajouter un nouvel usager</h1>
-                    </div>
-                    <form class="user" asp-controller="Admin" asp-action="AddUser">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputSurname">Prénom</label>
-                                <input asp-for="UserFirstName" type="text" class="form-control form-control-user" id="inputSurname" placeholder="Prénom">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputName">Nom</label>
-                                <input asp-for="UserName" type="text" class="form-control" id="inputName" placeholder="Nom">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4">Courriel</label>
-                                <input asp-for="UserEmail" type="email" class="form-control" id="inputEmail4" placeholder="Courriel&#64;mail.com">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4">Mot de Passe</label>
-                                <input asp-for="UserMdp" type="password" class="form-control" id="inputPassword4" placeholder="Mot de passe">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputPhone">Numéro de téléphone</label>
-                                <input asp-for="UserPhone" type="tel" class="form-control" id="inputPhone" placeholder="# de téléphone">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputRole">Rôle</label>
-                                <select asp-for="UserRole" id="inputRole" class="form-control">
-                                    <option selected>Choisissez...</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress">Addresse</label>
-                            <input asp-for="UserAddress" type="text" class="form-control" id="inputAddress" placeholder="1234 Rue Untel">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputAddress2">Addresse 2</label>
-                            <input asp-for="UserAddress2" type="text" class="form-control" id="inputAddress2" placeholder="Appartement, studio ou étage">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity">Ville</label>
-                                <input asp-for="UserCity" type="text" class="form-control" id="inputCity">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputState">Province</label>
-                                <select asp-for="UserProvince" id="inputState" class="form-control">
-                                    <option selected>Choisissez...</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip">Code Postal</label>
-                                <input asp-for="UserZipcode" type="text" class="form-control" id="inputZip" placeholder="Ex: A1A 1A1">
-                            </div>
-                        </div>
-                        
-                        <button type="submit" asp-controller="Admin" asp-action="AddUser" class="btn btn-primary">Créer l'usager</button> <button class="btn btn-danger" id="ModalPWClose" data-dismiss="modal" data-target="#ForgotPWModal">Fermer</button>
-                    </form>
-
-
-
-                </div>
-            </div>
-
-
-
-
-
-
-        </div>
-
-    </div>
-</div>
+@{ Html.RenderPartial("Partiel/AddUser"); }
