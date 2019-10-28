@@ -37,7 +37,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.UserFirstName + item.UserName)
+                                        @Html.DisplayFor(modelItem => item.UserFirstName)  @Html.DisplayFor(modelItem => item.UserName)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.UserEmail)
@@ -60,4 +60,9 @@
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#NewUserModal">Ajouter un usager</button>
 
-@{ Html.RenderPartial("Partiel/AddUser"); }
+<div class="modal rounded-0" id="NewUserModal">
+    @{ Html.RenderPartial("Partiel/AddUser", new Solutios.Models.Users()); }
+</div>
+
+
+    

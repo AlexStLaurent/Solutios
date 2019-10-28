@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Solutios.Models;
 
 namespace Solutios
 {
@@ -38,6 +40,10 @@ namespace Solutios
                 options.LoginPath = new PathString("/Login/Login");
                 options.Cookie = new CookieBuilder { SameSite = SameSiteMode.None };
             });
+
+            services.AddDbContext<ProjetSolutiosContext>(options =>
+               options.UseSqlServer(this.Configuration.GetConnectionString("Solutios")));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

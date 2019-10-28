@@ -64,8 +64,12 @@ namespace Solutios.Controllers
             return View(usermanager.listeUser());
         }
 
+        public IActionResult PartialAddUser ()
+        {
+            return PartialView();
+        }
         [HttpPost]
-        public IActionResult AddUser(Users user){
+        public IActionResult AddUsers(Users user){
 
             usermanager.AddUser(user);
 

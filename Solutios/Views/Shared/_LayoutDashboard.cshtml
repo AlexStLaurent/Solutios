@@ -48,8 +48,8 @@
             <!-- Nav Item - Dashboard -->
             <!-- Divider -->
 
-            @if (ViewData["Thanksdata"].ToString() == "data".ToString())
-            {
+            
+            
                 <li class="nav-item active">
                     <a class="nav-link" asp-controller="Admin" asp-action="Index">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -96,50 +96,8 @@
                         <span>Paramètres</span>
                     </a>
                 </li>
-            }
-            else
-            {
-                <li class="nav-item active">
-                    <a class="nav-link" asp-controller="User" asp-action="Index">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <hr class="sidebar-divider">
-
-                <!-- Heading -->
-                <div class="sidebar-heading">
-                    Gestionnaire de projet
-                </div>
-
-                <!-- Nav Item - NewProjet -->
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="User" asp-action="AddProjet">
-                        <i class="fas fa-fw fa-plus"></i>
-                        <span>Créer un nouveau projet</span>
-                    </a>
-                </li>
-
-                <!-- Nav Item - Projet courrant -->
-                <li class="nav-item">
-                    <a class="nav-link" href="charts.html">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Archive</span>
-                    </a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
-
-                <!-- Nav Item - Param -->
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="User" asp-action="Param">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Paramètres</span>
-                    </a>
-                </li>
-
-            }
+            
+            
 
 
             <!-- Sidebar Toggler (Sidebar) -->
