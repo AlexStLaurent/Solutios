@@ -1,6 +1,6 @@
 ﻿@using System.Data
 
-@model
+@model Solutios.Models.Users 
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -125,7 +125,7 @@
 								</tr>
 							</tfoot>
 							<tbody>
-								@foreach (DataRow row in Model.Tables[0].Rows)
+								@*@foreach (datarow row in model.tables[0].rows)
 								{
 									<tr>
 										<td>@row[""]</td>
@@ -133,7 +133,7 @@
 										<td>@row[""]</td>
 										<td>@row[""]</td>
 									</tr>
-								}
+								}*@
 
 
 							</tbody>

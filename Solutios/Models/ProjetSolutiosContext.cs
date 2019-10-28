@@ -52,7 +52,7 @@ namespace Solutios.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.jsonProjectSubmission).HasColumnName("project_soumission");
+               // entity.Property(e => e.ProjectSoumission).HasColumnName("project_soumission");
 
                 entity.Property(e => e.ProjectStatus).HasColumnName("project_status");
 
