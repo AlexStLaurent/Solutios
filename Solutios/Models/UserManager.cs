@@ -77,10 +77,17 @@ namespace Solutios.Models
         //{
 
         //}
+
         public List<Project> showAllProject()
         {
-
+            return solutiosContext.Project.ToList();
         }
+
+        public string SerialiseUserProjet(List<UserProjet> userProjets)
+        {
+            return (JsonConvert.SerializeObject(userProjets));
+        }
+
 
     }
 }

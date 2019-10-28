@@ -8,7 +8,6 @@ namespace Solutios.Models
     //ProjectFollowUP = une «projection» d'un projet à un moment spécifique(date)
     //ProjectExpense = une liste des dépenses à un moment spécifique(date)
 
-
     public partial class Project
     {
         public int ProjectId { get; set; }
