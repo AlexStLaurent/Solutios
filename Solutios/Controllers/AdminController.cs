@@ -14,8 +14,6 @@ namespace Solutios.Controllers
         [Authorize]
         public IActionResult Index()
         {
-
-            ViewData["Thanksdata"] = "data";
             ViewData["test"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
             return View();
         }
@@ -56,10 +54,6 @@ namespace Solutios.Controllers
             return View(usermanager.listeUser());
         }
 
-        public IActionResult PartialAddUser ()
-        {
-            return PartialView();
-        }
         [HttpPost]
         public IActionResult AddUsers(Users user){
 
