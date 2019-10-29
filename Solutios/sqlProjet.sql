@@ -1,7 +1,8 @@
 Create Database ProjetSolutios
 Go
 
-
+Use ProjetSolutios
+	GO
 
 Create Table Users(
 "user_id" int PRIMARY KEY Identity,
@@ -59,8 +60,3 @@ GO
 
 
 
-Use ProjetSolutios
-GO
-SELECT * FROM Users
-
-DELETE FROM Users
