@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +12,16 @@ namespace Solutios.Controllers
     public class AdminController : Controller
     {
         UserManager usermanager = new UserManager();
+        ProjectManager projectmanager = new ProjectManager();        
         [Authorize]
         public IActionResult Index()
         {
+            
             ViewData["test"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
-            return View();
+            return View(usermanager.showAllProject());
         }
 
+        [Authorize]
         public IActionResult Param()
         {
 
@@ -25,25 +29,34 @@ namespace Solutios.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult AddProjet()
         {
-
+            Project j = new Project();
+            projectmanager.addProjet(j);
             ViewData["Thanksdata"] = "data";
             return View();
         }
 
+        [Authorize]
         public IActionResult Archive()
         {
             return View();
         }
 
-        public IActionResult Projet()
+        [Authorize]
+        [HttpGet]
+        public IActionResult Projet(int id)
         {
-            return View();
+            Project p = projectmanager.getProjet(id);
+            ViewData["Test"] = projectmanager.diagrame(id);
+            return View(p.listProjectSoumission());
         }
+        [Authorize]
         public IActionResult profil()
         {
-            return View();
+            string user = User.FindFirstValue(ClaimTypes.NameIdentifier);            
+            return View(usermanager.FindUserByID(user));
         }
         public IActionResult Activitylog()
         {

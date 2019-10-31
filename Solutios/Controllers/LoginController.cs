@@ -21,15 +21,15 @@ namespace Solutios.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Users user)
         {
-            bool rep = await this.usermanager.loginUser(this.HttpContext, user.UserName, user.UserMdp);
+            bool rep = await this.usermanager.loginUser(this.HttpContext, user.UserEmail, user.UserMdp);
             if (rep == true)
-            {                
-                return Redirect("/Home/Index");
+            {
+                return RedirectToAction("Index", "Admin");
             }
             else
             {
                 ModelState.AddModelError(string.Empty, "Erreur de login.");
-                return View();
+                return  RedirectToAction("Login", "Home");
 
             }
         }

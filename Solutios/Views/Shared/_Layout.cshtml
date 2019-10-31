@@ -27,7 +27,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">Solutios</a>
+            <a class="navbar-brand js-scroll-trigger" asp-action="Index">Solutios</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -49,91 +49,12 @@
 
     <div class="modal rounded-0" id="LoginModal">
         <div class="modal-body">
-            <div class="container">
-                @model Solutios.Models.Users
-                <div class="col-lg-12 border-0 shadow-lg my-5" style="background-color: white">
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Bonjour!</h1>
-                        </div>
-                        <form class="user" asp-controller="Login" asp-action="Login"> 
-                            <div class="form-group">
-                                <input asp-for="UserEmail" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                            </div>
-                            <div class="form-group">
-                                <input asp-for="UserMdp" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox small">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck">
-                                    <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                </div>
-                            </div>
-                            <input class="btn btn-success" type="submit" value="Login"/>
-                            <button class="btn btn-success" type="submit" asp-controller="User" asp-action="Index">
-                                Usager
-                            </button>
-                        </form>
-                        <hr>
-                        <div class="row">
-                            <div class="col-6">
-                                <a style="cursor:pointer" data-toggle="modal" data-target="#ForgotPWModal">Mot de passe oublié?</a>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-danger" id="ModalClose" data-dismiss="modal">Fermer</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="modal rounded-0" id="ForgotPWModal">
-                    <div class="modal-body">
-                        <div class="container">
-
-                            <div class="col-lg-12 border-0 shadow-lg my-5" style="background-color: lightslategray">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Oublier votre mot de passe?</h1>
-                                    </div>
-                                    <form class="user">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                        </div>
-                                        <button class="btn btn-success" type="submit" asp-controller="Home" asp-action="Index">
-                                            Envoyer votre nouveau mot de passe
-                                        </button>
-                                    </form>
-                                    <hr>
-
-
-                                    <div class="col-4">
-                                        <button class="btn btn-danger" id="ModalPWClose" data-dismiss="modal">Fermer</button>
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-
-
-
-
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-
-
-
-            </div>
-
+            @{
+                Html.RenderPartial("_PartialLogin");
+            }
         </div>
     </div>
+    
     <!-- Bootstrap core JavaScript -->
     <script src="~/vendor/jquery/jquery.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,6 +1,6 @@
 ﻿@using System.Data
 
-@model Solutios.Models.Users 
+@model List<Project>
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -124,19 +124,27 @@
 									<th>Dernière mise à jour</th>
 								</tr>
 							</tfoot>
-							<tbody>
-								@*@foreach (datarow row in model.tables[0].rows)
-								{
-									<tr>
-										<td>@row[""]</td>
-										<td>@row[""]</td>
-										<td>@row[""]</td>
-										<td>@row[""]</td>
-									</tr>
-								}*@
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr onclick="location.href='@Url.Action("Projet", "Admin", new { id = item.ProjectId})'">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectFin)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectDebut)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectDebut)
+                                    </td>
+                                </tr>
+                                }
 
 
-							</tbody>
+                            </tbody>
 						</table>
 					</div>
 				</div>

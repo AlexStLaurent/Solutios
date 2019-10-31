@@ -10,6 +10,11 @@ namespace Solutios.Models
     public class ProjectManager
     {
         private readonly ProjetSolutiosContext solutiosContext = new ProjetSolutiosContext();
+
+        public ProjectManager()
+        {
+
+        }
                 
 
         public Project getProjet(int id)
@@ -19,15 +24,42 @@ namespace Solutios.Models
 
         public void addProjet(Project p)
         {
-            solutiosContext.Add(p);
+            Project i = new Project();
+            List<FollowInfo> j = new List<FollowInfo>();
+            FollowInfo k = new FollowInfo();
+            k.amount = 10;
+            k.Spending = "test";
+            j.Add(k);
+            j.Add(k);
+            j.Add(k);
+            j.Add(k);
+            j.Add(k);
+            j.Add(k);
+            j.Add(k);
+            i.ProjectSoumission = JsonConvert.SerializeObject(j);
+            solutiosContext.Add(i);
             solutiosContext.SaveChanges();
         }
 
-        public string SerialiselistFollowUp(List<Followup> f)
+        public string SerialiselistFollowUp(List<FollowInfo> f)
         {
             return JsonConvert.SerializeObject(f);
         }
 
+
+        public string diagrame(int id)
+        {
+            Project p = solutiosContext.Project.Find(id);
+            string test = "[";
+            foreach (var item in p.listProjectSoumission())
+            {
+                test = test + item.amount.ToString() + ",";
+            }
+            string end = "]";
+            test­ += end;
+
+            return test;
+        }
 
 
     }

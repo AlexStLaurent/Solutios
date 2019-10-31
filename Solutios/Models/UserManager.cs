@@ -21,20 +21,29 @@ namespace Solutios.Models
 
         }
 
-        private Users FindUserByUserName(string userName)
+        private Users FindUserByUserName(string email)
         {
             Users usager = null;
-            //usager = this.solutiosContext.GetAllUsers().Find(u => u.UserName.Equals(userName));
+            usager = this.solutiosContext.Users.ToList().Find(u => u.UserEmail.Equals(email));
             return usager;
         }
-        
-        public async Task<bool> loginUser(HttpContext context, string userName, string password)
+        public Users FindUserByID(string id)
         {
-            Users user = this.FindUserByUserName(userName);
-            if (user != null && user.UserMdp.Equals(password))
+            Users usager = null;
+            int d = int.Parse(id);
+            usager = this.solutiosContext.Users.ToList().Find(u => u.UserId.Equals(d));
+            return usager;
+        }
+
+
+        public async Task<bool> loginUser(HttpContext context, string email, string password)
+        {
+            Users user = this.FindUserByUserName(email);
+            if (user != null && user.UserMdp.Equals(password, StringComparison.CurrentCulture))
             {
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserEmail));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserFirstName + " " + user.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
                 var principal = new ClaimsPrincipal(identity);
                 // création du jeton d'authentification de type AuthenticationTicket
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
@@ -55,15 +64,18 @@ namespace Solutios.Models
             solutiosContext.SaveChanges();
         }
 
-        public List<Project> UserProjet(Users user)
+        public List<Project> UserProjet(Users userr)
         {
             List<Project> listeProjetUser = new List<Project>();
-            List<UserProjet> n = JsonConvert.DeserializeObject<List<UserProjet>>(user.UserProjet.ToString());
-            foreach(UserProjet user_p in n)
+            if(userr.UserProjet != null)
             {
-                Project p = solutiosContext.Project.Find(user_p.ProjectId);
-                listeProjetUser.Add(p);
-            }
+                List<UserProjet> n = JsonConvert.DeserializeObject<List<UserProjet>>(userr.UserProjet);
+                foreach (UserProjet user_p in n)
+                {
+                    Project p = solutiosContext.Project.Find(user_p.ProjectId);
+                    listeProjetUser.Add(p);
+                }
+            }          
 
             return listeProjetUser;
         }

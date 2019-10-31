@@ -5,7 +5,7 @@ Use ProjetSolutios
 	GO
 
 Create Table Users(
-"user_id" int PRIMARY KEY Identity,
+"user_id" int PRIMARY KEY Identity(1,1),
 "user_name" varchar(50),
 "user_firstName" varchar(50),
 "user_email" varchar(100),
@@ -22,7 +22,7 @@ Create Table Users(
 Go
 
 Create Table Project(
-project_id int PRIMARY KEY,
+project_id int PRIMARY KEY identity(1,1),
 project_name varchar(50),
 project_debut date,
 project_fin date,
@@ -59,4 +59,20 @@ GO
 
 
 
+INSERT INTO Users ("user_name", "user_firstName", "user_email","user_mdp","user_projet")
+VALUES ('Robert', 'Didier', 'dr@dr.ca', 'robert', '{"ProjectId": 1,"ProjectName": "Shack a Hector"}');
+Go
 
+INSERT INTO [dbo].[Project](
+           [project_name]
+           ,[project_debut]
+           ,[project_fin]
+           ,[project_status]
+           ,[project_soumission])
+     VALUES
+           ('Shack a Hector', 
+		   convert(date,'10-10-2018'),
+		   null,
+		   0,
+		   '[{"Spending":"test","amount":10},{"Spending":"test","amount":65},{"Spending":"test","amount":10},{"Spending":"test","amount":10},{"Spending":"test","amount":34},{"Spending":"test","amount":234},{"Spending":"test","amount":65}]')
+GO

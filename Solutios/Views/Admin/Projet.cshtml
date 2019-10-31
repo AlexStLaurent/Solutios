@@ -90,203 +90,113 @@
 
 
 <div class="row">
-	<!--******************************************************************************************************-->
-	<!--Table de la soumission -->
-	<!--******************************************************************************************************-->
+    <!--******************************************************************************************************-->
+    <!--Table de la soumission -->
+    <!--******************************************************************************************************-->
+    @{
+        Html.RenderPartial("Partiel/_partielSoumission");
+    }
 
-	<div class="col-xl-6">
-		<!--table des soumissions-->
-		<div>
+    <!--******************************************************************************************************-->
+    <!--Table de la projection -->
+    <!--******************************************************************************************************-->
 
-			<!-- DataTales Example -->
-			<div class="card shadow mb-4">
-				<div class="card-header py-2">
-					<h6 class="m-0 font-weight-bold text-primary">Soumission</h6>
-				</div>
-				<div class="card-body py-2">
-					<div class="table-responsive" style="height:auto">
-						<table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
-							<thead class="card-header text-primary text-center">
-								<tr>
-									<th>Soumissions</th>
-									<th>Montant Soumissionné</th>
-									<th>Dépenses courantes</th>
-									<th>Budget courant</th>
-								</tr>
-							</thead>
+    <div class="col-xl-6">
+        <!--table des soumissions-->
+        <div>
 
-							<tbody style="font-size:small" class="text-center">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <h6 class="m-0 font-weight-bold text-primary">Projection</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="table-responsive" style="height:auto">
+                        <table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="card-header text-primary ">
+                                <tr class="text-center">
+                                    <th></th>
+                                    <th>Dernière projection</th>
+                                    <th>Budget projeté</th>
+                                    <th>Coût projeté</th>
+                                </tr>
+                            </thead>
 
-								<tr class="table-row">
-									<td>Main d'oeuvre</td>
-									<td>41,000.00$</td>
-									<td>31,784.17$</td>
-									<td>9,215.83$</td>
+                            <tbody style="font-size:small" class="text-center">
 
-								</tr>
-								<tr>
-									<td>Matériaux</td>
-									<td>60,000.00$</td>
-									<td>52,359.54$</td>
-									<td>7,640.46$</td>
-								</tr>
-								<tr>
-									<td>Sous-traitant</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Location</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Autres</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Camions</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Couts total</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Marge Brût</td>
-									<td>0$</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Montant soumis</td>
-									<td>0$</td>
-									<td></td>
-									<td></td>
-								</tr>
+                                <tr class="table-row">
+                                    <td>Main d'oeuvre</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
 
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+                                </tr>
+                                <tr>
+                                    <td>Matériaux</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                </tr>
+                                <tr>
+                                    <td>Sous-traitant</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                </tr>
+                                <tr>
+                                    <td>Autres</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                </tr>
+                                <tr>
+                                    <td>Camions</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                </tr>
+                                <tr>
+                                    <td>Couts total</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                    <td>0$</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Marge Brût</td>
+                                    <td>0$</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Montant soumis</td>
+                                    <td>0$</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
 
-		</div>
-	</div>
-	<!--******************************************************************************************************-->
-	<!--Table de la projection -->
-	<!--******************************************************************************************************-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-	<div class="col-xl-6">
-		<!--table des soumissions-->
-		<div>
+        </div>
 
-			<!-- DataTales Example -->
-			<div class="card shadow mb-4">
-				<div class="card-header py-2">
-					<h6 class="m-0 font-weight-bold text-primary">Projection</h6>
-				</div>
-				<div class="card-body py-2" >
-					<div class="table-responsive" style="height:auto">
-						<table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
-							<thead class="card-header text-primary ">
-								<tr class="text-center">
-									<th></th>
-									<th>Dernière projection</th>
-									<th>Budget projeté</th>
-									<th>Coût projeté</th>
-								</tr>
-							</thead>
-
-							<tbody style="font-size:small" class="text-center">
-
-								<tr class="table-row">
-									<td>Main d'oeuvre</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-
-								</tr>
-								<tr>
-									<td>Matériaux</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Sous-traitant</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Location</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Autres</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Camions</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td>Couts total</td>
-									<td>0$</td>
-									<td>0$</td>
-									<td>0$</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Marge Brût</td>
-									<td>0$</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Montant soumis</td>
-									<td>0$</td>
-									<td></td>
-									<td></td>
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
-		<!--fin table des projets-->
-		<!--******************************************************************************************************-->
-	</div>
+        <!--fin table des projets-->
+        <!--******************************************************************************************************-->
+    </div>
 </div><!--fin de la rangé du milieu-->
 
 <div class="row">
@@ -337,3 +247,7 @@
 		<!--************************fin de graphique a bandes**************************************************-->
 	</div>
 </div>
+
+<script>
+                var test = @ViewData["Test"];
+</script>

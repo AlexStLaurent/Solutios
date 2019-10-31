@@ -27,7 +27,7 @@ namespace Solutios.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=LAPTOP-ROG-DEV;Initial Catalog=ProjetSolutios;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Server= .\\SQLEXPRESS;Database= ProjetSolutios;Trusted_Connection= True;");
             }
         }
 
@@ -67,7 +67,7 @@ namespace Solutios.Models
             {
                 entity.Property(e => e.ProjectId)
                     .HasColumnName("project_id")
-                    .ValueGeneratedNever();
+                    .UseSqlServerIdentityColumn();
 
                 entity.Property(e => e.ProjectDebut)
                     .HasColumnName("project_debut")
@@ -143,7 +143,9 @@ namespace Solutios.Models
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedNever()
+                    .UseSqlServerIdentityColumn();
+                
 
                 entity.Property(e => e.UserAddress)
                     .HasColumnName("user_address")

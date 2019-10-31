@@ -1,4 +1,4 @@
-﻿
+﻿@model Solutios.Models.Users
 @{
     ViewData["Title"] = "profil";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -14,22 +14,22 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="txtSurname">Prénom :</label>
-                        <label id="txtSurname">Martin</label>
+                        <label id="txtSurname">@Model.UserFirstName</label>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="txtName">Nom :</label>
-                        <label­ id="txtName">Querry</label­>
+                        <label­ id="txtName">@Model.UserName</label­>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6  form-group">
                         <label for="txtEmail4">Courriel :</label>
-                        <label id="txtEmail4">Courriel&#64;mail.com</label>
+                        <label id="txtEmail4">@Model.UserEmail</label>
                     </div>                 
                 </div>
                 <div class="form-group">
                     <label for="txtAddress1">Addresse :</label>
-                    <label id="txtAddress1">404 Rue de le Prairie</label>
+                    <label id="txtAddress1">@Model.UserAddress</label>
 </div>
                 <div class="form-group">
                     <label for="txtAddress2">Addresse 2 :</label>

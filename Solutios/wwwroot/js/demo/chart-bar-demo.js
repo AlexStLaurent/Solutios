@@ -38,7 +38,7 @@ var myBarChart = new Chart(ctx, {
 			backgroundColor: "#424242",
 			hoverBackgroundColor: "#666666",
 			borderColor: "#4e73df",
-			data: [41000, 60000, 30000, 2500, 7000, 0],//valeurs des colonnes
+			data: [10, 10, 0, 10, 10, 10],//valeurs des colonnes
 		}, {
 			label: "Projection",
 			backgroundColor: "#319163",
@@ -77,7 +77,7 @@ var myBarChart = new Chart(ctx, {
 				//chiffres sur le coté
 				ticks: {
 					min: 0,
-					max: 150000,
+					max: 100,
 					maxTicksLimit: 10,
 					padding: 10,
 					// Include a dollar sign in the ticks
