@@ -143,7 +143,6 @@ namespace Solutios.Models
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id")
-                    .ValueGeneratedNever()
                     .UseSqlServerIdentityColumn();
                 
 
