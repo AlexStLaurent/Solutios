@@ -1,12 +1,16 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Solutios.Models
 {
     public partial class ProjetSolutiosContext : DbContext
     {
-        public ProjetSolutiosContext()
+        private readonly IConfiguration Configuration;
+        private readonly string ConnectionString;
+
+        public ProjetSolutiosContext(string ConnectionString)
         {
         }
 
@@ -27,7 +31,7 @@ namespace Solutios.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server= .\\SQLEXPRESS;Database= ProjetSolutios;Trusted_Connection= True;");
+                optionsBuilder.UseSqlServer(("name=Solutios"));
             }
         }
 

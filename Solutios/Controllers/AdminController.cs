@@ -5,14 +5,23 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Solutios.Models;
 
 namespace Solutios.Controllers
 {
     public class AdminController : Controller
     {
-        UserManager usermanager = new UserManager();
-        ProjectManager projectmanager = new ProjectManager();        
+       private readonly ProjetSolutiosContext _context;
+        UserManager usermanager;
+        ProjectManager projectmanager = new ProjectManager();    
+        
+        public AdminController(ProjetSolutiosContext context)
+        {
+            this._context = context;
+            usermanager = new UserManager(_context);
+            projectmanager = new ProjectManager(_context);
+        }
         [Authorize]
         public IActionResult Index()
         {

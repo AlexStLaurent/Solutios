@@ -24,14 +24,16 @@
                                     <th>Nom</th>
                                     <th>Adresse courriel</th>
                                     <th>Numéro de téléphone</th>
+                                    <th>Rôle</th>
                                 </tr>
                             </thead>
                             <tfoot>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Adresse courriel</th>
-                                    <th>Numero de téléphone</th>
-                                </tr>
+								<tr>
+									<th>Nom</th>
+									<th>Adresse courriel</th>
+									<th>Numero de téléphone</th>
+									<th>Rôle</th>
+								</tr>
                             </tfoot>
                             @foreach (var item in Model)
                             {
@@ -45,6 +47,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.UserPhone)
                                     </td>
+									<td>
+										@Html.DisplayFor(modalItem =>item.UserRole)
+									</td>
                                 </tr>
                             }
                         </table>
