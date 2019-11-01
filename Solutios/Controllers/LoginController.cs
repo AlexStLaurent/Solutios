@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Solutios.Models;
 
 namespace Solutios.Controllers
@@ -13,9 +14,14 @@ namespace Solutios.Controllers
     public class LoginController : Controller
     {
         private UserManager usermanager;
-        public LoginController()
+        private readonly ProjetSolutiosContext _context;
+        private readonly IConfiguration Configuration;
+        public LoginController( ProjetSolutiosContext context)
         {
-            this.usermanager = new UserManager();
+
+            _context = context;
+            this.usermanager = new UserManager(_context);
+
         }
 
         [HttpPost]

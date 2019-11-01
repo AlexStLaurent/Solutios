@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Solutios.Models.Project_Related;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,22 @@ namespace Solutios.Models
 {
     public class ProjectManager
     {
-        private readonly ProjetSolutiosContext solutiosContext = new ProjetSolutiosContext();
+        private readonly ProjetSolutiosContext solutiosContext;
+        private IConfiguration config;
+        
 
         public ProjectManager()
         {
 
         }
-                
+
+        public ProjectManager(ProjetSolutiosContext context)
+        {
+
+            solutiosContext = context;
+        }
+
+
 
         public Project getProjet(int id)
         {

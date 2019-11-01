@@ -14,11 +14,13 @@ namespace Solutios.Models
 {
     public class UserManager
     {
-        private readonly ProjetSolutiosContext solutiosContext = new ProjetSolutiosContext();
+        private readonly ProjetSolutiosContext solutiosContext;
+       
+       
 
-        public UserManager()
+        public UserManager(ProjetSolutiosContext context)
         {
-
+            this.solutiosContext = context;
         }
 
         private Users FindUserByUserName(string email)

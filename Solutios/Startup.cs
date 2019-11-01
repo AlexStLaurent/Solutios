@@ -34,6 +34,7 @@ namespace Solutios
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
@@ -42,7 +43,7 @@ namespace Solutios
             });
 
             services.AddDbContext<ProjetSolutiosContext>(options =>
-               options.UseSqlServer(this.Configuration.GetConnectionString("Solutios")));
+               options.UseSqlServer(("name=Solutios")));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
