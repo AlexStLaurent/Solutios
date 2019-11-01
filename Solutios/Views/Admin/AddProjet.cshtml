@@ -7,32 +7,47 @@
 <h2>Ajouter un projet</h2>
 
 <script src="~/js/site.js"></script>
+<form>
+    <div class="row">
+        <div class="col-lg-2">Nom du Projet:</div><div class="col-lg-4"><input id="txtNomProjet" name="ProjectName" /></div>
+        @{ Html.RenderPartial("Partiel/ChooseProjectManager", ViewData["Users"]); }
+        <div class="col-lg-2">Chargé de Projet:</div><div class="col-lg-4">
+            
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-2">Date de début</div><input type="date" id="dtDateDebut" name="project_debut" />
+        <div class="col-lg-2">Échéance:</div> <input type="date" id="dtDateFin" name="project-fin" />
+    </div>
+    <div class="card-body">
 
-<div class="card-body">
-    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Dépense</th>
-                <th>Montant</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr class="table-row">
-                <form>
-                    <th><input type="text" id="depense" ></th>
-                    <th><input type="text" id='prix' ></th>
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Dépense</th>
+                    <th>Montant</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr class="table-row">
+
+                    <th><input type="text" id="depense"></th>
+                    <th><input type="text" id='prix'></th>
                     <th><input type="button" class="add-row btn btn-secondary" value="Confirmer"></th>
-                </form>
-            </tr>
-            <tr>
-                <th>Total</th>
-                <th><span id="total"></span></th>
-            </tr>
-        </tfoot>
-        <tbody>
-        </tbody>
-    </table>
-</div>
 
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <th><span id="total"></span></th>
+                </tr>
+            </tfoot>
+            <tbody>
+            </tbody>
+        </table>
 
+        <button class="btn btn-success" type="submit" id="btnAjouterProjet">Terminer</button>
+    </div>
+
+</form>

@@ -1,0 +1,10 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@model List<Users>
+<div class="col-lg-2">Chargé de Projet:</div><div class="col-lg-4">
+
+    @Html.DropDownList("Users", Model.Select(m => new SelectListItem() { Text = m.UserFirstName + " " + m.UserName, Value = m.UserId.ToString() }).ToList(), "Choisir...")
+</div>

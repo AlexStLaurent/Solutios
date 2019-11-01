@@ -43,7 +43,7 @@ namespace Solutios.Controllers
         {
             Project j = new Project();
             projectmanager.addProjet(j);
-            ViewData["Thanksdata"] = "data";
+            ViewData["Users"] = usermanager.listeUser();
             return View();
         }
 
