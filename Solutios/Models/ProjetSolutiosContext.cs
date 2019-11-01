@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Solutios.Models
 {
@@ -27,7 +28,8 @@ namespace Solutios.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server= .\\SQLEXPRESS;Database= ProjetSolutios;Trusted_Connection= True;");
+                //optionsBuilder.UseSqlServer("Server= .\\SQLEXPRESS;Database= ProjetSolutios;Trusted_Connection= True;");
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-ROG-DEV;Initial Catalog=ProjetSolutios;Integrated Security=True");
             }
         }
 
@@ -143,7 +145,6 @@ namespace Solutios.Models
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id")
-                    .ValueGeneratedNever()
                     .UseSqlServerIdentityColumn();
                 
 
