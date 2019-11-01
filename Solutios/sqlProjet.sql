@@ -77,3 +77,12 @@ INSERT INTO [dbo].[Project](
 		   0,
 		   '[{"Spending":"test","amount":10},{"Spending":"test","amount":65},{"Spending":"test","amount":10},{"Spending":"test","amount":10},{"Spending":"test","amount":34},{"Spending":"test","amount":234},{"Spending":"test","amount":65}]')
 GO
+
+
+SElect * from Project
+
+INSERT INTO Users ("user_name", "user_firstName", "user_email", "user_role","user_mdp","user_projet")
+VALUES ('nomAdmin', 'PrénomAdmin', 'admin@admin.org', 'ADMIN', 'admin', '{"ProjectId": 1,"ProjectName": "Shack a Hector"}');
+
+
+select * from Users

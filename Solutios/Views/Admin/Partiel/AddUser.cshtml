@@ -41,7 +41,10 @@
                             <div class="form-group col-md-4">
                                 <label for="inputRole">Rôle</label>
                                 <select asp-for="UserRole" id="inputRole" class="form-control">
-                                    <option selected>Choisissez...</option>
+                                    <option selected value="">Choisissez...</option>
+                                    <option selected value="ADMIN">Admin</option>
+									<option selected value="MANAGER">Gestionnaire de projet</option>
+                                    <option selected value="AUTRE">Autre</option>
                                     <option>...</option>
                                 </select>
                             </div>
