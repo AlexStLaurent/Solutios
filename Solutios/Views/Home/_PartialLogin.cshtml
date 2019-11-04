@@ -1,71 +1,81 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+	For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
+<!--modal pour connexion-->
+<div class="modal-content container">
+	<div class="modal-header">
+		<h5 class="modal-title">Connexion</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body py-2">
+		@model Solutios.Models.Users
+		<form class="user" asp-controller="Login" asp-action="Login">
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fas fa-user"></i></span>
+				</div>
+				<input asp-for="UserEmail" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Courriel">
+			</div>
+			<div class="form-group input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text"><i class="fas fa-key"></i></span>
+				</div>
+				<input asp-for="UserMdp" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Mot de passe">
+			</div>
+			<div class="form-group">
+				<div class="custom-control custom-checkbox small">
+					<input type="checkbox" class="custom-control-input" id="customCheck">
+					<label class="custom-control-label" for="customCheck">Se souvenir de moi</label>
+				</div>
+			</div>
+			<input class="btn btn-success" style="width:100%" type="submit" value="Login" />
 
-        <div class="container">
-            @model Solutios.Models.Users
-            <div class="col-lg-12 border-0 shadow-lg my-5" style="background-color: white">
-                <div class="p-5">
-                    <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Bonjour!</h1>
-                    </div>
-                    <form class="user" asp-controller="Login" asp-action="Login">
-                        <div class="form-group">
-                            <input asp-for="UserEmail" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="UserMdp" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox small">
-                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                <label class="custom-control-label" for="customCheck">Remember Me</label>
-                            </div>
-                        </div>
-                        <input class="btn btn-success" type="submit" value="Login" />
-                        <!--<button class="btn btn-success" type="submit" asp-controller="User" asp-action="Index">
-                            Usager
-                        </button>-->
-                    </form>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <a style="cursor:pointer" data-toggle="modal" data-target="#ForgotPWModal">Mot de passe oublié?</a>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-danger" id="ModalClose" data-dismiss="modal">Fermer</button>
-                        </div>
-                    </div>
+			<!--<button class="btn btn-success" type="submit" asp-controller="User" asp-action="Index">
+				Usager
+			</button>-->
 
-                </div>
-            </div>
-            <div class="modal rounded-0" id="ForgotPWModal">
-                <div class="modal-body">
-                    <div class="container">
+		</form>
+		
+		<hr>
+		<div class="row">
+			<div class="py-2 px-2">
+				<a style="cursor:pointer" data-toggle="modal" data-target="#ForgotPWModal">Mot de passe oublié?</a>
+			</div>
 
-                        <div class="col-lg-12 border-0 shadow-lg my-5" style="background-color: lightslategray">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Oublier votre mot de passe?</h1>
-                                </div>
-                                <form class="user">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                    </div>
-                                    <button class="btn btn-success" type="submit" asp-controller="Home" asp-action="Index">
-                                        Envoyer votre nouveau mot de passe
-                                    </button>
-                                </form>
-                                <hr>
+		</div>
 
 
-                                <div class="col-4">
-                                    <button class="btn btn-danger" id="ModalPWClose" data-dismiss="modal">Fermer</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	</div>
+</div>
+<!--modal pour mot de passe oublié-->
+<div class="modal rounded-0" id="ForgotPWModal">
+	<div class="modal-body">
+		<div class="container">
+
+			<div class="col-lg-12 border-0 shadow-lg py-5" style="background-color: lightslategray">
+				<div class="p-5">
+					<div class="text-center">
+						<h1 class="h4 text-gray-900 mb-4">Oublier votre mot de passe?</h1>
+					</div>
+					<form class="user">
+						<div class="form-group">
+							<input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+						</div>
+						<button class="btn btn-success" type="submit" asp-controller="Home" asp-action="Index">
+							Envoyer
+						</button>
+					</form>
+					<hr>
+
+
+					<div class="col-4">
+						<button class="btn btn-danger" id="ModalPWClose" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
