@@ -27,10 +27,14 @@ namespace Solutios.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Users user)
         {
-            bool rep = await this.usermanager.loginUser(this.HttpContext, user.UserEmail, user.UserMdp);
-            if (rep == true)
+            string rep = await this.usermanager.loginUser(this.HttpContext, user.UserEmail, user.UserMdp);
+            if (rep == "ADMIN")
             {
                 return RedirectToAction("Index", "Admin");
+            }
+            else if (rep == "MANAGER")
+            {
+                return RedirectToAction("Index", "User");
             }
             else
             {

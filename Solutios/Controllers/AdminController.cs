@@ -22,7 +22,7 @@ namespace Solutios.Controllers
             usermanager = new UserManager(_context);
             projectmanager = new ProjectManager(_context);
         }
-        [Authorize]
+        [Authorize (Roles ="ADMIN")]
         public IActionResult Index()
         {
             

@@ -38,7 +38,7 @@ namespace Solutios.Models
         }
 
 
-        public async Task<bool> loginUser(HttpContext context, string email, string password)
+        public async Task<string> loginUser(HttpContext context, string email, string password)
         {
             Users user = this.FindUserByUserName(email);
             if (user != null && user.UserMdp.Equals(password, StringComparison.CurrentCulture))
@@ -46,14 +46,15 @@ namespace Solutios.Models
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.UserFirstName + " " + user.UserName));
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()));
+                identity.AddClaim(new Claim(ClaimTypes.Role, user.UserRole.ToString()));
                 var principal = new ClaimsPrincipal(identity);
                 // création du jeton d'authentification de type AuthenticationTicket
                 await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return true;
+                return user.UserRole;
             }
             else
-                return false;
+                return "null";
         }
 
         public void logoutUser()
