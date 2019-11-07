@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Solutios.Models.Project_Related;
 using System;
@@ -33,21 +34,8 @@ namespace Solutios.Models
         }
 
         public void addProjet(Project p)
-        {
-            Project i = new Project();
-            List<FollowInfo> j = new List<FollowInfo>();
-            FollowInfo k = new FollowInfo();
-            k.amount = 10;
-            k.Spending = "test";
-            j.Add(k);
-            j.Add(k);
-            j.Add(k);
-            j.Add(k);
-            j.Add(k);
-            j.Add(k);
-            j.Add(k);
-            i.ProjectSoumission = JsonConvert.SerializeObject(j);
-            solutiosContext.Add(i);
+        {            
+            solutiosContext.Add(p);
             solutiosContext.SaveChanges();
         }
 

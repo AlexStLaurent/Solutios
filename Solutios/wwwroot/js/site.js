@@ -12,11 +12,11 @@ $(document).ready(function () {
         p = $('#prix').val();
         id += 1;
 
-        var t = { Depense: d, Prix: p }
+        var t = { Spending: d, amount: p }
         test.push(t);
 
         myarray.push(parseInt(p));        
-        var markup = "<tr><td>" + d + "</td><td>" + p + "$</td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
+        var markup = "<tr><td>" + d + " <input type='hidden' value=" + d + "> </td><td>" + p + "$ <input type='hidden' value=" + p +"></td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Delete Row</button></td></tr>";
         $("table tbody").append(markup);
         showtotal();
         formClear();
@@ -44,3 +44,15 @@ function showtotal() {
     total = myarray.reduce((a, b) => a + b, 0);
     $('#total').text(total.toString());
 }
+
+function sendtable() {
+    objectArray = JSON.stringify(test);
+    var markup = "<tr><td><input type='hidden' name='table' value = " + objectArray +"></td></tr>";
+    $("table tbody").append(markup);
+}
+
+$(document).ready(function () {
+    $('#btnAjouterProjet').click(function () {
+        sendtable();
+    });
+});

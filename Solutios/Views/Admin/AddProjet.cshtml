@@ -7,12 +7,12 @@
 <h2>Ajouter un projet</h2>
 
 <script src="~/js/site.js"></script>
-<form>
+<form asp-action="Addprojet" method="post">
     <div class="row">
         <div class="col-lg-2">Nom du Projet:</div><div class="col-lg-4"><input id="txtNomProjet" name="ProjectName" /></div>
         @{ Html.RenderPartial("Partiel/ChooseProjectManager", ViewData["Users"]); }
         <div class="col-lg-2">Chargé de Projet:</div><div class="col-lg-4">
-            
+
         </div>
     </div>
     <br>
@@ -27,7 +27,7 @@
                 <tr>
                     <th>Dépense</th>
                     <th>Montant</th>
-                    <th></th>
+                    <th> <hidden></hidden></th>
                 </tr>
             </thead>
             <tfoot>
