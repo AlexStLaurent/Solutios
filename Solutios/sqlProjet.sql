@@ -1,4 +1,4 @@
-Create Database ProjetSolutios
+	Create Database ProjetSolutios
 Go
 
 Use ProjetSolutios

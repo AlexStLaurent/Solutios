@@ -4,28 +4,31 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Nancy.Json;
+using Newtonsoft.Json;
 using Solutios.Models;
 
 namespace Solutios.Controllers
 {
     public class AdminController : Controller
     {
-       private readonly ProjetSolutiosContext _context;
+        private readonly ProjetSolutiosContext _context;
         UserManager usermanager;
-        ProjectManager projectmanager = new ProjectManager();    
-        
+        ProjectManager projectmanager = new ProjectManager();
+
         public AdminController(ProjetSolutiosContext context)
         {
             this._context = context;
             usermanager = new UserManager(_context);
             projectmanager = new ProjectManager(_context);
         }
-        [Authorize (Roles ="ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
         {
-            
+
             ViewData["test"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
             return View(usermanager.showAllProject());
         }
@@ -39,12 +42,54 @@ namespace Solutios.Controllers
         }
 
         [Authorize]
+        public IActionResult Projection(int id)
+        {
+            Project p = projectmanager.getProjet(id);
+            ViewData["Test"] = projectmanager.diagrame(id);
+            
+            return View(p.listProjectSoumission());
+           
+           
+            
+        }
+
+        [Authorize]
+        public IActionResult AddProject(int id)
+        {
+
+            return RedirectToAction("Projet");
+        }
+        [Authorize]
         public IActionResult AddProjet()
         {
-            Project j = new Project();
-            projectmanager.addProjet(j);
             ViewData["Users"] = usermanager.listeUser();
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Addprojet(IFormCollection formCollection)
+        {
+            Project p = new Project();
+            p.ProjectName = formCollection["ProjectName"];
+            p.ProjectDebut = Convert.ToDateTime(formCollection["project_debut"]);
+            p.ProjectFin = Convert.ToDateTime(formCollection["project-fin"]);
+            string s = formCollection["table"];
+            s = s.Substring(2, s.Length - 2);
+            s = s.Remove(s.Length - 1, 1);
+            FollowInfo[] follwlist = new JavaScriptSerializer().Deserialize<FollowInfo[]>(formCollection["table"]);
+            List<FollowInfo> soumission = new List<FollowInfo>();
+            foreach (var item in follwlist)
+            {
+                soumission.Add(item);
+            }
+
+            p.ProjectSoumission = JsonConvert.SerializeObject(soumission);
+            Users user = new Users();
+            user = usermanager.FindUserByID(formCollection["Users"]);
+            projectmanager.addProjet(p);
+
+            return RedirectToAction("Index");
+
         }
 
         [Authorize]
@@ -59,6 +104,7 @@ namespace Solutios.Controllers
         {
             Project p = projectmanager.getProjet(id);
             ViewData["Test"] = projectmanager.diagrame(id);
+            ViewData["id"] = id;
             return View(p.listProjectSoumission());
         }
         [Authorize]
@@ -81,6 +127,14 @@ namespace Solutios.Controllers
 
             usermanager.AddUser(user);
 
+            return Redirect("/Admin/Usagers");
+        }
+
+        [HttpPost]
+        public IActionResult Saveee(string objectArray)
+        {
+            List<FollowInfo> followInfo = new List<FollowInfo>();
+            followInfo = JsonConvert.DeserializeObject<List<FollowInfo>>(objectArray);
             return Redirect("/Admin/Usagers");
         }
         
