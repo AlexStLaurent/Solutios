@@ -27,10 +27,13 @@
                             {
                                 <tr class="table-row">
                                     <td>
+                                        <input hidden="hidden" id="Spending" name="Spending" value="@item.Spending" />
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Spending)
                                     </td>
                                     <td>
-                                        <input name="@item.Spending" />
+                                        <input id="Amount" name="Montant" />
                                     </td>
                                 </tr>
                             }

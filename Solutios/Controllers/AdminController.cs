@@ -53,17 +53,24 @@ namespace Solutios.Controllers
             
         }
 
-        [Authorize]
-        public IActionResult AddProject(int id)
-        {
-
-            return RedirectToAction("Projet");
-        }
+        
         [Authorize]
         public IActionResult AddProjet()
         {
             ViewData["Users"] = usermanager.listeUser();
             return View();
+
+        }
+
+
+        [Authorize]
+        public IActionResult AddProjection(int id, IFormCollection formCollection)
+        {
+            List<FollowInfo> list = new List<FollowInfo>();
+
+
+
+            return RedirectToAction("Projet");
         }
 
         [HttpPost]
@@ -76,6 +83,7 @@ namespace Solutios.Controllers
             string s = formCollection["table"];
             s = s.Substring(2, s.Length - 2);
             s = s.Remove(s.Length - 1, 1);
+            //TOFIX: La sérialisation JSON Échoue s'il y a plus qu'un mot dans le champ "Spending"
             FollowInfo[] follwlist = new JavaScriptSerializer().Deserialize<FollowInfo[]>(formCollection["table"]);
             List<FollowInfo> soumission = new List<FollowInfo>();
             foreach (var item in follwlist)

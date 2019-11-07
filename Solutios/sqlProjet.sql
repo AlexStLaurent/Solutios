@@ -86,3 +86,8 @@ VALUES ('nomAdmin', 'PrénomAdmin', 'admin@admin.org', 'ADMIN', 'admin', '{"Proje
 
 
 select * from Users
+
+Use ProjetSolutios
+	GO
+
+select * from Project
