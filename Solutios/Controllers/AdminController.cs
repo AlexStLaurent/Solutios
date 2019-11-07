@@ -12,20 +12,20 @@ namespace Solutios.Controllers
 {
     public class AdminController : Controller
     {
-       private readonly ProjetSolutiosContext _context;
+        private readonly ProjetSolutiosContext _context;
         UserManager usermanager;
-        ProjectManager projectmanager = new ProjectManager();    
-        
+        ProjectManager projectmanager = new ProjectManager();
+
         public AdminController(ProjetSolutiosContext context)
         {
             this._context = context;
             usermanager = new UserManager(_context);
             projectmanager = new ProjectManager(_context);
         }
-        [Authorize (Roles ="ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
         {
-            
+
             ViewData["test"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
             return View(usermanager.showAllProject());
         }
@@ -38,6 +38,24 @@ namespace Solutios.Controllers
             return View();
         }
 
+        [Authorize]
+        public IActionResult Projection(int id)
+        {
+            Project p = projectmanager.getProjet(id);
+            ViewData["Test"] = projectmanager.diagrame(id);
+            
+            return View(p.listProjectSoumission());
+           
+           
+            
+        }
+
+        [Authorize]
+        public IActionResult AddProject(int id)
+        {
+
+            return RedirectToAction("Projet");
+        }
         [Authorize]
         public IActionResult AddProjet()
         {
@@ -59,6 +77,7 @@ namespace Solutios.Controllers
         {
             Project p = projectmanager.getProjet(id);
             ViewData["Test"] = projectmanager.diagrame(id);
+            ViewData["id"] = id;
             return View(p.listProjectSoumission());
         }
         [Authorize]

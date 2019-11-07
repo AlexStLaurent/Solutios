@@ -1,7 +1,8 @@
 ﻿
 @{
-	ViewData["Title"] = "Projet";
-	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    ViewData["Title"] = "Projet";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+
 }
 
 <!-- Info rapids -->
@@ -77,7 +78,12 @@
 						<div class="h6 font-weight-bold text-warning text-uppercase mb-1">Ajouter une projection</div>
 					</div>
 					<div class="col-auto">
-						<a href="" class=""><i class="fas fa-folder-plus fa-2x text-gray-300"></i></a>
+                        <form>
+.                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
+                            <button type="submit" class="fas fa-folder-plus fa-2x text-gray-300" asp-action="Projection" asp-controller="Admin">
+
+                            </button>
+                        </form>
 					</div>
 				</div>
 			</div>
