@@ -46,7 +46,7 @@ namespace Solutios.Controllers
         {
             Project p = projectmanager.getProjet(id);
             ViewData["Test"] = projectmanager.diagrame(id);
-            
+            ViewData["id"] = id;
             return View(p.listProjectSoumission());
            
            
@@ -64,13 +64,35 @@ namespace Solutios.Controllers
 
 
         [Authorize]
-        public IActionResult AddProjection(int id, IFormCollection formCollection)
+        [HttpPost]
+        public IActionResult AddProjection(IFormCollection formCollection)
         {
+            string[] spending;
+            int[] amount;
             List<FollowInfo> list = new List<FollowInfo>();
 
 
+            foreach (var key in formCollection)
+            {
+                if (key.Key == "Spending")
+                {
+                    spending = key.Value;
+                } else if (key.Key == "amount")
+                {
+                    amount = new int[key.Value.Count];
+                    string[] temparray = key.Value;
+                    amount = (Array.ConvertAll<string, int>(temparray, int.Parse));
+                }
 
-            return RedirectToAction("Projet");
+            }
+            foreach (var Item in formCollection)
+            {
+
+            }
+            return RedirectToAction("Projet", new
+            {
+                id = int.Parse(formCollection["id"])
+            });
         }
 
         [HttpPost]
