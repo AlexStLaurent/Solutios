@@ -119,11 +119,10 @@ namespace Solutios.Models
             {
                 entity.HasKey(e => e.PfId);
 
-                entity.ToTable("Project_FollowUP");
+                entity.ToTable("ProjectFollowUP");
 
                 entity.Property(e => e.PfId)
-                    .HasColumnName("PF_id")
-                    .ValueGeneratedNever();
+                    .HasColumnName("PF_id");
 
                 entity.Property(e => e.PfFollowUpId).HasColumnName("PF_FollowUp_id");
 

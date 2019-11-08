@@ -39,11 +39,6 @@ namespace Solutios.Models
             solutiosContext.SaveChanges();
         }
 
-        public string SerialiselistFollowUp(List<FollowInfo> f)
-        {
-            return JsonConvert.SerializeObject(f);
-        }
-
 
         public string diagrame(int id)
         {
@@ -58,6 +53,14 @@ namespace Solutios.Models
 
             return test;
         }
+
+        public FollowUp GetLastProjection(int i)
+        {
+            ProjectFollowUp p = solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == i);
+
+            return solutiosContext.FollowUp.LastOrDefault(c => c.FuId == p.PfFollowUpId);
+        }
+
 
 
     }

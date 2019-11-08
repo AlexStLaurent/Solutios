@@ -46,9 +46,9 @@ namespace Solutios.Controllers
         {
             Project p = projectmanager.getProjet(id);
             ViewData["Test"] = projectmanager.diagrame(id);
+            ViewData["id"] = id;
             
-            return View(p.listProjectSoumission());
-           
+            return View(p.listProjectSoumission());         
            
             
         }
@@ -64,13 +64,44 @@ namespace Solutios.Controllers
 
 
         [Authorize]
-        public IActionResult AddProjection(int id, IFormCollection formCollection)
+        [HttpPost]
+        public IActionResult AddProjection(IFormCollection formCollection)
         {
             List<FollowInfo> list = new List<FollowInfo>();
+            Project p = projectmanager.getProjet(Convert.ToInt32(formCollection["id"]));
+            string[] Spending = formCollection["Spending"];
+            string[] montant = formCollection["Montant"];
+            int count = 0;
+            foreach (var item in p.listProjectSoumission()) 
+            {
+                FollowInfo f = new FollowInfo();
+                f.amount = Convert.ToDouble(montant[count]);
+                f.Spending = Spending[count];
+                list.Add(f);
+                count++;
+            }
+            ProjectFollowUp projectFollowUp = new ProjectFollowUp();
+            projectFollowUp.PfFollowUpId = Convert.ToInt32(formCollection["id"]);
+            FollowUp follow = new FollowUp();
+            follow.FuDate = DateTime.Now;
+            follow.FuInfo = JsonConvert.SerializeObject(list);
+            FollowUp ff = new FollowUp();
+            ff = _context.FollowUp.Last();
+            if (ff.FuId != null)
+            {
+                follow.FuId = ff.FuId + 1;
+            }
+            //follow.FuId = 1;
+            _context.Add(follow);
+            _context.SaveChanges();
+            projectFollowUp.PfFollowUpId = follow.FuId;
+            projectFollowUp.PfId = 1;
+            projectFollowUp.PfProject = p;
+            projectFollowUp.PfFollowUp = follow;
+            _context.ProjectFollowUp.Add(projectFollowUp);
+            _context.SaveChanges();
 
-
-
-            return RedirectToAction("Projet");
+            return RedirectToAction("Projet", new { id = formCollection["id"] }); 
         }
 
         [HttpPost]
@@ -80,10 +111,8 @@ namespace Solutios.Controllers
             p.ProjectName = formCollection["ProjectName"];
             p.ProjectDebut = Convert.ToDateTime(formCollection["project_debut"]);
             p.ProjectFin = Convert.ToDateTime(formCollection["project-fin"]);
-            string s = formCollection["table"];
-            s = s.Substring(2, s.Length - 2);
-            s = s.Remove(s.Length - 1, 1);
             //TOFIX: La sérialisation JSON Échoue s'il y a plus qu'un mot dans le champ "Spending"
+            //I know on va juste empecher avec des espaces
             FollowInfo[] follwlist = new JavaScriptSerializer().Deserialize<FollowInfo[]>(formCollection["table"]);
             List<FollowInfo> soumission = new List<FollowInfo>();
             foreach (var item in follwlist)
@@ -113,6 +142,8 @@ namespace Solutios.Controllers
             Project p = projectmanager.getProjet(id);
             ViewData["Test"] = projectmanager.diagrame(id);
             ViewData["id"] = id;
+            ViewData["depense"] = id;
+            ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
             return View(p.listProjectSoumission());
         }
         [Authorize]
