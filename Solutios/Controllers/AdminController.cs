@@ -47,13 +47,13 @@ namespace Solutios.Controllers
             Project p = projectmanager.getProjet(id);
             ViewData["Test"] = projectmanager.diagrame(id);
             ViewData["id"] = id;
-            
-            return View(p.listProjectSoumission());         
-           
-            
+
+            return View(p.listProjectSoumission());
+
+
         }
 
-        
+
         [Authorize]
         public IActionResult AddProjet()
         {
@@ -72,7 +72,7 @@ namespace Solutios.Controllers
             string[] Spending = formCollection["Spending"];
             string[] montant = formCollection["Montant"];
             int count = 0;
-            foreach (var item in p.listProjectSoumission()) 
+            foreach (var item in p.listProjectSoumission())
             {
                 FollowInfo f = new FollowInfo();
                 f.amount = Convert.ToDouble(montant[count]);
@@ -101,7 +101,7 @@ namespace Solutios.Controllers
             _context.ProjectFollowUp.Add(projectFollowUp);
             _context.SaveChanges();
 
-            return RedirectToAction("Projet", new { id = formCollection["id"] }); 
+            return RedirectToAction("Projet", new { id = formCollection["id"] });
         }
 
         [HttpPost]
@@ -143,13 +143,21 @@ namespace Solutios.Controllers
             ViewData["Test"] = projectmanager.diagrame(id);
             ViewData["id"] = id;
             ViewData["depense"] = id;
-            ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
+            if (projectmanager.GetLastProjection(id) != null)
+            {
+                ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
+            }
+            else
+            {
+                ViewData["Projection"] = p.listProjectSoumission();
+            }
+
             return View(p.listProjectSoumission());
         }
         [Authorize]
         public IActionResult profil()
         {
-            string user = User.FindFirstValue(ClaimTypes.NameIdentifier);            
+            string user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View(usermanager.FindUserByID(user));
         }
         public IActionResult Activitylog()
@@ -162,7 +170,8 @@ namespace Solutios.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUsers(Users user){
+        public IActionResult AddUsers(Users user)
+        {
 
             usermanager.AddUser(user);
 
@@ -176,6 +185,6 @@ namespace Solutios.Controllers
             followInfo = JsonConvert.DeserializeObject<List<FollowInfo>>(objectArray);
             return Redirect("/Admin/Usagers");
         }
-        
+
     }
 }

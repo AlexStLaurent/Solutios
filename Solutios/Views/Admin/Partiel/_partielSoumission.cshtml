@@ -4,63 +4,61 @@
 @model List<FollowInfo>;
 <div class="col-xl-6">
     <!--table des soumissions-->
-    <div>
+	<div>
 
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-2">
-                <h6 class="m-0 font-weight-bold text-primary">Soumission</h6>
-            </div>
-            <div class="card-body py-2">
-                <div class="table-responsive" style="height:auto">
-                    <table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="card-header text-primary text-center">
+		<!-- DataTales Example -->
+		<div class="card shadow mb-4">
+			<div class="card-header py-2">
+				<h6 class="m-0 font-weight-bold text-primary">Soumission</h6>
+			</div>
+			<div class="card-body py-2">
+				<div class="table-responsive" style="height:auto">
+					<table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
+						<thead class="card-header text-primary text-center">
 							<tr>
 								<th>Soumissions</th>
 								<th>Montant Soumissionné</th>
-								<th>Dépenses courantes <a class="badge badge-primary text-wrap" data-toggle="modal" data-target="#testModal">+</a></th>
-								<!-- TEST pour modal-->
-								@*<li class="nav-item">
-									<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#testModal">
-										<i class="fas fa-fw fa-cog"></i>
-										<span>test modal</span>
-									</a>
-								</li>*@
-								<div class="modal fade rounded-0" id="testModal" tabindex="-1" role="dialog">
-									<div class="modal-dialog modal-lg" role="form">
-										@{
-											Html.RenderPartial("Partiel/_partielExpense");
-										}
-									</div>
-								</div>
+								<th>Dépenses courantes 
+								<a class="text-wrap text-primary" data-toggle="modal" data-target="#ExpenseModal">
+									<i class="far fa-plus-square"></i>
+								</a>
+								</th>
+
 								<th>Budget courant</th>
 							</tr>
-                        </thead>
+						</thead>
 
-                        <tbody style="font-size:small" class="text-center">
+						<tbody style="font-size:small" class="text-center">
 
-                            @foreach (var item in Model)
-                            {
-                            <tr class="table-row">
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Spending) 
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.amount)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.amount)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.amount)
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
+							@foreach (var item in Model)
+							{
+								<tr class="table-row">
+									<td>
+										@Html.DisplayFor(modelItem => item.Spending)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.amount)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.amount)
+									</td>
+									<td>
+										@Html.DisplayFor(modelItem => item.amount)
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg" role="form">
+				@{
+					Html.RenderPartial("Partiel/_partielExpense");@* va chercher le modal des depenses*@
+				}
+			</div>
+		</div>
+	</div>
 </div>

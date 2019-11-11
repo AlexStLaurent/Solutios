@@ -64,9 +64,7 @@ namespace Solutios.Models
             }
             else
             {
-                FollowUp f = null;
-                
-                return f;
+                return null;
             }
             
         }
