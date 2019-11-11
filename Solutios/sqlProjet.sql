@@ -32,26 +32,28 @@ project_soumission nvarchar(max),
 Go
 
 Create Table FollowUp(
-FU_id int PRIMARY KEY,
+FU_id int PRIMARY KEY identity(1,1),
 FU_Date date,
 FU_Info nvarchar(max)
 )
 GO
 
 Create Table ProjectFollowUP(
+PF_id int PRIMARY KEY identity(1,1),
 PF_FollowUp_id int FOREIGN KEY REFERENCES FollowUp(FU_id),
 PF_Project_id int FOREIGN KEY REFERENCES Project(Project_id)
 )
 GO
 
 Create Table Expense(
-Expense_id int PRIMARY KEY,
+Expense_id int PRIMARY KEY identity(1,1),
 Expense_Date date,
 Expense_Info nvarchar(max)
 )
 GO
 
 Create Table ProjectExpense(
+PE_id int PRIMARY KEY identity(1,1),
 PE_Expense_id int FOREIGN KEY REFERENCES Expense(Expense_id),
 PE_Project_id int FOREIGN KEY REFERENCES Project(Project_id)
 )
@@ -91,3 +93,4 @@ Use ProjetSolutios
 	GO
 
 select * from Project
+

@@ -122,7 +122,8 @@ namespace Solutios.Models
                 entity.ToTable("ProjectFollowUP");
 
                 entity.Property(e => e.PfId)
-                    .HasColumnName("PF_id");
+                    .HasColumnName("PF_id")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.PfFollowUpId).HasColumnName("PF_FollowUp_id");
 

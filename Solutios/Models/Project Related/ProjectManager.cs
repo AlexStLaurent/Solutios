@@ -56,9 +56,19 @@ namespace Solutios.Models
 
         public FollowUp GetLastProjection(int i)
         {
-            ProjectFollowUp p = solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == i);
+            if (solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == i) != null)
+            {
+                ProjectFollowUp p = solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == i);
 
-            return solutiosContext.FollowUp.LastOrDefault(c => c.FuId == p.PfFollowUpId);
+                return solutiosContext.FollowUp.LastOrDefault(c => c.FuId == p.PfFollowUpId);
+            }
+            else
+            {
+                FollowUp f = null;
+                
+                return f;
+            }
+            
         }
 
 
