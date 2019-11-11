@@ -1,0 +1,54 @@
+﻿@*@model IEnumerable<Solutios.Models.ExpenseInfo>*@
+
+<div class="modal-content">
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4" ">
+		<div class="card-header py-2">
+			<h6 class="m-0 font-weight-bold text-primary">Dépenses</h6>
+		</div>
+		<div class="card-body py-2">
+			<div class="table-responsive" style="height:auto">
+				<table class="table table-hover table-sm border shadow" id="" width="100%" cellspacing="0">
+					<thead class="card-header text-primary text-left">
+						<tr>
+							<th>Nom</th>
+							<th>Montant $</th>
+							<th>Options</th>
+						</tr>
+					</thead>
+
+					<tbody style="font-size:small" class="text-left">
+
+						@*@foreach (var item in Model)
+							{*@
+						<tr class="table-row">
+							<td colspan="1">
+								Nom d'un project test
+							</td>
+							<td colspan="1">
+								60,000
+							</td>
+							<td colspan="1">
+								<a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#demo1">Consulter</a>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="6" class="hiddenRow">
+								<div class="accordian-body collapse" id="demo1">
+									@Html.RenderPartialAsync("Partiel/_subExpenses");
+								</div>
+							</td>
+						</tr>
+						@*}*@
+
+					</tbody>
+				</table>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

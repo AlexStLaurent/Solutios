@@ -15,12 +15,26 @@
                 <div class="table-responsive" style="height:auto">
                     <table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
                         <thead class="card-header text-primary text-center">
-                            <tr>
-                                <th>Soumissions</th>
-                                <th>Montant Soumissionné</th>
-                                <th>Dépenses courantes <a class="badge badge-primary text-wrap" asp-controller="" asp-action="">+</a></th>
-                                <th>Budget courant</th>
-                            </tr>
+							<tr>
+								<th>Soumissions</th>
+								<th>Montant Soumissionné</th>
+								<th>Dépenses courantes <a class="badge badge-primary text-wrap" data-toggle="modal" data-target="#testModal">+</a></th>
+								<!-- TEST pour modal-->
+								@*<li class="nav-item">
+									<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#testModal">
+										<i class="fas fa-fw fa-cog"></i>
+										<span>test modal</span>
+									</a>
+								</li>*@
+								<div class="modal fade rounded-0" id="testModal" tabindex="-1" role="dialog">
+									<div class="modal-dialog modal-lg" role="form">
+										@{
+											Html.RenderPartial("Partiel/_partielExpense");
+										}
+									</div>
+								</div>
+								<th>Budget courant</th>
+							</tr>
                         </thead>
 
                         <tbody style="font-size:small" class="text-center">
