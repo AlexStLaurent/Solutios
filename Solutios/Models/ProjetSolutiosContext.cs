@@ -40,7 +40,7 @@ namespace Solutios.Models
             {
                 entity.Property(e => e.ExpenseId)
                     .HasColumnName("Expense_id")
-                    .ValueGeneratedNever();
+                    .UseSqlServerIdentityColumn();
 
                 entity.Property(e => e.ExpenseDate)
                     .HasColumnName("Expense_Date")
@@ -57,7 +57,7 @@ namespace Solutios.Models
 
                 entity.Property(e => e.FuId)
                     .HasColumnName("FU_id")
-                    .ValueGeneratedNever();
+                    .UseSqlServerIdentityColumn();
 
                 entity.Property(e => e.FuDate)
                     .HasColumnName("FU_Date")
@@ -98,7 +98,7 @@ namespace Solutios.Models
 
                 entity.Property(e => e.PeId)
                     .HasColumnName("PE_id")
-                    .ValueGeneratedNever();
+                    .UseSqlServerIdentityColumn();
 
                 entity.Property(e => e.PeExpenseId).HasColumnName("PE_Expense_id");
 
@@ -123,7 +123,7 @@ namespace Solutios.Models
 
                 entity.Property(e => e.PfId)
                     .HasColumnName("PF_id")
-                    .ValueGeneratedNever();
+                    .UseSqlServerIdentityColumn();
 
                 entity.Property(e => e.PfFollowUpId).HasColumnName("PF_FollowUp_id");
 

@@ -87,15 +87,11 @@ namespace Solutios.Controllers
             follow.FuInfo = JsonConvert.SerializeObject(list);
             FollowUp ff = new FollowUp();
             ff = _context.FollowUp.Last();
-            if (ff.FuId != null)
-            {
-                follow.FuId = ff.FuId + 1;
-            }
-            //follow.FuId = 1;
+           
             _context.Add(follow);
             _context.SaveChanges();
             projectFollowUp.PfFollowUpId = follow.FuId;
-            projectFollowUp.PfId = 1;
+            
             projectFollowUp.PfProject = p;
             projectFollowUp.PfFollowUp = follow;
             _context.ProjectFollowUp.Add(projectFollowUp);
@@ -124,11 +120,11 @@ namespace Solutios.Controllers
             FollowUp follow = new FollowUp();
             follow.FuDate = DateTime.Now;
             follow.FuInfo = JsonConvert.SerializeObject(soumission);
-            follow.FuId = 1;
+        
             _context.Add(follow);
             _context.SaveChanges();
             projectFollowUp.PfFollowUpId = follow.FuId;
-            projectFollowUp.PfId = 1;
+           
             projectFollowUp.PfProject = p;
             
            
