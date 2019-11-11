@@ -107,6 +107,8 @@ namespace Solutios.Controllers
         [HttpPost]
         public IActionResult Addprojet(IFormCollection formCollection)
         {
+            ProjectFollowUp projectFollowUp = new ProjectFollowUp();
+
             Project p = new Project();
             p.ProjectName = formCollection["ProjectName"];
             p.ProjectDebut = Convert.ToDateTime(formCollection["project_debut"]);
@@ -119,12 +121,25 @@ namespace Solutios.Controllers
             {
                 soumission.Add(item);
             }
-
+            FollowUp follow = new FollowUp();
+            follow.FuDate = DateTime.Now;
+            follow.FuInfo = JsonConvert.SerializeObject(soumission);
+            follow.FuId = 1;
+            _context.Add(follow);
+            _context.SaveChanges();
+            projectFollowUp.PfFollowUpId = follow.FuId;
+            projectFollowUp.PfId = 1;
+            projectFollowUp.PfProject = p;
+            
+           
             p.ProjectSoumission = JsonConvert.SerializeObject(soumission);
             Users user = new Users();
             user = usermanager.FindUserByID(formCollection["Users"]);
             projectmanager.addProjet(p);
 
+            projectFollowUp.PfFollowUp = follow;
+            _context.ProjectFollowUp.Add(projectFollowUp);
+            _context.SaveChanges();
             return RedirectToAction("Index");
 
         }
