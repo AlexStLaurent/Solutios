@@ -79,10 +79,10 @@
 					</div>
 					<div class="col-auto">
                         <form>
-.                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
-                            <button type="submit" class="fas fa-folder-plus fa-2x text-gray-300" asp-action="Projection" asp-controller="Admin">
-
+                            .                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
+                            <button type="button" class="fas fa-folder-plus fa-2x text-gray-300" data-toggle="modal" data-target="#modalEstimates" >
                             </button>
+                            
                         </form>
 					</div>
 				</div>
@@ -158,6 +158,13 @@
 
 		<!--************************fin de graphique a bandes**************************************************-->
 	</div>
+</div>
+
+
+<div class="modal" id="modalEstimates">
+    @{
+        Html.RenderPartial("Partiel/Projection", ViewData["Projection"]);
+    }
 </div>
 
 <script>
