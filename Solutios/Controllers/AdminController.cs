@@ -38,7 +38,6 @@ namespace Solutios.Controllers
         public IActionResult Param()
         {
 
-            ViewData["Thanksdata"] = "data";
             return View();
         }
 

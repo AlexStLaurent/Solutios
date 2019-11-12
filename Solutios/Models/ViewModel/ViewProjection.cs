@@ -7,14 +7,23 @@ namespace Solutios.Models.ViewModel
 {
     public class ViewProjection
     {
-        string spending { get; set; }        
+        string spending { get; set; }     
+        double soumission { get; set;}
+        double dépensecourrante { get; set; }
         double depenceP { get; set; }
-        double budgetestime { get; set; }
-        double depensefinalE { get; set; }
 
-        double depenseFinaleEE()
+        double depenseFinaleE()
         {
-            return (budgetestime + depenceP);
+            return (budgetestime() + depenceP);
+        }
+
+        double budgetcourant()
+        {
+            return (soumission - dépensecourrante);
+        }
+        double budgetestime()
+        {
+            return (soumission - (dépensecourrante + depenceP));
         }
 
     }
