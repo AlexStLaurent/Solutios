@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Nancy.Json;
 using Newtonsoft.Json;
 using Solutios.Models;
+using Solutios.Models.ViewModel;
 
 namespace Solutios.Controllers
 {
