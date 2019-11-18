@@ -40,7 +40,15 @@
 										@Html.DisplayFor(modelItem => item.amount)
 									</td>
 									<td>
-										0
+											@if (item.Spending != "")
+											{
+
+											}
+											else 
+											{
+												<a>item.Spending</a>
+											}
+										
 									</td>
 									<td>
 										@Html.DisplayFor(modelItem => item.amount)

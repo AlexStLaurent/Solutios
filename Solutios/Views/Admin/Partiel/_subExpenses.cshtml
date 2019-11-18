@@ -1,106 +1,40 @@
 ﻿@*@model IEnumerable<Solutios.Models.subExpense>*@
-	<form>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>
-						Dépense@*@Html.DisplayNameFor(model => model.name)*@
-					</th>
-					<th>
-						Coûts@*@Html.DisplayNameFor(model => model.cost)*@
-					</th>
-					<th>
-						options
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				@*@foreach (var item in Model)
+<form>
+	<table class="table" id="tableSubExpenses">
+		<thead>
+			<tr>
+				<th>
+					Dépense@*@Html.DisplayNameFor(model => model.name)*@
+				</th>
+				<th>
+					Coûts@*@Html.DisplayNameFor(model => model.cost)*@
+				</th>
+				<th>
+					options
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@*@foreach (var item in Model)
 				{*@
-				<tr>
-					<td>
-						un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
-					</td>
-					<td>
-						<input class="form-control" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
-					</td>
-					<td>
-						<a class="btn btn-success text-white">Sauvegarder/Modifier</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
-					</td>
-					<td>
-						<input class="form-control" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
-					</td>
-					<td>
-						<a class="btn btn-success text-white">Sauvegarder/Modifier</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
-					</td>
-					<td>
-						<input class="form-control" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
-					</td>
-					<td>
-						<a class="btn btn-success text-white">Sauvegarder/Modifier</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
-					</td>
-					<td>
-						<input class="form-control" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
-					</td>
-					<td>
-						<a class="btn btn-success text-white">Sauvegarder/Modifier</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
-					</td>
-					<td>
-						<input class="form-control" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
-					</td>
-					<td>
-						<a class="btn btn-success text-white">Sauvegarder/Modifier</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
-					</td>
-					<td>
-						<input class="form-control" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
-					</td>
-					<td>
-						<a class="btn btn-success text-white">Sauvegarder/Modifier</a>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
-					</td>
-					<td>
-						<input class="form-control" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
-					</td>
-					<td>
-						<a class="btn btn-success text-white">Sauvegarder/Modifier</a>
-					</td>
-				</tr>
-				
+			<tr id="tablerow0">
+				<td>
+					un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
+				</td>
+				<td>
+					<input class="form-control" name="subName0" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
+				</td>
+				<td>
+					<a class="btn btn-success text-white" name="modifybtn0">Sauvegarder/Modifier</a>
+				</td>
+			</tr>
 
-				<tr class="table-row">
-					<td colspan="3"><a class="btn btn-primary text-white" style="width:100%">Ajouter</a></td>
-				</tr>
-				@* } *@
-			</tbody>
-		</table>
-	</form>
-	
+			@* } *@
+		</tbody>
+	</table>
+	<p>
+		<button class="btn btn-primary text-white" style="width:100%" id="add">Ajouter</button>
+	</p>
+</form>
+
+<script src="~/js/ExpenseTable.js"></script>
