@@ -184,9 +184,14 @@ namespace Solutios.Controllers
         public IActionResult AddUsers(Users user)
         {
 
-            usermanager.AddUser(user);
+            if (ModelState.IsValid)
+            {
+                usermanager.AddUser(user);
 
-            return Redirect("/Admin/Usagers");
+                return Redirect("/Admin/Usagers");
+            }
+
+            else return RedirectToAction("Error");
         }
 
         [HttpPost]
@@ -197,5 +202,9 @@ namespace Solutios.Controllers
             return Redirect("/Admin/Usagers");
         }
 
+        public IActionResult Error()
+        {
+            return View("Error", new ErrorViewModel());
+        }
     }
 }

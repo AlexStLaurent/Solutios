@@ -6,11 +6,11 @@ Use ProjetSolutios
 
 Create Table Users(
 "user_id" int PRIMARY KEY Identity(1,1),
-"user_name" varchar(50),
-"user_firstName" varchar(50),
-"user_email" varchar(100),
-"user_role" varchar(100),
-"user_mdp" varchar(400),
+"user_name" varchar(50) NOT NULL,
+"user_firstName" varchar(50) NOT NULL,
+"user_email" varchar(100) UNIQUE NOT NULL,
+"user_role" varchar(100) NOT NULL,
+"user_mdp" varchar(400) NOT NULL,
 "user_phone" varchar(12),
 "user_address" varchar(100),
 "user_address2" varchar(100),
@@ -34,7 +34,8 @@ Go
 Create Table FollowUp(
 FU_id int PRIMARY KEY identity(1,1),
 FU_Date date,
-FU_Info nvarchar(max)
+FU_Info nvarchar(max),
+PF_Project_id int FOREIGN KEY REFERENCES Project(Project_id)
 )
 GO
 
@@ -94,3 +95,8 @@ Use ProjetSolutios
 
 select * from Project
 
+
+USE master
+GO
+drop database ProjetSolutios
+GO

@@ -39,6 +39,8 @@ function formClear() {
     $('#depense').val('');
 }
 
+
+
 function showtotal() {
     total = 0;
     total = myarray.reduce((a, b) => a + b, 0);
@@ -47,7 +49,7 @@ function showtotal() {
 
 function sendtable() {
     objectArray = JSON.stringify(test);
-    var markup = "<tr><td><input type='hidden' name='table' value = " + objectArray +"></td></tr>";
+    var markup = "<tr><td><input type='hidden' name='table' value = " + objectArray +" required></td></tr>";
     $("table tbody").append(markup);
 }
 

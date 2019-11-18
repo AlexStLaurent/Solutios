@@ -1,12 +1,17 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model Solutios.Models.Users
 
-
+@using (Html.BeginForm())
+{
     <div class="modal-body">
         <div class="container">
 
-            @model Solutios.Models.Users
+
+
+
+
             <div class="col-lg-12 border-0 shadow-lg my-5" style="background-color: white">
                 <div class="p-5">
                     <div class="text-center">
@@ -16,36 +21,37 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputSurname">Prénom</label>
-                                <input asp-for="UserFirstName" type="text" class="form-control form-control-user" id="inputSurname" placeholder="Prénom">
+                                <input asp-for="UserFirstName" type="text" class="form-control form-control-user" id="inputSurname" name="InputSurname" placeholder="Prénom" required>
+
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputName">Nom</label>
-                                <input asp-for="UserName" type="text" class="form-control" id="inputName" placeholder="Nom">
+                                <input asp-for="UserName" type="text" class="form-control" id="inputName" placeholder="Nom" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Courriel</label>
-                                <input asp-for="UserEmail" type="email" class="form-control" id="inputEmail4" placeholder="Courriel&#64;mail.com">
+                                <input asp-for="UserEmail" type="email" class="form-control" id="inputEmail4" placeholder="Courriel&#64;mail.com" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Mot de Passe</label>
-                                <input asp-for="UserMdp" type="password" class="form-control" id="inputPassword4" placeholder="Mot de passe">
+                                <input asp-for="UserMdp" type="password" class="form-control" id="inputPassword4" placeholder="Mot de passe" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputPhone">Numéro de téléphone</label>
-                                <input asp-for="UserPhone" type="tel" class="form-control" id="inputPhone" placeholder="# de téléphone">
+                                <input asp-for="UserPhone" type="tel" class="form-control" id="inputPhone" placeholder="# de téléphone" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputRole">Rôle</label>
-                                <select asp-for="UserRole" id="inputRole" class="form-control">
+                                <select asp-for="UserRole" id="inputRole" class="form-control" required>
                                     <option selected value="">Choisissez...</option>
-                                    <option selected value="ADMIN">Admin</option>
-									<option selected value="MANAGER">Gestionnaire de projet</option>
-                                    <option selected value="AUTRE">Autre</option>
-                                    <option>...</option>
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="MANAGER">Gestionnaire de projet</option>
+                                   
+                                    
                                 </select>
                             </div>
                         </div>
@@ -98,3 +104,5 @@
         </div>
 
     </div>
+    
+    }
