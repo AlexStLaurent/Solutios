@@ -37,14 +37,14 @@ var myBarChart = new Chart(ctx, {
 			label: "Soumission",
 			backgroundColor: "#424242",
 			hoverBackgroundColor: "#666666",
-			borderColor: "#4e73df",
-			data: [10, 10, 0, 10, 10, 10],//valeurs des colonnes
+            borderColor: "#4e73df",
+            data: tendance,//valeurs des colonnes
 		}, {
 			label: "Projection",
 			backgroundColor: "#319163",
 			hoverBackgroundColor: "#40b97e",
-			borderColor: "#4e73df",
-			data: test,//valeurs des colonnes
+                borderColor: "#4e73df",
+                data: tendance//valeurs des colonnes
 		}
 		],
 	},
