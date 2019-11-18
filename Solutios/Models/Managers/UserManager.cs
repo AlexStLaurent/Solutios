@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Solutios.Models
 {
@@ -63,8 +64,11 @@ namespace Solutios.Models
         }
       public void AddUser(Users user)
         {
-            solutiosContext.Add(user);
-            solutiosContext.SaveChanges();
+           
+                solutiosContext.Add(user);
+                solutiosContext.SaveChanges();
+            
+            
         }
 
         public List<Project> UserProjet(Users userr)

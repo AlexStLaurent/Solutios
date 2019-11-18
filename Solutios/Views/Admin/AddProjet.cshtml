@@ -9,7 +9,7 @@
 <script src="~/js/site.js"></script>
 <form asp-action="Addprojet" method="post">
     <div class="row">
-        <div class="col-lg-2">Nom du Projet:</div><div class="col-lg-4"><input id="txtNomProjet" name="ProjectName" /></div>
+        <div class="col-lg-2">Nom du Projet:</div><div class="col-lg-4"><input id="txtNomProjet" name="ProjectName" required /></div>
         @{ Html.RenderPartial("Partiel/ChooseProjectManager", ViewData["Users"]); }
         <div class="col-lg-2">Chargé de Projet:</div><div class="col-lg-4">
 
@@ -17,8 +17,8 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-lg-2">Date de début</div><input type="date" id="dtDateDebut" name="project_debut" />
-        <div class="col-lg-2">Échéance:</div> <input type="date" id="dtDateFin" name="project-fin" />
+        <div class="col-lg-2">Date de début</div><input type="date" id="dtDateDebut" name="project_debut" required/>
+        <div class="col-lg-2">Échéance:</div> <input type="date" id="dtDateFin" name="project-fin" required/>
     </div>
     <div class="card-body">
 

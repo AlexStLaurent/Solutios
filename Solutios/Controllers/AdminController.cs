@@ -30,7 +30,7 @@ namespace Solutios.Controllers
         public IActionResult Index()
         {
 
-            ViewData["test"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
+            ViewData["tendance"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
             return View(usermanager.showAllProject());
         }
 
@@ -45,7 +45,7 @@ namespace Solutios.Controllers
         public IActionResult Projection(int id)
         {
             Project p = projectmanager.getProjet(id);
-            ViewData["Test"] = projectmanager.diagrame(id);
+            ViewData["tendance"] = projectmanager.tendance(id);
             ViewData["id"] = id;
 
             return View(p.listProjectSoumission());
@@ -151,9 +151,11 @@ namespace Solutios.Controllers
         public IActionResult Projet(int id)
         {
             Project p = projectmanager.getProjet(id);
-            ViewData["Test"] = projectmanager.diagrame(id);
+            ViewData["tendance"] = projectmanager.tendance(id);
+            ViewData["date"] = projectmanager.date(id);
             ViewData["id"] = id;
             ViewData["depense"] = id;
+            ViewData["Nomdepense"] = projectmanager.nomdépense(id);
             if (projectmanager.GetLastProjection(id) != null)
             {
                 ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
@@ -163,7 +165,7 @@ namespace Solutios.Controllers
                 ViewData["Projection"] = p.listProjectSoumission();
             }
 
-            return View(p.listProjectSoumission());
+            return View(projectmanager.viewProjet(id));
         }
         [Authorize]
         public IActionResult profil()
@@ -184,9 +186,14 @@ namespace Solutios.Controllers
         public IActionResult AddUsers(Users user)
         {
 
-            usermanager.AddUser(user);
+            if (ModelState.IsValid)
+            {
+                usermanager.AddUser(user);
 
-            return Redirect("/Admin/Usagers");
+                return Redirect("/Admin/Usagers");
+            }
+
+            else return RedirectToAction("Error");
         }
 
         [HttpPost]
@@ -197,5 +204,9 @@ namespace Solutios.Controllers
             return Redirect("/Admin/Usagers");
         }
 
+        public IActionResult Error()
+        {
+            return View("Error", new ErrorViewModel());
+        }
     }
 }
