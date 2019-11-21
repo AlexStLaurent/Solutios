@@ -42,8 +42,9 @@ namespace Solutios.Models
         }
 
 
-        public string tendance(int id)
+        public List<string> tendance(int id)
         {
+            List<string> tendance = new List<string>();
             Project p = solutiosContext.Project.Find(id);
             List<ProjectFollowUp> PfollowUps = solutiosContext.ProjectFollowUp.Where(c => c.PfProjectId == id).ToList();
             List<FollowUp> follows = new List<FollowUp>();
@@ -51,27 +52,33 @@ namespace Solutios.Models
             {
                 follows.Add(solutiosContext.FollowUp.Find(item.PfFollowUpId));
             }
-            string test = "[";
             List<List<FollowInfo>> infos = new List<List<FollowInfo>>();
             foreach(var item in follows)
             {
                 List<FollowInfo> f = JsonConvert.DeserializeObject<List<FollowInfo>>(item.FuInfo);
                 infos.Add(f);
             }
-            foreach (var item in infos)
+            foreach (var soumis in p.listProjectSoumission())
             {
-                foreach(var items in item)
+                string test = "[";
+                foreach (var item in infos)
                 {
-                    if(items.Spending == "RRR")
+                    double total = 0;
+                    foreach (var items in item)
                     {
-                        test = test + items.amount.ToString() + ",";
+                        if(soumis.Spending == items.Spending)
+                        {
+                            total += items.amount;
+                        }
                     }
+                    test = test + total.ToString() + ",";
                 }
-            }
-            string end = "]";
-            test­ += end;
 
-            return test;
+                string end = "]";
+                test­ += end;
+                tendance.Add(test);
+            }            
+            return tendance;
         }
         public string nomdépense(int id)
         {
@@ -113,12 +120,45 @@ namespace Solutios.Models
             string test = "[";
             foreach (var item in follows)
             {
-                test = test + "\"" +  Convert.ToDateTime(item.FuDate) + "\"" + ",";
+                test = test + "\"" +  Convert.ToDateTime(item.FuDate).ToShortDateString() + "\"" + ",";
             }
             string end = "]";
             test­ += end;
 
             return test;
+        }
+        public string graphbar(int id)
+        {
+            Project p = solutiosContext.Project.Find(id);
+            ProjectFollowUp PfollowUps = solutiosContext.ProjectFollowUp.LastOrDefault(c => c.PfProjectId == id);
+            FollowUp follows = solutiosContext.FollowUp.Find(PfollowUps.PfFollowUpId);
+           
+            List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(follows.FuInfo);
+            
+                string graphbar = "[";
+                foreach (var item in infos)
+                {
+                graphbar = graphbar + item.amount.ToString() + ",";
+                }
+
+                string end = "]";
+            graphbar += end;
+            return graphbar;
+
+        }
+        public string soumission(int id)
+        {
+            Project p = solutiosContext.Project.Find(id);
+            string soumission = "[";
+            foreach (var item in p.listProjectSoumission())
+            {
+                soumission = soumission + item.amount.ToString() + ",";
+            }
+
+            string end = "]";
+            soumission += end;
+            return soumission;
+
         }
 
         public FollowUp GetLastProjection(int i)

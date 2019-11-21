@@ -154,8 +154,9 @@ namespace Solutios.Controllers
             ViewData["tendance"] = projectmanager.tendance(id);
             ViewData["date"] = projectmanager.date(id);
             ViewData["id"] = id;
-            ViewData["depense"] = id;
+            ViewData["graphbar"] = projectmanager.graphbar(id);
             ViewData["Nomdepense"] = projectmanager.nomdépense(id);
+            ViewData["soumission"] = projectmanager.soumission(id);
             if (projectmanager.GetLastProjection(id) != null)
             {
                 ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);

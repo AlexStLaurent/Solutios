@@ -34,8 +34,7 @@ Go
 Create Table FollowUp(
 FU_id int PRIMARY KEY identity(1,1),
 FU_Date date,
-FU_Info nvarchar(max),
-PF_Project_id int FOREIGN KEY REFERENCES Project(Project_id)
+FU_Info nvarchar(max)
 )
 GO
 
@@ -62,9 +61,9 @@ GO
 
 
 
-INSERT INTO Users ("user_name", "user_firstName", "user_email","user_mdp","user_projet")
-VALUES ('Robert', 'Didier', 'dr@dr.ca', 'robert', '{"ProjectId": 1,"ProjectName": "Shack a Hector"}'),
-		('St-Laurent', 'Alex', 'Alex@mail.com', 'password1', '{"ProjectId": 1,"ProjectName": "Shack a Hector"}')
+INSERT INTO Users ("user_name", "user_firstName", "user_email","user_mdp","user_projet", "user_role")
+VALUES ('Robert', 'Didier', 'dr@dr.ca', 'robert', '{"ProjectId": 1,"ProjectName": "Shack a Hector"}', 'ADMIN'),
+		('St-Laurent', 'Alex', 'Alex@mail.com', 'password1', '{"ProjectId": 1,"ProjectName": "Shack a Hector"}', 'ADMIN')
 Go
 
 INSERT INTO [dbo].[Project](
