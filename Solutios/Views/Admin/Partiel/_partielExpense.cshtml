@@ -36,7 +36,7 @@
 						<tr>
 							<td colspan="6" class="hiddenRow">
 								<div class="accordian-body collapse" id="demo1">
-									@Html.RenderPartialAsync("Partiel/_subExpenses");
+									@{await Html.RenderPartialAsync("Partiel/_subExpenses");}
 								</div>
 							</td>
 						</tr>
