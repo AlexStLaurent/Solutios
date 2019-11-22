@@ -4,13 +4,13 @@ $(function () {
 	$('#add').click(function () {
 		$('<tr id="tablerow' + counter + '">' +
 				'<td>'+
-					'un test d\'une dépense'+
+					'<input class="form-control" name="subName" type="text" placeholder="Entrer un nom..." />'+
 					'</td>'+
 			'<td>' +
-			'<input class="form-control" name="amount' + counter + '" type="text" value="10,000" />' +
+			'<input  class="form-control" name="subCost" type="number" placeholder="Entrer un montant..." />' +
 					'</td>'+
 				'<td>'+
-					'<a class="btn btn-success text-white" name="modifybtn0">Sauvegarder/Modifier</a>'+
+					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
 				'</td>'+
 			'</tr>').appendTo('#tableSubExpenses');
 		counter;

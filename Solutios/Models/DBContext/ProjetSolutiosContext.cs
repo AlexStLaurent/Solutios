@@ -46,7 +46,7 @@ namespace Solutios.Models
                     .HasColumnName("Expense_Date")
                     .HasColumnType("date");
 
-                entity.Property(e => e.ExpenseInfo).HasColumnName("Expense_Info");
+                entity.Property(e => e.JsonExpenseInfo).HasColumnName("Expense_Info");
             });
 
             modelBuilder.Entity<FollowUp>(entity =>
