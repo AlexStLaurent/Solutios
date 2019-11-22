@@ -195,6 +195,20 @@ namespace Solutios.Models
             return ListVP;
         }
 
+        public double Getmarge(int id)
+        {            
+            List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(GetLastProjection(id).FuInfo);
+            foreach(var item in infos)
+            {
+                if(item.Spending == "MargeSoumis")
+                {
+                    return item.amount;
+                }
+            }
+
+            return 0;
+        }
+
 
 
     }

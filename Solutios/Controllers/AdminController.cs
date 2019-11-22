@@ -30,8 +30,8 @@ namespace Solutios.Controllers
         public IActionResult Index()
         {
 
-            ViewData["tendance"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
-            return View(usermanager.showAllProject());
+            ViewData["tendance"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";           
+            return View(usermanager.showIndexProjet(usermanager.showAllProject()));
         }
 
         [Authorize]

@@ -48,6 +48,11 @@ function showtotal() {
 }
 
 function sendtable() {
+    margee = $('#marge').val();
+    var marge = { Spending: "MargeSoumis", amount: margee }
+    var margep = { Spending: "MargeProjeter", amount: margee }
+    test.push(marge);
+    test.push(margep);
     objectArray = JSON.stringify(test);
     var markup = "<tr><td><input type='hidden' name='table' value = " + objectArray +" required></td></tr>";
     $("table tbody").append(markup);
@@ -58,3 +63,4 @@ $(document).ready(function () {
         sendtable();
     });
 });
+
