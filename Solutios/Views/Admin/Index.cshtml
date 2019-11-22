@@ -1,12 +1,13 @@
 ﻿@using System.Data
 
-@model List<Project>
+@model List<ViewIndex>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 
 }
 <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script> var graph = [0,0,0]</script>
 
 <!-- Info rapids -->
 <div class="row">
@@ -19,11 +20,11 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Complétion</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                <div id="completion" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">%</div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="completionW" class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +44,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Projectée</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ 28,299.81</div>
+                        <div id="margeproj" class="h5 mb-0 font-weight-bold text-gray-800">$</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -60,7 +61,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Marge de profit Soumit</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ 18,500</div>
+                        <div id="marge" class="h5 mb-0 font-weight-bold text-gray-800">$</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
@@ -127,20 +128,35 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr onclick="location.href='@Url.Action("Projet", "Admin", new { id = item.ProjectId})'">
+                                    <tr id="@item.ProjectId" onclick="location.href='@Url.Action("Projet", "Admin", new { id = item.ProjectId })'">
                                         <td>
                                             @Html.DisplayFor(modelItem => item.ProjectName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectFin)
+                                            @Html.DisplayFor(modelItem => item.echeance)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectDebut)
+                                            @Html.DisplayFor(modelItem => item.today) /@Html.DisplayFor(modelItem => item.totaljour)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ProjectDebut)
+                                            @Html.DisplayFor(modelItem => item.Lastupdate)                                            
                                         </td>
                                     </tr>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#@item.ProjectId").hover(function () {
+                                                $("#marge").text("@item.margesoumis");
+                                                $("#margeproj").text("@item.margeprojeter");
+                                                $("#completion").text("@item.completion");
+                                                $("#completionW").width("@item.completion%");
+                                                graph = @Html.DisplayFor(modelItem => item.graph);
+                                                load();
+                                                $(this).css("background-color", "rgba(54, 185, 204, 0.48)");
+                                            }, function () {
+                                                    $(this).css("background-color", "white");
+                                            });
+                                        });
+                                    </script>
                                 }
 
 
@@ -162,9 +178,6 @@
     <div class="col-xl-6">
         <!--table des projets-->
         <div>
-            <script>
-                var test = @ViewData["test"];
-            </script>
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -186,8 +199,13 @@
     <!-- Page level plugins -->
 
 </div>
+
+
+<script src="~/vendor/chart.js/Chart.js"></script>
 <script src="vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/js/demo/chart-bar-demo.js"></script>
+<script src="~/js/hoverproject.js"></script>
 
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
