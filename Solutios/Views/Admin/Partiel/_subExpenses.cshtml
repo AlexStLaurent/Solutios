@@ -19,13 +19,13 @@
 				{*@
 			<tr id="tablerow0">
 				<td>
-					un test d'une dépense@*@Html.DisplayFor(modelItem => item.id)*@
+					<input class="form-control" name="subName" type="text" placeholder="Entrer un nom..." />@*@Html.DisplayFor(modelItem => item.id)*@
 				</td>
 				<td>
-					<input  class="form-control" name="subName0" type="text" value="10,000" />@*@Html.DisplayFor(modelItem => item.name)*@
+					<input  class="form-control" name="subCost" type="number" placeholder="Entrer un montant..." />@*@Html.DisplayFor(modelItem => item.name)*@
 				</td>
 				<td>
-					<a class="btn btn-success text-white" name="modifybtn0">Sauvegarder/Modifier</a>
+					<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>
 				</td>
 			</tr>
 

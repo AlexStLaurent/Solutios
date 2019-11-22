@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols;
 using Newtonsoft.Json;
+using Solutios.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,14 @@ namespace Solutios.Models
 
         const int Archived = 5;
 
+        private ProjectManager ProjectManager;
+
+
+
         public UserManager(ProjetSolutiosContext context)
         {
             this.solutiosContext = context;
+            ProjectManager = new ProjectManager(context);
         }
 
         private Users FindUserByUserName(string email)
@@ -134,6 +140,28 @@ namespace Solutios.Models
         public string SerialiseUserProjet(List<UserProjet> userProjets)
         {
             return (JsonConvert.SerializeObject(userProjets));
+        }
+
+        public List<ViewIndex> showIndexProjet(List<Project> projects)
+        {
+            List<ViewIndex> viewIndexs = new List<ViewIndex>();
+            foreach(var item in projects)
+            {
+                ViewIndex view = new ViewIndex();
+                view.ProjectId = item.ProjectId;
+                view.ProjectFin = Convert.ToDateTime(item.ProjectFin);
+                view.ProjectDebut = Convert.ToDateTime(item.ProjectDebut);
+                view.ProjectName = item.ProjectName;
+
+                view.margeprojeter = ProjectManager.Getmarge(item.ProjectId);
+                view.margesoumis = ProjectManager.Getmarge(item.ProjectId);
+                view.Lastupdate = Convert.ToDateTime(ProjectManager.GetLastProjection(item.ProjectId).FuDate).ToShortDateString();
+                view.echeance = view.ProjectFin.ToShortDateString();
+                view.graph = ProjectManager.graphbar(item.ProjectId);
+
+                viewIndexs.Add(view);
+            }
+            return viewIndexs;
         }
 
 

@@ -31,8 +31,8 @@ namespace Solutios.Controllers
         public IActionResult Index()
         {
 
-            ViewData["tendance"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";
-            return View(usermanager.showAllProject());
+            ViewData["tendance"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";           
+            return View(usermanager.showIndexProjet(usermanager.showAllProject()));
         }
 
         [Authorize]
@@ -101,6 +101,46 @@ namespace Solutios.Controllers
             return RedirectToAction("Projet", new { id = formCollection["id"] });
         }
 
+
+
+
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //WIP  WIP  WIP
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        [HttpPost]
+        public IActionResult AddExpense(IFormCollection formCollection)
+        {
+            //variables
+            List<ExpenseInfo> expenseInfos = new List<ExpenseInfo>();//liste de depenses
+            List<subExpense> subExpenses = new List<subExpense>();//liste de sous-depenses
+            int count = 0;//pour aller chercher chaque element du formulaire
+            double costTotal = 0;//pour le prix d'une depenses(addition de toute les sous-depenses d'une depense)
+
+            //récupération de valeurs
+            Project p = projectmanager.getProjet(Convert.ToInt32(formCollection["id"]));//va chercher le bon projet dans la BD
+            string[] subName = formCollection["subName"];//va chercher le nom donner a la sous-depense
+            string[] subCost = formCollection["subCost"];//va cherche le montant défini pour la sous-dépense
+
+
+            foreach (var item in subName)
+            {
+                subExpense sub = new subExpense();//objet de type sous-depense qui va etre ajouter a la liste
+                sub.name = subName[count];//nom de l'item
+                sub.cost = Convert.ToDouble(subCost[count]);//prix de l'item
+                subExpenses.Add(sub);//ajout a la liste subExpenses
+
+                count++;//augment le compteur
+                costTotal += sub.cost;
+            }
+
+            return RedirectToAction("Projet", new { id = formCollection["id"] });
+        }
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
         [HttpPost]
         public IActionResult Addprojet(IFormCollection formCollection)
         {
@@ -138,7 +178,6 @@ namespace Solutios.Controllers
             _context.ProjectFollowUp.Add(projectFollowUp);
             _context.SaveChanges();
             return RedirectToAction("Index");
-
         }
 
         [Authorize]
