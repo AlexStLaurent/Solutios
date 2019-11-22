@@ -1,4 +1,5 @@
 ﻿
+@model List<Project>
 @{
     ViewData["Title"] = "Archive";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -36,20 +37,23 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-
-                                <tr class="table-row" onclick="location.href='@Url.Action("Projet","Admin")'">
-                                    <td>Usine à tit-bob</td>
-                                    <td>2019-10-08</td>
-                                    <td>1/999</td>
-                                    <td>2019-10-08</td>
-
-                                </tr>
-                                <tr>
-                                    <td>Installation de moteur d'arena</td>
-                                    <td>2019-10-08</td>
-                                    <td>1/999</td>
-                                    <td>2019-10-08</td>
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr onclick="location.href='@Url.Action("ProjetArchive", "Admin", new { id = item.ProjectId})'">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProjectName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProjectFin)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProjectDebut)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProjectDebut)
+                                        </td>
+                                    </tr>
+                                }
 
                             </tbody>
                         </table>
@@ -61,5 +65,5 @@
 
         <!--fin table des projets-->
     </div>
-    </div>
+</div>
 

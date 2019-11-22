@@ -95,7 +95,3 @@ Use ProjetSolutios
 select * from Project
 
 
-USE master
-GO
-drop database ProjetSolutios
-GO
