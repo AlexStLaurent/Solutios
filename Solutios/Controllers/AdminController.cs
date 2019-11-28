@@ -165,7 +165,7 @@ namespace Solutios.Controllers
 
             Expense expense = new Expense();
             expense.ExpenseDate = DateTime.Now;
-            expense.JsonExpenseInfo = JsonConvert.SerializeObject(soumission);
+            expense.JsonExpenseInfo = JsonConvert.SerializeObject(expense);
 
             _context.Add(follow);
             _context.Add(expense);
