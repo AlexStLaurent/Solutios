@@ -94,7 +94,7 @@ namespace Solutios.Models
             {
                 entity.HasKey(e => e.PeId);
 
-                entity.ToTable("Project_Expense");
+                entity.ToTable("ProjectExpense");
 
                 entity.Property(e => e.PeId)
                     .HasColumnName("PE_id")
