@@ -11,7 +11,7 @@ namespace Solutios.Models
 
         public double cost { get; set;}
 
-        public List<subExpense> subExpenses { get; set; }
+        //public List<subExpense> subExpenses { get; set; }
 
     }
 }

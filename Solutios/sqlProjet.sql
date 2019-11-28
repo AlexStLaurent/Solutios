@@ -66,19 +66,19 @@ VALUES ('Robert', 'Didier', 'dr@dr.ca', 'robert', '{"ProjectId": 1,"ProjectName"
 		('St-Laurent', 'Alex', 'Alex@mail.com', 'password1', '{"ProjectId": 1,"ProjectName": "Shack a Hector"}', 'ADMIN')
 Go
 
-INSERT INTO [dbo].[Project](
-           [project_name]
-           ,[project_debut]
-           ,[project_fin]
-           ,[project_status]
-           ,[project_soumission])
-     VALUES
-           ('Shack a Hector', 
-		   convert(date,'10-10-2018'),
-		   null,
-		   0,
-		   '[{"Spending":"test","amount":10},{"Spending":"test","amount":65},{"Spending":"test","amount":10},{"Spending":"test","amount":10},{"Spending":"test","amount":34},{"Spending":"test","amount":234},{"Spending":"test","amount":65}]')
-GO
+--INSERT INTO [dbo].[Project](
+--           [project_name]
+--           ,[project_debut]
+--           ,[project_fin]
+--           ,[project_status]
+--           ,[project_soumission])
+--     VALUES
+--           ('Shack a Hector', 
+--		   convert(date,'10-10-2018'),
+--		   null,
+--		   0,
+--		   '[{"Spending":"test","amount":10},{"Spending":"test","amount":65},{"Spending":"test","amount":10},{"Spending":"test","amount":10},{"Spending":"test","amount":34},{"Spending":"test","amount":234},{"Spending":"test","amount":65}]')
+--GO
 
 
 SElect * from Project

@@ -74,7 +74,7 @@
         <div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="form">
                 @{
-                    Html.RenderPartial("Partiel/_partielExpense");@* va chercher le modal des depenses*@
+                    Html.RenderPartial("Partiel/_partielExpense",ViewData["Projection"]);@* va chercher le modal des depenses*@
                 }
             </div>
         </div>

@@ -193,6 +193,21 @@ namespace Solutios.Models
                 return null;
             }
         }
+        //WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP
+        public Expense GetLastExpense(int i)
+        {
+            if (solutiosContext.ProjectExpense.LastOrDefault(e => e.PeProjectId == i) != null)
+            {
+                ProjectExpense p = solutiosContext.ProjectExpense.LastOrDefault(e => e.PeProjectId == i);
+
+                return solutiosContext.Expense.LastOrDefault(c => c.ExpenseId == p.PeId);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        //WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP
 
         public List<ViewProject> viewProjet(int id)
         {
