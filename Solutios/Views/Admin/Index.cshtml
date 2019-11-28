@@ -7,7 +7,8 @@
 
 }
 <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-<script> var graph = [0,0,0]</script>
+<script> var graph = [0, 0, 0];
+    var label = [0, 0, 0];</script>
 
 <!-- Info rapids -->
 <div class="row">
@@ -150,6 +151,7 @@
                                                 $("#completion").text("@item.completion");
                                                 $("#completionW").width("@item.completion%");
                                                 graph = @Html.DisplayFor(modelItem => item.graph);
+                                                label =  @Html.Raw(item.label);
                                                 load();
                                                 $(this).css("background-color", "rgba(54, 185, 204, 0.48)");
                                             }, function () {

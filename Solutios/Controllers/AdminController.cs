@@ -29,9 +29,7 @@ namespace Solutios.Controllers
         }
         [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
-        {
-
-            ViewData["tendance"] = "[31784.17, 52359.54, 19534.54, 2354.18, 6168.3, 0.19]";           
+        {        
             return View(usermanager.showIndexProjet(usermanager.showAllProject()));
         }
 
@@ -46,7 +44,7 @@ namespace Solutios.Controllers
         public IActionResult Projection(int id)
         {
             Project p = projectmanager.getProjet(id);
-            ViewData["tendance"] = projectmanager.tendance(id);
+            ViewData["tendance"] = projectmanager.graphiqueLigne(id);
             ViewData["id"] = id;
 
             return View(p.listProjectSoumission());
@@ -189,7 +187,7 @@ namespace Solutios.Controllers
         public IActionResult ProjetArchive(int id)
         {
             Project p = projectmanager.getProjet(id);
-            ViewData["tendance"] = projectmanager.tendance(id);
+            ViewData["tendance"] = projectmanager.graphiqueLigne(id);
             ViewData["date"] = projectmanager.date(id);
             ViewData["id"] = id;
             ViewData["graphbar"] = projectmanager.graphbar(id);
@@ -225,12 +223,14 @@ namespace Solutios.Controllers
         public IActionResult Projet(int id)
         {
             Project p = projectmanager.getProjet(id);
-            ViewData["tendance"] = projectmanager.tendance(id);
+            ViewData["tendance"] = projectmanager.graphiqueLigne(id);
             ViewData["date"] = projectmanager.date(id);
             ViewData["id"] = id;
             ViewData["graphbar"] = projectmanager.graphbar(id);
             ViewData["Nomdepense"] = projectmanager.nomdépense(id);
             ViewData["soumission"] = projectmanager.soumission(id);
+            ViewData["margeS"] = projectmanager.Getmarge(id);
+            ViewData["margeE"] = projectmanager.GetmargeEstime(id);
             if (projectmanager.GetLastProjection(id) != null)
             {
                 ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);

@@ -38,7 +38,7 @@ namespace Solutios.Models.ViewModel
                 if (ProjectFin.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
                 if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
 
-                return Math.Round(calcBusinessDays, 2); 
+                return Math.Round(calcBusinessDays); 
             }
             return 0;
         }
@@ -51,6 +51,7 @@ namespace Solutios.Models.ViewModel
         public string Lastupdate { get; set; }
 
         public string graph { get; set; }
+        public string label { get; set; }
 
         public double completion { get { return complétion(); } set { } }
         public double today { get { return jourToday(); } set { } }

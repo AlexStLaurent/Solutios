@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "Projet";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-    List<string> tendance = ViewData["tendance"] as List<string>;
+    List<ViewGraph> graphligne = ViewData["tendance"] as List<ViewGraph>;
+    ViewGraph graphbar = ViewData["graphbar"] as ViewGraph;
+    @model List<ViewProject>;
 
 }
 
@@ -30,8 +32,8 @@
                         <form>
                             <input hidden="hidden" value="@ViewData["id"]" name="id" />
 
-                            <button type="button" data-toggle="modal" data-target="#modalConfirmFinish" class="fas fa-flag-checkered fa-2x text-gray-500"></button>
-                            </form>
+                            <button type="button" data-toggle="modal" data-target="#modalConfirmFinish" class="fas fa-flag-checkered fa-2x text-gray-500" style="background-color:Transparent; border: none;"></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,7 +47,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Projectée</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ 28,299.81</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="margeProjeter">$ </div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -62,7 +64,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Marge de profit Soumit</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ 18,500</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ @ViewData["margeS"]</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
@@ -84,7 +86,7 @@
                     </div>
                     <div class="col-auto">
                         <form>
-                                                        <input hidden="hidden" value="@ViewData["id"]" name="id" />
+                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
                             <button type="button" class="fas fa-folder-plus fa-2x text-gray-300" data-toggle="modal" data-target="#modalEstimates">
                             </button>
 
@@ -101,19 +103,152 @@
 
 
 <div class="row">
-    <!--******************************************************************************************************-->
-    <!--Table de la soumission -->
-    <!--******************************************************************************************************-->
-    @{
-        Html.RenderPartial("Partiel/_partielSoumission");
-    }
 
-    <!--******************************************************************************************************-->
-    <!--Table de la projection -->
-    <!--******************************************************************************************************-->
-    @*@{
-            Html.RenderPartial("Partiel/_partielprojection", ViewData["Projection"]);
-        }*@
+    <div class="col-xl-6">
+        <!--table de la soumissions-->
+        <div>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <h6 class="m-0 font-weight-bold text-primary">Dépense</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="table-responsive" style="height:auto">
+                        <table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="card-header text-primary text-center">
+                                <tr>
+                                    <th></th>
+                                    <th>Montant Soumissionné</th>
+                                    <th>
+                                        Dépenses courantes
+                                        <a class="text-wrap text-primary" data-toggle="modal" data-target="#ExpenseModal">
+                                            <i class="far fa-plus-square"></i>
+                                        </a>
+                                    </th>
+
+                                    <th>Budget courant</th>
+                                </tr>
+                            </thead>
+
+                            <tbody style="font-size:small" class="text-center">
+                                @{
+                                    double soumission = 0;
+                                    double dépensecourrante = 0;
+                                    double budgetcourant = 0;
+
+                                }
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="table-row">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.spending)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.soumission)
+                                            @{ soumission += item.soumission;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.dépensecourrante)
+                                            @{ dépensecourrante += item.dépensecourrante;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.budgetcourant)
+                                            @{ budgetcourant += item.budgetcourant;}
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="card-header text-primary text-center">
+                                <tr>
+                                    <th>Total</th>
+                                    <th>@soumission</th>
+                                    <th>@dépensecourrante</th>
+                                    <th>@budgetcourant</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="form">
+                    @{
+                        Html.RenderPartial("Partiel/_partielExpense");@* va chercher le modal des depenses*@
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <!--table des estimers-->
+        <div>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <h6 class="m-0 font-weight-bold text-primary">Estimation</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="table-responsive" style="height:auto">
+                        <table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="card-header text-primary text-center">
+                                <tr>
+                                    <th></th>
+                                    <th>Dépenses prévues</th>
+                                    <th>Budget estimé</th>
+                                    <th>Dépenses finales estimées</th>
+                                </tr>
+                            </thead>
+
+                            <tbody style="font-size:small" class="text-center">
+
+                                @{
+                                    double totaldepenceP = 0;
+                                    double budgetestime = 0;
+                                    double depenseFinaleE = 0;
+
+                                }
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="table-row">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.spending)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.depenceP)
+                                            @{ totaldepenceP += item.depenceP;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.budgetestime)
+                                            @{ budgetestime += item.budgetestime;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.depenseFinaleE)
+                                            @{ depenseFinaleE += item.depenseFinaleE;}
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="card-header text-primary text-center">
+                                <tr>
+                                    <th>Total</th>
+                                    <th>@totaldepenceP</th>
+                                    <th id="budjet">@budgetestime</th>
+                                    <th>@depenseFinaleE</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div><!--fin de la rangé du milieu-->
 
 <div class="row">
@@ -173,7 +308,7 @@
 </div>
 
 <div class="modal" id="modalConfirmFinish">
-    @{ 
+    @{
         Html.RenderPartial("Partiel/_ConfirmFinish", ViewData["Projection"]);
     }
 </div>
@@ -181,6 +316,8 @@
 <!-- Page level plugins -->
 <script src="~/vendor/chart.js/Chart.min.js"></script>
 <script>
+    $('#margeProjeter').text(((@soumission - @dépensecourrante) + @ViewData["margeS"])+"$");
+
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
@@ -216,27 +353,27 @@ var myLineChart = new Chart(ctxx, {
 	type: 'line',
 	data: {
         labels: @Html.Raw((ViewData["date"])),
-            datasets: [            
-            @foreach(var item in tendance)
+            datasets: [
+            @foreach(var item in graphligne)
             {
             <text>
             {
-            label: "Tendance",
+            label: "@item.label",
 			lineTension: 0.3,
-			backgroundColor: "rgba(78, 115, 223, 0.05)",
-			borderColor: "rgba(78, 115, 223, 1)",
+			backgroundColor: "rgba(78, 115, 223, 0)",
+			borderColor: "@item.color",
 			pointRadius: 3,
-			pointBackgroundColor: "rgba(78, 115, 223, 1)",
-			pointBorderColor: "rgba(78, 115, 223, 1)",
+			pointBackgroundColor: "@item.color",
+			pointBorderColor: "@item.color",
 			pointHoverRadius: 3,
-			pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-			pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+			pointHoverBackgroundColor: "@item.color",
+			pointHoverBorderColor: "@item.color",
 			pointHitRadius: 10,
             pointBorderWidth: 2,
-                data: @item,
+                data: @item.data,
             },
             </text>
-            }      
+            }
 		],
 	},
 	options: {
@@ -265,7 +402,7 @@ var myLineChart = new Chart(ctxx, {
 			yAxes: [{
 				ticks: {
 					maxTicksLimit: 5,
-                    padding: 10,                    
+                    padding: 10,
                     min:0,
 					// Include a dollar sign in the ticks
 					callback: function (value, index, values) {
@@ -344,23 +481,24 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
     var Nomdepense = @Html.Raw((ViewData["Nomdepense"]));
     var myBarChart = new Chart(ctx, {
-	type: 'bar',
-    data: {
-        labels: Nomdepense,//nom des colonnes
-		datasets: [{
-			label: "Soumission",
-			backgroundColor: "#424242",
-			hoverBackgroundColor: "#666666",
-            borderColor: "#4e73df",
-            data: @Html.Raw((ViewData["soumission"])),//valeurs des colonnes
-        }, {
-			label: "Projection",
-			backgroundColor: "#319163",
-			hoverBackgroundColor: "#40b97e",
+        type: 'bar',
+        data: {
+            labels: Nomdepense,//nom des colonnes
+            datasets: [{
+                label: "Soumission",
+                backgroundColor: "#424242",
+                hoverBackgroundColor: "#666666",
                 borderColor: "#4e73df",
-                data: @Html.Raw((ViewData["graphbar"]))//valeurs des colonnes
-		}
-		],
+                data: @Html.Raw((ViewData["soumission"])),//valeurs des colonnes
+            },
+            {
+                label: "Projection",
+                backgroundColor: @Html.Raw(graphbar.color),
+                hoverBackgroundColor: "#40b97e",
+                borderColor: "#4e73df",
+                data: @graphbar.data //valeurs des colonnes
+		    }
+        ],
 	},
 	options: {
 		maintainAspectRatio: false,

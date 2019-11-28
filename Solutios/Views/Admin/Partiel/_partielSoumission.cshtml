@@ -3,13 +3,13 @@
 *@
 @model List<ViewProject>;
 <div class="col-xl-6">
-    <!--table des soumissions-->
+    <!--table de la soumissions-->
     <div>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-2">
-                <h6 class="m-0 font-weight-bold text-primary">Soumission</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Dépense</h6>
             </div>
             <div class="card-body py-2">
                 <div class="table-responsive" style="height:auto">
@@ -30,6 +30,12 @@
                         </thead>
 
                         <tbody style="font-size:small" class="text-center">
+                            @{
+                                double soumission = 0;
+                                double dépensecourrante = 0;
+                                double budgetcourant = 0;
+
+                            }
 
                             @foreach (var item in Model)
                             {
@@ -39,16 +45,27 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.soumission)
+                                        @{ soumission += item.soumission;}
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.dépensecourrante)
+                                        @{ dépensecourrante += item.dépensecourrante;}
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.budgetcourant)
+                                        @{ budgetcourant += item.budgetcourant;}
                                     </td>
                                 </tr>
                             }
                         </tbody>
+                        <tfoot class="card-header text-primary text-center">
+                            <tr>
+                                <th>Total</th>
+                                <th>@soumission</th>
+                                <th>@dépensecourrante</th>
+                                <th>@budgetcourant</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -65,7 +82,7 @@
 </div>
 
 <div class="col-xl-6">
-    <!--table des soumissions-->
+    <!--table des estimers-->
     <div>
 
         <!-- DataTales Example -->
@@ -87,6 +104,13 @@
 
                         <tbody style="font-size:small" class="text-center">
 
+                            @{
+                                double totaldepenceP = 0;
+                                double budgetestime = 0;
+                                double depenseFinaleE = 0;
+
+                            }
+
                             @foreach (var item in Model)
                             {
                                 <tr class="table-row">
@@ -95,16 +119,27 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.depenceP)
+                                        @{ totaldepenceP += item.depenceP;}
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.budgetestime)
+                                        @{ budgetestime += item.budgetestime;}
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.depenseFinaleE)
+                                        @{ depenseFinaleE += item.depenseFinaleE;}
                                     </td>
                                 </tr>
-                            }
+                            }                            
                         </tbody>
+                        <tfoot class="card-header text-primary text-center">
+                            <tr>
+                                <th>Total</th>
+                                <th>@totaldepenceP</th>
+                                <th id="budjet">@budgetestime</th>
+                                <th>@depenseFinaleE</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

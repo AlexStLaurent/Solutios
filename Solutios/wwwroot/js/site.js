@@ -10,13 +10,14 @@ $(document).ready(function () {
     $(".add-row").click(function () {
         d = $('#depense').val();
         p = $('#prix').val();
+        c = $('#color').val();
         id += 1;
 
-        var t = { Spending: d, amount: p }
+        var t = { Spending: d, amount: p, color:c }
         test.push(t);
 
         myarray.push(parseInt(p));        
-        var markup = "<tr><td>" + d + " <input type='hidden' value=" + d + "> </td><td>" + p + "$ <input type='hidden' value=" + p +"></td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Supprimer</button></td></tr>";
+        var markup = "<tr><td>" + d + " <input type='hidden' value=" + d + "> </td><td>" + p + "$ <input type='hidden' value=" + p + "><td>" + c + " <input type='hidden' value=" + c +"></td></td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Supprimer</button></td></tr>";
         $("table tbody").append(markup);
         showtotal();
         formClear();
@@ -49,8 +50,8 @@ function showtotal() {
 
 function sendtable() {
     margee = $('#marge').val();
-    var marge = { Spending: "MargeSoumis", amount: margee }
-    var margep = { Spending: "MargeProjeter", amount: margee }
+    var marge = { Spending: "MargeSoumis", amount: margee, color: "#FFFF" }
+    var margep = { Spending: "MargeProjeter", amount: margee, color: "#FFFFF" }
     test.push(marge);
     test.push(margep);
     objectArray = JSON.stringify(test);

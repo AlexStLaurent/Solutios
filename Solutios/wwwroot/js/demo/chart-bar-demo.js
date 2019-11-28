@@ -33,7 +33,7 @@ function load() {
     var myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Main d'oeuvre", "Mat\u00e9riaux", "Sous-traitant", "Location", "Autres", "Co\u00fbts total"],//nom des colonnes
+            labels: label,//nom des colonnes
             datasets: [{
                 label: "Soumission",
                 backgroundColor: "#424242",

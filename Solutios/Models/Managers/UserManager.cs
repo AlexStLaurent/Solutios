@@ -157,7 +157,8 @@ namespace Solutios.Models
                 view.margesoumis = ProjectManager.Getmarge(item.ProjectId);
                 view.Lastupdate = Convert.ToDateTime(ProjectManager.GetLastProjection(item.ProjectId).FuDate).ToShortDateString();
                 view.echeance = view.ProjectFin.ToShortDateString();
-                view.graph = ProjectManager.graphbar(item.ProjectId);
+                view.graph = ProjectManager.graphbar(item.ProjectId).data;
+                view.label = ProjectManager.nomdépense(item.ProjectId);
 
                 viewIndexs.Add(view);
             }

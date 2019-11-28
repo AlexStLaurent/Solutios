@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Nancy.Json;
 using Newtonsoft.Json;
-using Solutios.Models.Project_Related;
 using Solutios.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Solutios.Models
 {
@@ -16,19 +13,14 @@ namespace Solutios.Models
         private readonly ProjetSolutiosContext solutiosContext;
         private IConfiguration config;
 
-
         public ProjectManager()
         {
-
         }
 
         public ProjectManager(ProjetSolutiosContext context)
         {
-
             solutiosContext = context;
         }
-
-
 
         public Project getProjet(int id)
         {
@@ -41,45 +33,54 @@ namespace Solutios.Models
             solutiosContext.SaveChanges();
         }
 
-
-        public List<string> tendance(int id)
+        public List<ViewGraph> graphiqueLigne(int id)
         {
-            List<string> tendance = new List<string>();
+            List<ViewGraph> graph = new List<ViewGraph>();
             Project p = solutiosContext.Project.Find(id);
             List<ProjectFollowUp> PfollowUps = solutiosContext.ProjectFollowUp.Where(c => c.PfProjectId == id).ToList();
             List<FollowUp> follows = new List<FollowUp>();
-            foreach(var item in PfollowUps)
+            foreach (var item in PfollowUps)
             {
                 follows.Add(solutiosContext.FollowUp.Find(item.PfFollowUpId));
             }
             List<List<FollowInfo>> infos = new List<List<FollowInfo>>();
-            foreach(var item in follows)
+            foreach (var item in follows)
             {
                 List<FollowInfo> f = JsonConvert.DeserializeObject<List<FollowInfo>>(item.FuInfo);
                 infos.Add(f);
             }
+            int counterColor = 0;
             foreach (var soumis in p.listProjectSoumission())
             {
-                string test = "[";
-                foreach (var item in infos)
+                if ((soumis.Spending != "MargeSoumis") && (soumis.Spending != "MargeProjeter"))
                 {
-                    double total = 0;
-                    foreach (var items in item)
+                    counterColor += 10;
+                    ViewGraph vg = new ViewGraph();
+                    string test = "[";
+                    foreach (var item in infos)
                     {
-                        if(soumis.Spending == items.Spending)
+                        double total = 0;
+                        foreach (var items in item)
                         {
-                            total += items.amount;
+                            if (soumis.Spending == items.Spending)
+                            {
+                                vg.label = items.Spending;
+                                vg.color = items.color;
+                                total += items.amount;
+                            }
                         }
+                        test = test + total.ToString() + ",";
                     }
-                    test = test + total.ToString() + ",";
-                }
+                    string end = "]";
+                    test­ += end;
+                    vg.data = test;
 
-                string end = "]";
-                test­ += end;
-                tendance.Add(test);
-            }            
-            return tendance;
+                    graph.Add(vg);
+                }
+            }
+            return graph;
         }
+
         public string nomdépense(int id)
         {
             Project p = solutiosContext.Project.Find(id);
@@ -94,15 +95,15 @@ namespace Solutios.Models
 
             List<FollowInfo> f = JsonConvert.DeserializeObject<List<FollowInfo>>(follows.FuInfo);
 
-            string[] test = new string[f.Count];
+            string[] test = new string[(f.Count-2)];
             foreach (var items in f)
+            {
+                if ((items.Spending != "MargeSoumis") && (items.Spending != "MargeProjeter"))
                 {
-
                     test[i] = items.Spending;
                     i++;
                 }
-
-            
+            }
 
             string jsonTest = (new JavaScriptSerializer()).Serialize(test);
             return jsonTest;
@@ -120,52 +121,70 @@ namespace Solutios.Models
             string test = "[";
             foreach (var item in follows)
             {
-                test = test + "\"" +  Convert.ToDateTime(item.FuDate).ToShortDateString() + "\"" + ",";
+                test = test + "\"" + Convert.ToDateTime(item.FuDate).ToShortDateString() + "\"" + ",";
             }
             string end = "]";
             test­ += end;
 
             return test;
         }
-        public string graphbar(int id)
+
+        public ViewGraph graphbar(int id)
         {
+            ViewGraph vg = new ViewGraph();
             Project p = solutiosContext.Project.Find(id);
             ProjectFollowUp PfollowUps = solutiosContext.ProjectFollowUp.LastOrDefault(c => c.PfProjectId == id);
             FollowUp follows = solutiosContext.FollowUp.Find(PfollowUps.PfFollowUpId);
-           
+
             List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(follows.FuInfo);
-            
-                string graphbar = "[";
-                foreach (var item in infos)
+
+            string graphbar = "[";
+            foreach (var item in infos)
+            {
+                if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
                 {
-                graphbar = graphbar + item.amount.ToString() + ",";
+                    graphbar = graphbar + item.amount.ToString() + ",";
                 }
+            }
 
-                string end = "]";
+            string end = "]";
             graphbar += end;
-            return graphbar;
-
+            string colorbar = "[";
+            foreach (var item in infos)
+            {
+                if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
+                {
+                    colorbar = colorbar + '"'+item.color+'"' + ",";
+                }
+            }
+            colorbar += end;
+            vg.data = graphbar;
+            vg.color = colorbar;
+            return vg;
         }
+
         public string soumission(int id)
         {
             Project p = solutiosContext.Project.Find(id);
             string soumission = "[";
             foreach (var item in p.listProjectSoumission())
             {
-                soumission = soumission + item.amount.ToString() + ",";
+                if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
+                {
+                    soumission = soumission + item.amount.ToString() + ",";
+                }
             }
 
             string end = "]";
             soumission += end;
             return soumission;
-
         }
 
-        public FollowUp GetLastProjection(int i)
+        public FollowUp GetLastProjection(int id)
         {
-            if (solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == i) != null)
+            if (solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == id) != null)
             {
-                ProjectFollowUp p = solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == i);
+                ProjectFollowUp p = solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == id);
 
                 return solutiosContext.FollowUp.LastOrDefault(c => c.FuId == p.PfFollowUpId);
             }
@@ -173,7 +192,6 @@ namespace Solutios.Models
             {
                 return null;
             }
-
         }
 
         public List<ViewProject> viewProjet(int id)
@@ -184,23 +202,26 @@ namespace Solutios.Models
             FollowUp follow = solutiosContext.FollowUp.LastOrDefault(c => c.FuId == pfu.PfFollowUpId);
             List<FollowInfo> soumission = p.listProjectSoumission();
             List<FollowInfo> estimation = follow.deinfo();
-            for(int i = 0; i < estimation.Count; i++)
+            for (int i = 0; i < estimation.Count; i++)
             {
-                ViewProject vp = new ViewProject("",0,0,0);
-                vp.spending = soumission[i].Spending;
-                vp.soumission = soumission[i].amount;
-                vp.depenceP = estimation[i].amount;
-                ListVP.Add(vp);
+                if ((soumission[i].Spending != "MargeSoumis") && (soumission[i].Spending != "MargeProjeter"))
+                {
+                    ViewProject vp = new ViewProject("", 0, 0, 0);
+                    vp.spending = soumission[i].Spending;
+                    vp.soumission = soumission[i].amount;
+                    vp.depenceP = estimation[i].amount;
+                    ListVP.Add(vp);
+                }
             }
             return ListVP;
         }
 
         public double Getmarge(int id)
-        {            
+        {
             List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(GetLastProjection(id).FuInfo);
-            foreach(var item in infos)
+            foreach (var item in infos)
             {
-                if(item.Spending == "MargeSoumis")
+                if (item.Spending == "MargeSoumis")
                 {
                     return item.amount;
                 }
@@ -209,9 +230,18 @@ namespace Solutios.Models
             return 0;
         }
 
+        public double GetmargeEstime(int id)
+        {
+            List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(GetLastProjection(id).FuInfo);
+            foreach (var item in infos)
+            {
+                if (item.Spending == "MargeProjeter")
+                {
+                    return item.amount;
+                }
+            }
 
-
+            return 0;
+        }
     }
-
-
 }

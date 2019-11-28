@@ -33,7 +33,18 @@
                                             @Html.DisplayFor(modelItem => item.Spending)
                                         </td>
                                         <td>
-                                            <input id="Amount" name="Montant" required/>
+                                            @if (item.Spending == "MargeSoumis")
+                                            {
+                                                <input id="Amount" value="@item.amount" name="Montant" readonly required />
+                                            }
+                                            else if (item.Spending == "MargeProjeter")
+                                            {
+                                                <input id="Amount" value="@item.amount" name="Montant" readonly required />
+                                            }
+                                            else
+                                            {
+                                                <input id="Amount" name="Montant" required />
+                                            }
                                         </td>
                                     </tr>
                                 }
