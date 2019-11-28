@@ -3,15 +3,15 @@ $(function () {
 	//ajout d'une ligne
 	$('#add').click(function () {
 		$('<tr id="tablerow' + counter + '">' +
-				'<td>'+
-					'<input class="form-control" name="subName" type="text" placeholder="Entrer un nom..." />'+
-					'</td>'+
-			'<td>' +
-			'<input  class="form-control" name="subCost" type="number" placeholder="Entrer un montant..." />' +
-					'</td>'+
-				'<td>'+
-					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
+				'<td>' +
+					'<input class="form-control" name="subName' + counter + '" type="text" placeholder="Entrer un nom..." />' +
 				'</td>'+
+				'<td>' +
+					'<input  class="form-control" name="subCost" type="number' + counter + '" placeholder="Entrer un montant..." />' +
+				'</td>'+
+				/*'<td>'+
+					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
+				'</td>'+*/
 			'</tr>').appendTo('#tableSubExpenses');
 		counter;
 		return false;

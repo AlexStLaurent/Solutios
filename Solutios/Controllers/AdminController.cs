@@ -144,6 +144,7 @@ namespace Solutios.Controllers
         public IActionResult Addprojet(IFormCollection formCollection)
         {
             ProjectFollowUp projectFollowUp = new ProjectFollowUp();
+            ProjectExpense projectExpense = new ProjectExpense();
 
             Project p = new Project();
             p.ProjectName = formCollection["ProjectName"];
@@ -161,11 +162,20 @@ namespace Solutios.Controllers
             follow.FuDate = DateTime.Now;
             follow.FuInfo = JsonConvert.SerializeObject(soumission);
 
-            _context.Add(follow);
-            _context.SaveChanges();
-            projectFollowUp.PfFollowUpId = follow.FuId;
+            Expense expense = new Expense();
+            expense.ExpenseDate = DateTime.Now;
+            expense.JsonExpenseInfo = JsonConvert.SerializeObject(soumission);
 
+            _context.Add(follow);
+            _context.Add(expense);
+            _context.SaveChanges();
+
+            projectFollowUp.PfFollowUpId = follow.FuId;
             projectFollowUp.PfProject = p;
+
+            projectExpense.PeExpenseId = expense.ExpenseId;
+            projectExpense.PeProject = p;
+            
 
 
             p.ProjectSoumission = JsonConvert.SerializeObject(soumission);
@@ -174,7 +184,9 @@ namespace Solutios.Controllers
             projectmanager.addProjet(p);
 
             projectFollowUp.PfFollowUp = follow;
+            projectExpense.PeExpense = expense;
             _context.ProjectFollowUp.Add(projectFollowUp);
+            _context.ProjectExpense.Add(projectExpense);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -204,9 +216,19 @@ namespace Solutios.Controllers
             {
                 ViewData["Projection"] = p.listProjectSoumission();
             }
+            if (projectmanager.GetLastExpense(id) != null)
+            {
+                ViewData["Expense"] = JsonConvert.DeserializeObject<List<ExpenseInfo>>(projectmanager.GetLastExpense(id).JsonExpenseInfo);
+            }
+            else
+            {
+                ViewData["Expense"] = p.listProjectSoumission();
+            }
+
 
             return View(projectmanager.viewProjet(id));
         }
+
         [Authorize]
         public IActionResult profil()
         {
