@@ -16,6 +16,7 @@ namespace Solutios.Controllers
 {
     public class AdminController : Controller
     {
+        const int Archived = 5;
         private readonly ProjetSolutiosContext _context;
         UserManager usermanager;
         ProjectManager projectmanager = new ProjectManager();
@@ -194,8 +195,42 @@ namespace Solutios.Controllers
         [Authorize]
         public IActionResult Archive()
         {
-            return View();
+            return View(usermanager.showArchivedProject());
         }
+
+        public IActionResult ProjetArchive(int id)
+        {
+            Project p = projectmanager.getProjet(id);
+            ViewData["tendance"] = projectmanager.tendance(id);
+            ViewData["date"] = projectmanager.date(id);
+            ViewData["id"] = id;
+            ViewData["graphbar"] = projectmanager.graphbar(id);
+            ViewData["Nomdepense"] = projectmanager.nomdépense(id);
+            ViewData["soumission"] = projectmanager.soumission(id);
+            if (projectmanager.GetLastProjection(id) != null)
+            {
+                ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
+            }
+            else
+            {
+                ViewData["Projection"] = p.listProjectSoumission();
+            }
+
+            return View(projectmanager.viewProjet(id));
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ArchiverProjet(int id)
+        {
+            Project projet = projectmanager.getProjet(id);
+            projet.ProjectStatus = Archived;
+            _context.Update(projet);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+
 
         [Authorize]
         [HttpGet]

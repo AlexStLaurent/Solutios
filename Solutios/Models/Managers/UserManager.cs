@@ -17,6 +17,9 @@ namespace Solutios.Models
     public class UserManager
     {
         private readonly ProjetSolutiosContext solutiosContext;
+
+        const int Archived = 5;
+
         private ProjectManager ProjectManager;
 
 
@@ -65,19 +68,19 @@ namespace Solutios.Models
         {
 
         }
-      public void AddUser(Users user)
+        public void AddUser(Users user)
         {
-           
-                solutiosContext.Add(user);
-                solutiosContext.SaveChanges();
-            
-            
+
+            solutiosContext.Add(user);
+            solutiosContext.SaveChanges();
+
+
         }
 
         public List<Project> UserProjet(Users userr)
         {
             List<Project> listeProjetUser = new List<Project>();
-            if(userr.UserProjet != null)
+            if (userr.UserProjet != null)
             {
                 List<UserProjet> n = JsonConvert.DeserializeObject<List<UserProjet>>(userr.UserProjet);
                 foreach (UserProjet user_p in n)
@@ -85,7 +88,7 @@ namespace Solutios.Models
                     Project p = solutiosContext.Project.Find(user_p.ProjectId);
                     listeProjetUser.Add(p);
                 }
-            }          
+            }
 
             return listeProjetUser;
         }
@@ -102,7 +105,36 @@ namespace Solutios.Models
 
         public List<Project> showAllProject()
         {
-            return solutiosContext.Project.ToList();
+            List<Project> projects = solutiosContext.Project.ToList();
+            List<Project> current = new List<Project>();
+
+            foreach (Project p in projects)
+            {
+                if (p.ProjectStatus != Archived)
+                {
+                    current.Add(p);
+                }
+            }
+
+            return current;
+
+        }
+
+        public List<Project> showArchivedProject()
+        {
+            List<Project> projects = solutiosContext.Project.ToList();
+            List<Project> archive = new List<Project>();
+
+            foreach (Project p in projects)
+            {
+                if (p.ProjectStatus == Archived)
+                {
+                    archive.Add(p);
+                }
+
+            }
+
+            return archive;
         }
 
         public string SerialiseUserProjet(List<UserProjet> userProjets)

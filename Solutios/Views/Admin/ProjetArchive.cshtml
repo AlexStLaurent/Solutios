@@ -1,15 +1,16 @@
 ﻿
 @{
-    ViewData["Title"] = "Projet";
+
+    ViewData["Title"] = "Projet Archivé";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
     List<string> tendance = ViewData["tendance"] as List<string>;
-
 }
 
-<!-- Info rapids -->
+<h2>ProjetArchive</h2>
+
 <div class="row">
     <!-- carte de Complétion -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-4 col-md-6 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -17,21 +18,14 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Complétion</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">100%</div>
                             </div>
                             <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                Complété
                             </div>
                         </div>
                     </div>
                     <div class="col-auto">
-                        <form>
-                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
-
-                            <button type="button" data-toggle="modal" data-target="#modalConfirmFinish" class="fas fa-flag-checkered fa-2x text-gray-500"></button>
-                            </form>
                     </div>
                 </div>
             </div>
@@ -39,12 +33,12 @@
     </div>
 
     <!-- carte de Marge de profit Projectée -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-4 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Projectée</div>
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Finale</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">$ 28,299.81</div>
                     </div>
                     <div class="col-auto">
@@ -56,12 +50,12 @@
     </div>
 
     <!-- carte de profit soumit -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-4 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Marge de profit Soumit</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Marge de profit Soumis</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">$ 18,500</div>
                     </div>
                     <div class="col-auto">
@@ -75,7 +69,7 @@
 
 
     <!-- carte de notifications liées au projet -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div hidden class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -83,12 +77,7 @@
                         <div class="h6 font-weight-bold text-warning text-uppercase mb-1">Ajouter une projection</div>
                     </div>
                     <div class="col-auto">
-                        <form>
-                                                        <input hidden="hidden" value="@ViewData["id"]" name="id" />
-                            <button type="button" class="fas fa-folder-plus fa-2x text-gray-300" data-toggle="modal" data-target="#modalEstimates">
-                            </button>
-
-                        </form>
+                       
                     </div>
                 </div>
             </div>
@@ -105,7 +94,7 @@
     <!--Table de la soumission -->
     <!--******************************************************************************************************-->
     @{
-        Html.RenderPartial("Partiel/_partielSoumission");
+        Html.RenderPartial("Partiel/_partielSoumissionArchive");
     }
 
     <!--******************************************************************************************************-->
@@ -166,17 +155,6 @@
 </div>
 
 
-<div class="modal" id="modalEstimates">
-    @{
-        Html.RenderPartial("Partiel/Projection", ViewData["Projection"]);
-    }
-</div>
-
-<div class="modal" id="modalConfirmFinish">
-    @{ 
-        Html.RenderPartial("Partiel/_ConfirmFinish", ViewData["Projection"]);
-    }
-</div>
 
 <!-- Page level plugins -->
 <script src="~/vendor/chart.js/Chart.min.js"></script>
@@ -216,7 +194,7 @@ var myLineChart = new Chart(ctxx, {
 	type: 'line',
 	data: {
         labels: @Html.Raw((ViewData["date"])),
-            datasets: [            
+            datasets: [
             @foreach(var item in tendance)
             {
             <text>
@@ -236,7 +214,7 @@ var myLineChart = new Chart(ctxx, {
                 data: @item,
             },
             </text>
-            }      
+            }
 		],
 	},
 	options: {
@@ -265,7 +243,7 @@ var myLineChart = new Chart(ctxx, {
 			yAxes: [{
 				ticks: {
 					maxTicksLimit: 5,
-                    padding: 10,                    
+                    padding: 10,
                     min:0,
 					// Include a dollar sign in the ticks
 					callback: function (value, index, values) {
