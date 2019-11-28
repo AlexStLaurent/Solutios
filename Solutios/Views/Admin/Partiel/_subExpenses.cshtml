@@ -1,13 +1,13 @@
-﻿@*@model IEnumerable<Solutios.Models.subExpense>*@
+﻿@model List<Solutios.Models.FollowInfo>
 <form>
 	<table class="table" id="tableSubExpenses">
 		<thead>
 			<tr>
 				<th>
-					Dépense@*@Html.DisplayNameFor(model => model.name)*@
+					Dépense 
 				</th>
 				<th>
-					Coûts@*@Html.DisplayNameFor(model => model.cost)*@
+					Coût 
 				</th>
 			</tr>
 		</thead>
@@ -16,10 +16,10 @@
 				{
 			<tr id="tablerow0">
 				<td>
-					<input class="form-control" name="subName + 0" type="text" placeholder="Entrer un nom..." />@*@Html.DisplayFor(modelItem => item.id)*@
+					<input class="form-control" name="subName + 0" type="text" value="@Html.DisplayFor(modelItem => item.Spending)" />
 				</td>
 				<td>
-					<input  class="form-control" name="subCost" type="number" placeholder="Entrer un montant..." />@*@Html.DisplayFor(modelItem => item.name)*@
+					<input  class="form-control" name="subCost" type="number" value="@Html.DisplayFor(modelItem => item.amount)" />
 				</td>
 				
 			</tr>

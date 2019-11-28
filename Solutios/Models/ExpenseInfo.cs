@@ -7,11 +7,11 @@ namespace Solutios.Models
 {
     public class ExpenseInfo
     {
-        public string name { get; set;}
+        public string Spending { get; set;}
 
-        public double cost { get; set;}
+        public double amount { get; set;}
 
-        //public List<subExpense> subExpenses { get; set; }
+        public List<FollowInfo> subExpenses { get; set; }
 
     }
 }

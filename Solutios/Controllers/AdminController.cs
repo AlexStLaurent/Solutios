@@ -161,9 +161,24 @@ namespace Solutios.Controllers
             follow.FuDate = DateTime.Now;
             follow.FuInfo = JsonConvert.SerializeObject(soumission);
 
+            List<ExpenseInfo> expenseInfo = new List<ExpenseInfo>();
+            foreach (var item in soumission)
+            {
+                ExpenseInfo expenses = new ExpenseInfo();
+                List<FollowInfo> subex = new List<FollowInfo>();
+                FollowInfo ex = new FollowInfo();
+                expenses.Spending = item.Spending;
+                expenses.amount = item.amount;
+                ex.Spending = "Title";
+                ex.amount = 0;
+                subex.Add(ex);
+                expenses.subExpenses = subex;
+                expenseInfo.Add(expenses);
+            }
+
             Expense expense = new Expense();
             expense.ExpenseDate = DateTime.Now;
-            expense.JsonExpenseInfo = JsonConvert.SerializeObject(expense);
+            expense.JsonExpenseInfo = JsonConvert.SerializeObject(expenseInfo);
 
             _context.Add(follow);
             _context.Add(expense);
