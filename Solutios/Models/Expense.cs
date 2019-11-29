@@ -16,16 +16,16 @@ namespace Solutios.Models
         public DateTime? ExpenseDate { get; set; }
         public string JsonExpenseInfo { get; set; }
 
-        public List<FollowInfo> listProjectSoumission()
+        /*public List<ExpenseInfo> listProjectSoumission()
         {
-            List<FollowInfo> followInfos = new List<FollowInfo>();
+            List<ExpenseInfo> expenseInfos = new List<ExpenseInfo>();
             if (JsonExpenseInfo != null)
             {
-                followInfos = JsonConvert.DeserializeObject<List<FollowInfo>>(JsonExpenseInfo);
+                expenseInfos = JsonConvert.DeserializeObject<List<ExpenseInfo>>(JsonExpenseInfo);
             }
 
-            return followInfos;
-        }
+            return expenseInfos;
+        }*/
 
         public ICollection<ProjectExpense> ProjectExpense { get; set; }
     }

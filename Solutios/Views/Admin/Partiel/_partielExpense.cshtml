@@ -29,13 +29,14 @@
 										@item.amount
 									</td>
 									<td colspan="1">
-										<a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#demo1">Consulter</a>
+										<a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#@item.Spending">Consulter</a>
 									</td>
 								</tr>
 
 								<tr>
 									<td colspan="6" class="hiddenRow">
-										<div class="accordian-body collapse" id="demo1">
+										<div class="accordian-body collapse" id="@item.Spending">
+
 											@{await Html.RenderPartialAsync("Partiel/_subExpenses",item.subExpenses);}
 										</div>
 									</td>
