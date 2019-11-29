@@ -1,7 +1,7 @@
 ﻿var counter = 1;
 $(function () {
 	//ajout d'une ligne
-	$('#add').click(function () {
+    (function AddTR  (name) {
 		$('<tr id="tablerow' + counter + '">' +
 				'<td>' +
 					'<input class="form-control" name="subName' + counter + '" type="text" placeholder="Entrer un nom..." />' +
@@ -12,7 +12,7 @@ $(function () {
 				/*'<td>'+
 					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
 				'</td>'+*/
-			'</tr>').appendTo('#tableSubExpenses');
+            '</tr>').appendTo('#tableSubExpenses' + name);
 		counter;
 		return false;
 	});
