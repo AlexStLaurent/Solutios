@@ -168,7 +168,7 @@ namespace Solutios.Controllers
                 List<FollowInfo> subex = new List<FollowInfo>();
                 FollowInfo ex = new FollowInfo();
                 expenses.Spending = item.Spending;
-                expenses.amount = item.amount;
+                expenses.amount = 0;
                 ex.Spending = "Title";
                 ex.amount = 0;
                 subex.Add(ex);
