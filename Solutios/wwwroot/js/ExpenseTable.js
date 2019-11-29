@@ -1,7 +1,7 @@
 ﻿var counter = 1;
-$(function () {
-	//ajout d'une ligne
-    (function AddTR  (name) {
+function addTR(name) {
+
+    alert(name);
 		$('<tr id="tablerow' + counter + '">' +
 				'<td>' +
 					'<input class="form-control" name="subName' + counter + '" type="text" placeholder="Entrer un nom..." />' +
@@ -12,11 +12,13 @@ $(function () {
 				/*'<td>'+
 					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
 				'</td>'+*/
-            '</tr>').appendTo('#tableSubExpenses' + name);
+			'</tr>').appendTo("#Table"+name);
 		counter;
 		return false;
-	});
-});
+	}
+
+
+
 function removeTr(index) {
 	if (counter > 1) {
 		$('#tablerow' + index).remove();
