@@ -1,5 +1,6 @@
-﻿@*@model IEnumerable<Solutios.Models.ExpenseInfo>*@
-@model IEnumerable<Solutios.Models.FollowInfo>
+﻿
+@model IEnumerable<Solutios.Models.ExpenseInfo>
+
 <div class="modal-content">
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4" ">
@@ -23,10 +24,10 @@
 							{
 								<tr class="table-row">
 									<td colspan="1">
-										@item.Spending
+										@item.name
 									</td>
 									<td colspan="1">
-										60,000
+										@item.cost
 									</td>
 									<td colspan="1">
 										<a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#demo1">Consulter</a>

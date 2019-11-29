@@ -14,7 +14,7 @@ namespace Solutios.Models
             ProjectFollowUp = new HashSet<ProjectFollowUp>();
         }
 
-        
+
         public int ProjectId { get; set; }
         [Required]
         public string ProjectName { get; set; }
@@ -32,6 +32,17 @@ namespace Solutios.Models
             }
 
             return followInfos;
+        }
+
+        public List<ExpenseInfo> ListProjectExpense()
+        {
+            List<ExpenseInfo> expenseInfos = new List<ExpenseInfo>();
+            if (ProjectSoumission != null)
+            {
+                expenseInfos = JsonConvert.DeserializeObject<List<ExpenseInfo>>(ProjectSoumission);
+            }
+
+            return expenseInfos;
         }
 
         public ICollection<ProjectExpense> ProjectExpense { get; set; }

@@ -257,7 +257,7 @@ namespace Solutios.Controllers
             }
             else
             {
-                ViewData["Expense"] = p.listProjectSoumission();
+                ViewData["Expense"] = p.ListProjectExpense();
             }
 
 
