@@ -200,7 +200,7 @@ namespace Solutios.Models
             {
                 ProjectExpense p = solutiosContext.ProjectExpense.LastOrDefault(e => e.PeProjectId == i);
 
-                return solutiosContext.Expense.LastOrDefault(c => c.ExpenseId == p.PeId);
+                return solutiosContext.Expense.LastOrDefault(c => c.ExpenseId == p.PeExpenseId);
             }
             else
             {
