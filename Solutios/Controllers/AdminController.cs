@@ -255,7 +255,6 @@ namespace Solutios.Controllers
             ViewData["id"] = id;
             ViewData["graphbar"] = projectmanager.graphbar(id);
             ViewData["Nomdepense"] = projectmanager.nomdépense(id);
-            ViewData["soumission"] = projectmanager.soumission(id);
             ViewData["margeS"] = projectmanager.Getmarge(id);
             ViewData["margeE"] = projectmanager.GetmargeEstime(id);
             if (projectmanager.GetLastProjection(id) != null)

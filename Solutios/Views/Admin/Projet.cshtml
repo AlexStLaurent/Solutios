@@ -486,10 +486,10 @@ function number_format(number, decimals, dec_point, thousands_sep) {
             labels: Nomdepense,//nom des colonnes
             datasets: [{
                 label: "Soumission",
-                backgroundColor: "#424242",
+                backgroundColor:@Html.Raw(graphbar.soumissionColor),
                 hoverBackgroundColor: "#666666",
                 borderColor: "#4e73df",
-                data: @Html.Raw((ViewData["soumission"])),//valeurs des colonnes
+                data: @graphbar.soumission,//valeurs des colonnes
             },
             {
                 label: "Projection",
