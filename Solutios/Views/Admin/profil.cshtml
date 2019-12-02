@@ -2,6 +2,33 @@
 @{
     ViewData["Title"] = "profil";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    string zip = Model.UserZipcode;
+    string address = Model.UserAddress;
+    string address2 = Model.UserAddress2;
+    string city = Model.UserCity;
+    string province = Model.UserProvince;
+
+    if (zip == null)
+    {
+        zip = "Aucun Défini";
+    }
+    if (address == null)
+    {
+        address = "Aucune Définie";
+    }
+    if (address2 == null)
+    {
+        address2 = "Aucune Définie";
+    }
+    if (city == null)
+    {
+        city = "Aucune Définie";
+    }
+    if (province == null)
+    {
+        province = "Aucun Défini";
+    }
+
 }
 
 <h2>Profil</h2>
@@ -29,24 +56,24 @@
                 </div>
                 <div class="form-group">
                     <label for="txtAddress1">Addresse :</label>
-                    <label id="txtAddress1">@Model.UserAddress</label>
+                    <label id="txtAddress1">@address</label>
 </div>
                 <div class="form-group">
                     <label for="txtAddress2">Addresse 2 :</label>
-                    <label id="txtAddress2"> Aucune </label>
+                    <label id="txtAddress2"> @address2 </label>
                 </div>
                 <div class="row">
                     <div class="col-md-4"­>
                         <label for="inputCity">Ville :</label>
-                        <label id="txtCity">Gatineau</label>
+                        <label id="txtCity">@city</label>
                     </div>
                     <div class="col-md-4">
                         <label for="txtProvince">Province :</label>
-                        <label>Québec</label>
+                        <label>@province</label>
                     </div>
                     <div class="col-md-4">
                         <label for="txtZip">Code Postal :</label>
-                        <label id="txtZip">A1A 1A1</label>
+                        <label id="txtZip">@zip</label>
                     </div>
                 </div>
 

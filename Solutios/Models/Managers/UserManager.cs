@@ -77,6 +77,11 @@ namespace Solutios.Models
 
         }
 
+        public void UpdateUser(Users user)
+        {
+            solutiosContext.Update(user);
+            solutiosContext.SaveChanges();
+        }
         public List<Project> UserProjet(Users userr)
         {
             List<Project> listeProjetUser = new List<Project>();
