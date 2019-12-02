@@ -3,6 +3,7 @@
     ViewData["Title"] = "Projet";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
     List<ViewGraph> graphligne = ViewData["tendance"] as List<ViewGraph>;
+    List<ExpenseInfo> Expense = ViewData["Expense"] as List<ExpenseInfo>;
     ViewGraph graphbar = ViewData["graphbar"] as ViewGraph;
     @model List<ViewProject>;
 
@@ -175,9 +176,101 @@
 
             <div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="form">
-                    @{
-                        Html.RenderPartial("Partiel/_partielExpense",ViewData["Expense"]);@* va chercher le modal des depenses*@
-                    }
+
+                    @{int numberofrow = 0; }
+                    <form method="post" asp-action="AddExpense">
+                        <input type='hidden' Name='id' value="@ViewData["id"]">
+                        <div class="modal-content">
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Dépenses</h6>
+                                </div>
+                                <div class="card-body py-2">
+                                    <div class="table-responsive" style="height:auto">
+
+                                        <table class="table table-hover table-sm border shadow" id="TableRows" width="100%" cellspacing="0">
+                                            <thead class="card-header text-primary text-left">
+                                                <tr>
+                                                    <th>Nom</th>
+                                                    <th>Montant $</th>
+                                                    <th>Options</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody style="font-size:small" class="text-left">
+                                                @foreach (var item in Expense)
+                                                {
+                                                    <tr class="table-row">
+                                                        <td colspan="1">
+                                                            <input type='hidden' name="@item.Spending" value="@item.Spending">
+                                                            @item.Spending
+                                                        </td>
+                                                        <td colspan="1">
+                                                            @item.amount
+                                                        </td>
+                                                        <td colspan="1">
+                                                            <a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#SubExpenses@{@item.Spending}">Consulter</a>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td colspan="6" class="hiddenRow">
+                                                            <div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
+                                                                    <table class="table" id="Table@{@item.Spending}">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>
+                                                                                    Dépense
+                                                                                </th>
+                                                                                <th>
+                                                                                    Coût
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+
+                                                                            @{int counter = 0;}
+                                                                            @foreach (var subitem in item.subExpenses)
+                                                                            {
+                                                                                <tr id="tablerow@{@counter}">
+                                                                                    <td>
+                                                                                        <input class="form-control" id="subName@{@counter}" name="subName@{@counter}" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input class="form-control" id="subCost@{@counter}" name="subCost@{@counter}" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                                counter++;
+                                                                            }
+                                                                            <input type='hidden' id='numberofrow@{@item.Spending}' value="">
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <p>
+                                                                        <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending')">Ajouter</button>
+                                                                    </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    numberofrow++;
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                        <input type='hidden' id='numberofrow' value="@numberofrow">
+                                        <table id="TEST" name="TEST">
+                                        </table>
+                                        <div class="modal-footer">
+                                            <input type="submit" onclick="sendData()" class="btn btn-success" data-dismiss="modal" value="Save" />
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                            <input type="submit" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
