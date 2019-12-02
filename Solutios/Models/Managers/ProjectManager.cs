@@ -137,6 +137,7 @@ namespace Solutios.Models
             FollowUp follows = solutiosContext.FollowUp.Find(PfollowUps.PfFollowUpId);
 
             List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(follows.FuInfo);
+            List<FollowInfo> soumis = p.listProjectSoumission();
 
             string graphbar = "[";
             foreach (var item in infos)
@@ -149,15 +150,43 @@ namespace Solutios.Models
 
             string end = "]";
             graphbar += end;
-            string colorbar = "[";
-            foreach (var item in infos)
+            string colorsoumi = "[";
+            foreach (var item in soumis)
             {
                 if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
                 {
-                    colorbar = colorbar + '"'+item.color+'"' + ",";
+                    
+                    colorsoumi = colorsoumi + '"'+item.color+'"' + ",";
                 }
             }
+
+            colorsoumi += end;
+
+            string colorbar = "[";
+            for(int i = 0; i < soumis.Count; i++)
+            {
+                if ((soumis[i].Spending != "MargeSoumis") && (soumis[i].Spending != "MargeProjeter"))
+                {
+                    if(soumis[i].amount == infos[i].amount)
+                    {
+                        colorbar = colorbar + '"' + "#f4b30d" + '"' + ",";
+                    }
+                    else if (soumis[i].amount < infos[i].amount)
+                    {
+                        colorbar = colorbar + '"' + "#e02d1b" + '"' + ",";
+                    }
+                    else if (soumis[i].amount > infos[i].amount)
+                    {
+                        colorbar = colorbar + '"' + "#1cc88a" + '"' + ",";
+                    }
+
+                }
+            }
+
             colorbar += end;
+
+            vg.soumission = soumission(id);
+            vg.soumissionColor = colorsoumi;
             vg.data = graphbar;
             vg.color = colorbar;
             return vg;

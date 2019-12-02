@@ -66,7 +66,7 @@ $(document).ready(function () {
 });
 
 
-function addTR(name) {
+/*function addTR(name) {
 
     alert(name);
     $('<tr id="tablerow' + counter + '">' +
@@ -78,8 +78,8 @@ function addTR(name) {
         '</td>' +
         /*'<td>'+
             '<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
-        '</td>'+*/
+        '</td>'+*//*
         '</tr>').appendTo("#Table" + name);
     counter;
     return false;
-}
+}*/
