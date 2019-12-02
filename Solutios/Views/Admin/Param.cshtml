@@ -2,7 +2,53 @@
 @{
     ViewData["Title"] = "Param";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    @model Users;
 }
 
 <h2>Paramètre du compte</h2>
+<div class="row">
+    <a class="text-primary" data-toggle="modal" data-target="#ChangePassword">Changer votre mot de passe</a>
+</div>
+<div class="row">
+    <a class="text-primary" data-toggle="modal" data-target="#editUser">Changer vos informations personnelles</a>
+</div>
 
+<div class="modal" id="editUser">
+    @{ Html.RenderPartial("Partiel/_partielEditUserInfo", Model); }
+</div>
+
+<div class="modal" id="ChangePassword">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Changement de mot de passe</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Changer votre mot de passe</div>
+            <form method="post">
+                <div class="row">
+                    <input hidden value="@Model.UserId" />
+                </div>
+                <br />
+                <div class="row">
+                     <label class="col-md-7">Ancien mot de passe :  </label><input required name="OldPassword" />
+                </div>
+                <br />
+                <div class="row">
+                      <label class="col-md-7">Nouveau mot de passe : </label><input required name="NewPassword" />
+                </div>
+                <br />
+                <div class="row">
+                     <label class="col-md-7">Confirmer le nouveau mot de passe : </label><input required name="ConfirmPassword" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary" asp-controller="Admin" asp-action="ChangerMdP">Changer le mot de passe</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

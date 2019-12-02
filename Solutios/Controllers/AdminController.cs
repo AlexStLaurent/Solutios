@@ -29,15 +29,18 @@ namespace Solutios.Controllers
         }
         [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
-        {        
+        {
             return View(usermanager.showIndexProjet(usermanager.showAllProject()));
         }
 
         [Authorize]
         public IActionResult Param()
         {
+            var Claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
 
-            return View();
+            string id = Claim.Value;
+            Users user = usermanager.FindUserByID(id);
+            return View(user);
         }
 
         [Authorize]
@@ -223,7 +226,7 @@ namespace Solutios.Controllers
 
             projectExpense.PeExpenseId = expense.ExpenseId;
             projectExpense.PeProject = p;
-            
+
 
 
             p.ProjectSoumission = JsonConvert.SerializeObject(soumission);
@@ -342,6 +345,17 @@ namespace Solutios.Controllers
         }
 
         [HttpPost]
+        public IActionResult EditUsers(Users user)
+        {
+            if (ModelState.IsValid)
+            { 
+                usermanager.UpdateUser(user);
+                return Redirect("/Admin/Param");
+
+            }
+            else return RedirectToAction("Error");
+        }
+        [HttpPost]
         public IActionResult Saveee(string objectArray)
         {
             List<FollowInfo> followInfo = new List<FollowInfo>();
@@ -352,6 +366,24 @@ namespace Solutios.Controllers
         public IActionResult Error()
         {
             return View("Error", new ErrorViewModel());
+        }
+
+        public IActionResult ChangerMdP(IFormCollection form)
+        {
+            Users user = usermanager.FindUserByID(form["id"]);
+            if (form["OldPassWord"] == user.UserMdp)
+            {
+
+                if (form["NewPassword"] == form["ConfirmPassword"])
+                {
+                    user.UserMdp = form["NewPassword"];
+                    usermanager.UpdateUser(user);
+                    return RedirectToAction("Param");
+                }
+
+                return RedirectToAction("Param");
+            }
+            return RedirectToAction("Param");
         }
     }
 }
