@@ -21,7 +21,7 @@
 					<tbody style="font-size:small" class="text-left">
 						<form method="post">
 							@foreach (var item in Model)
-                            {
+							{
 								<tr class="table-row">
 									<td colspan="1">
 										@item.Spending
@@ -36,51 +36,44 @@
 
 								<tr>
 									<td colspan="6" class="hiddenRow">
-                                        <div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
-                                            
-                                            <form>
-                                                <table class="table" id="Table@{@item.Spending}" >
-                                                    <thead>
-                                                        <tr>
-                                                            <th>
-                                                                Dépense
-                                                            </th>
-                                                            <th>
-                                                                Coût
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (var subitem in item.subExpenses)
-                                                        {
-                                                            <tr id="tablerow0">
-                                                                <td>
-                                                                    <input class="form-control" name="subName + 0" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
-                                                                </td>
-                                                                <td>
-                                                                    <input class="form-control" name="subCost" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
-                                                                </td>
+										<div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
 
-                                                            </tr>
+											<form>
+												<table class="table" id="Table@{@item.Spending}">
+													<thead>
+														<tr>
+															<th>
+																Dépense
+															</th>
+															<th>
+																Coût
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														@foreach (var subitem in item.subExpenses)
+														{
+															<tr id="tablerow0">
+																<td>
+																	<input class="form-control" name="subName + 0" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
+																</td>
+																<td>
+																	<input class="form-control" name="subCost" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
+																</td>
 
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                                <p>
+															</tr>
 
-                                                    <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending')">Ajouter</button>
-</p>
+														}
+													</tbody>
+												</table>
+												<p>
 
-</form>
-
-
-
-
-</div>
-
-</td>
-
-</tr>
+													<button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending')">Ajouter</button>
+												</p>
+											</form>
+										</div>
+									</td>
+								</tr>
 							}
 						</form>
 					</tbody>
@@ -91,5 +84,5 @@
 			</div>
 		</div>
 	</div>
-
 </div>
+

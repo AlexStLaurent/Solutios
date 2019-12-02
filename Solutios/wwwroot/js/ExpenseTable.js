@@ -6,8 +6,8 @@ function addTR(name) {
 				'<td>' +
 					'<input class="form-control" name="subName' + counter + '" type="text" placeholder="Entrer un nom..." />' +
 				'</td>'+
-				'<td>' +
-					'<input  class="form-control" name="subCost" type="number' + counter + '" placeholder="Entrer un montant..." />' +
+			'<td>' +
+			'<input  class="form-control" name="subCost + ' + counter + '" type="number" placeholder="Entrer un montant..." />' +
 				'</td>'+
 				/*'<td>'+
 					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
