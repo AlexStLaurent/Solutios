@@ -29,15 +29,18 @@ namespace Solutios.Controllers
         }
         [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
-        {        
+        {
             return View(usermanager.showIndexProjet(usermanager.showAllProject()));
         }
 
         [Authorize]
         public IActionResult Param()
         {
+            var Claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
 
-            return View();
+            string id = Claim.Value;
+            Users user = usermanager.FindUserByID(id);
+            return View(user);
         }
 
         [Authorize]
@@ -108,28 +111,63 @@ namespace Solutios.Controllers
         [HttpPost]
         public IActionResult AddExpense(IFormCollection formCollection)
         {
+
+
             //variables
-            List<ExpenseInfo> expenseInfos = new List<ExpenseInfo>();//liste de depenses
+            //liste de depenses
             List<subExpense> subExpenses = new List<subExpense>();//liste de sous-depenses
             int count = 0;//pour aller chercher chaque element du formulaire
             double costTotal = 0;//pour le prix d'une depenses(addition de toute les sous-depenses d'une depense)
 
             //récupération de valeurs
             Project p = projectmanager.getProjet(Convert.ToInt32(formCollection["id"]));//va chercher le bon projet dans la BD
-            string[] subName = formCollection["subName"];//va chercher le nom donner a la sous-depense
-            string[] subCost = formCollection["subCost"];//va cherche le montant défini pour la sous-dépense
-
-
-            foreach (var item in subName)
+            List<ExpenseInfo> expenseInfos = new List<ExpenseInfo>();
+            int counter = 1;
+            foreach(var expense in p.listProjectSoumission())
             {
-                subExpense sub = new subExpense();//objet de type sous-depense qui va etre ajouter a la liste
-                sub.name = subName[count];//nom de l'item
-                sub.cost = Convert.ToDouble(subCost[count]);//prix de l'item
-                subExpenses.Add(sub);//ajout a la liste subExpenses
-
-                count++;//augment le compteur
-                costTotal += sub.cost;
+                ExpenseInfo ex = new ExpenseInfo();
+                FollowInfo[] follwlist = new JavaScriptSerializer().Deserialize<FollowInfo[]>(formCollection[counter.ToString()]);
+                List<FollowInfo> subex = new List<FollowInfo>();
+                double total = 0;
+                foreach (var item in follwlist)
+                {
+                    total += item.amount;
+                    subex.Add(item);
+                }
+                ex.Spending = expense.Spending;
+                ex.subExpenses = subex;
+                ex.amount = total;
+                expenseInfos.Add(ex);
+                counter++;
             }
+
+            Expense saveEx = new Expense();
+            saveEx.ExpenseDate = DateTime.Now;
+            saveEx.JsonExpenseInfo = JsonConvert.SerializeObject(expenseInfos);
+
+            ProjectExpense projectExpense = new ProjectExpense();
+            projectExpense.PeExpenseId = Convert.ToInt32(formCollection["id"]);
+            
+
+            _context.Add(saveEx);
+            _context.SaveChanges();
+            projectExpense.PeExpenseId = saveEx.ExpenseId;
+
+            projectExpense.PeProject = p;
+            projectExpense.PeExpense = saveEx;
+            _context.ProjectExpense.Add(projectExpense);
+            _context.SaveChanges();
+
+            //foreach (var item in subName)
+            //{
+            //    subExpense sub = new subExpense();//objet de type sous-depense qui va etre ajouter a la liste
+            //    sub.name = subName[count];//nom de l'item
+            //    sub.cost = Convert.ToDouble(subCost[count]);//prix de l'item
+            //    subExpenses.Add(sub);//ajout a la liste subExpenses
+
+            //    count++;//augment le compteur
+            //    costTotal += sub.cost;
+            //}
 
             return RedirectToAction("Projet", new { id = formCollection["id"] });
         }
@@ -189,7 +227,7 @@ namespace Solutios.Controllers
 
             projectExpense.PeExpenseId = expense.ExpenseId;
             projectExpense.PeProject = p;
-            
+
 
 
             p.ProjectSoumission = JsonConvert.SerializeObject(soumission);
@@ -308,6 +346,17 @@ namespace Solutios.Controllers
         }
 
         [HttpPost]
+        public IActionResult EditUsers(Users user)
+        {
+            if (ModelState.IsValid)
+            { 
+                usermanager.UpdateUser(user);
+                return Redirect("/Admin/Param");
+
+            }
+            else return RedirectToAction("Error");
+        }
+        [HttpPost]
         public IActionResult Saveee(string objectArray)
         {
             List<FollowInfo> followInfo = new List<FollowInfo>();
@@ -318,6 +367,24 @@ namespace Solutios.Controllers
         public IActionResult Error()
         {
             return View("Error", new ErrorViewModel());
+        }
+
+        public IActionResult ChangerMdP(IFormCollection form)
+        {
+            Users user = usermanager.FindUserByID(form["id"]);
+            if (form["OldPassWord"] == user.UserMdp)
+            {
+
+                if (form["NewPassword"] == form["ConfirmPassword"])
+                {
+                    user.UserMdp = form["NewPassword"];
+                    usermanager.UpdateUser(user);
+                    return RedirectToAction("Param");
+                }
+
+                return RedirectToAction("Param");
+            }
+            return RedirectToAction("Param");
         }
     }
 }

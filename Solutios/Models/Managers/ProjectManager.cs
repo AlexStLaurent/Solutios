@@ -246,6 +246,9 @@ namespace Solutios.Models
             FollowUp follow = solutiosContext.FollowUp.LastOrDefault(c => c.FuId == pfu.PfFollowUpId);
             List<FollowInfo> soumission = p.listProjectSoumission();
             List<FollowInfo> estimation = follow.deinfo();
+            ProjectExpense pex=solutiosContext.ProjectExpense.LastOrDefault(c => c.PeProjectId == id);
+            Expense ex = solutiosContext.Expense.LastOrDefault(c => c.ExpenseId == pex.PeExpenseId);
+            List<ExpenseInfo> expenseInfos = ex.Listexpenses();
             for (int i = 0; i < estimation.Count; i++)
             {
                 if ((soumission[i].Spending != "MargeSoumis") && (soumission[i].Spending != "MargeProjeter"))
@@ -254,6 +257,7 @@ namespace Solutios.Models
                     vp.spending = soumission[i].Spending;
                     vp.soumission = soumission[i].amount;
                     vp.depenceP = estimation[i].amount;
+                    vp.dépensecourrante = expenseInfos[i].amount;
                     ListVP.Add(vp);
                 }
             }

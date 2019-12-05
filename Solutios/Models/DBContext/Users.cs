@@ -21,22 +21,25 @@ namespace Solutios.Models
         [MinLength(2)]
         public string UserRole { get; set; }
         [Required]
-        
+
         public string UserMdp { get; set; }
-        [Required]
-        [MinLength(2)]
+
         public string UserPhone { get; set; }
-        [Required]
-        [MinLength(2)]
+
         public string UserAddress { get; set; }
+
+        [DisplayFormat(NullDisplayText ="Aucune")]
         public string UserAddress2 { get; set; }
-        [Required]
-        [MinLength(2)]
+       
+        
+        [DisplayFormat(NullDisplayText = "Non Défini")]
         public string UserZipcode { get; set; }
-        [Required]
-        [MinLength(2)]
+        
+        
+        [DisplayFormat(NullDisplayText = "Non Définie")]
         public string UserCity { get; set; }
-        [Required]
+        
+        [DisplayFormat(NullDisplayText = "Non Définie")]
         public string UserProvince { get; set; }
         public string UserProjet { get; set; }
     }

@@ -16,7 +16,7 @@ namespace Solutios.Models
         public DateTime? ExpenseDate { get; set; }
         public string JsonExpenseInfo { get; set; }
 
-        /*public List<ExpenseInfo> listProjectSoumission()
+        public List<ExpenseInfo> Listexpenses()
         {
             List<ExpenseInfo> expenseInfos = new List<ExpenseInfo>();
             if (JsonExpenseInfo != null)
@@ -25,7 +25,7 @@ namespace Solutios.Models
             }
 
             return expenseInfos;
-        }*/
+        }
 
         public ICollection<ProjectExpense> ProjectExpense { get; set; }
     }

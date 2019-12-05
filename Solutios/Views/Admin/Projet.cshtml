@@ -1,101 +1,102 @@
 ﻿
 @{
-	ViewData["Title"] = "Projet";
-	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-	List<ViewGraph> graphligne = ViewData["tendance"] as List<ViewGraph>;
-	ViewGraph graphbar = ViewData["graphbar"] as ViewGraph;
-	@model List<ViewProject>;
+    ViewData["Title"] = "Projet";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    List<ViewGraph> graphligne = ViewData["tendance"] as List<ViewGraph>;
+    List<ExpenseInfo> Expense = ViewData["Expense"] as List<ExpenseInfo>;
+    ViewGraph graphbar = ViewData["graphbar"] as ViewGraph;
+    @model List<ViewProject>;
 
 }
 
 <!-- Info rapids -->
 <div class="row">
-	<!-- carte de Complétion -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-info shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Complétion</div>
-						<div class="row no-gutters align-items-center">
-							<div class="col-auto">
-								<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-							</div>
-							<div class="col">
-								<div class="progress progress-sm mr-2">
-									<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-auto">
-						<form>
-							<input hidden="hidden" value="@ViewData["id"]" name="id" />
+    <!-- carte de Complétion -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Complétion</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <form>
+                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
 
-							<button type="button" data-toggle="modal" data-target="#modalConfirmFinish" class="fas fa-flag-checkered fa-2x text-gray-500" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: #36b9cc;"></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <button type="button" data-toggle="modal" data-target="#modalConfirmFinish" class="fas fa-flag-checkered fa-2x text-gray-500" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: #36b9cc;"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- carte de Marge de profit Projectée -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-success shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Projectée</div>
-						<div class="h5 mb-0 font-weight-bold text-gray-800" id="margeProjeter">$ </div>
-					</div>
-					<div class="col-auto">
-						<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- carte de Marge de profit Projectée -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div id="margecolor" class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div id="textColor"class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Projectée</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="margeProjeter">$ </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- carte de profit soumit -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-primary shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Marge de profit Soumit</div>
-						<div class="h5 mb-0 font-weight-bold text-gray-800">$ @ViewData["margeS"]</div>
-					</div>
-					<div class="col-auto">
-						<i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- carte de profit soumit -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Marge de profit Soumit</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ @ViewData["margeS"]</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
-	<!-- carte de notifications liées au projet -->
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-warning shadow h-100 py-2">
-			<div class="card-body">
-				<div class="row no-gutters align-items-center">
-					<div class="col mr-3 ">
-						<div class="h6 font-weight-bold text-warning text-uppercase mb-1">Ajouter une projection</div>
-					</div>
-					<div class="col-auto">
-						<form>
-							<input hidden="hidden" value="@ViewData["id"]" name="id" />
-							<button type="button" class="fas fa-folder-plus fa-2x text-gray-300" data-toggle="modal" data-target="#modalEstimates" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: #f6c23e;">
-							</button>
+    <!-- carte de notifications liées au projet -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-3 ">
+                        <div class="h6 font-weight-bold text-warning text-uppercase mb-1">Ajouter une projection</div>
+                    </div>
+                    <div class="col-auto">
+                        <form>
+                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
+                            <button type="button" class="fas fa-folder-plus fa-2x text-gray-300" data-toggle="modal" data-target="#modalEstimates" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: #f6c23e;">
+                            </button>
 
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- fin de infos rapids -->
@@ -104,220 +105,320 @@
 
 <div class="row">
 
-	<div class="col-xl-6">
-		<!--table de la soumissions-->
-		<div>
+    <div class="col-xl-6">
+        <!--table de la soumissions-->
+        <div>
 
-			<!-- DataTales Example -->
-			<div class="card shadow mb-4">
-				<div class="card-header py-2">
-					<h6 class="m-0 font-weight-bold text-primary">Dépense</h6>
-				</div>
-				<div class="card-body py-2">
-					<div class="table-responsive" style="height:auto">
-						<table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
-							<thead class="card-header text-primary text-center">
-								<tr>
-									<th></th>
-									<th>Montant Soumissionné</th>
-									<th>
-										Dépenses courantes
-										<a class="text-wrap text-primary" data-toggle="modal" data-target="#ExpenseModal">
-											<i class="far fa-plus-square"></i>
-										</a>
-									</th>
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <h6 class="m-0 font-weight-bold text-primary">Dépense</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="table-responsive" style="height:auto">
+                        <table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="card-header text-primary text-center">
+                                <tr>
+                                    <th></th>
+                                    <th>Montant Soumissionné</th>
+                                    <th>
+                                        Dépenses courantes
+                                        <a class="text-wrap text-primary" data-toggle="modal" data-target="#ExpenseModal">
+                                            <i class="far fa-plus-square"></i>
+                                        </a>
+                                    </th>
 
-									<th>Budget courant</th>
-								</tr>
-							</thead>
+                                    <th>Budget courant</th>
+                                </tr>
+                            </thead>
 
-							<tbody style="font-size:small" class="text-center">
-								@{
-									double soumission = 0;
-									double dépensecourrante = 0;
-									double budgetcourant = 0;
+                            <tbody style="font-size:small" class="text-center">
+                                @{
+                                    double soumission = 0;
+                                    double dépensecourrante = 0;
+                                    double budgetcourant = 0;
 
-								}
+                                }
 
-								@foreach (var item in Model)
-								{
-									<tr class="table-row">
-										<td>
-											@Html.DisplayFor(modelItem => item.spending)
-										</td>
-										<td>
-											@Html.DisplayFor(modelItem => item.soumission)
-											@{ soumission += item.soumission;}
-										</td>
-										<td>
-											@Html.DisplayFor(modelItem => item.dépensecourrante)
-											@{ dépensecourrante += item.dépensecourrante;}
-										</td>
-										<td>
-											@Html.DisplayFor(modelItem => item.budgetcourant)
-											@{ budgetcourant += item.budgetcourant;}
-										</td>
-									</tr>
-								}
-							</tbody>
-							<tfoot class="card-header text-primary text-center">
-								<tr>
-									<th>Total</th>
-									<th>@soumission</th>
-									<th>@dépensecourrante</th>
-									<th>@budgetcourant</th>
-								</tr>
-							</tfoot>
-						</table>
-					</div>
-				</div>
-			</div>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="table-row">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.spending)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.soumission)
+                                            @{ soumission += item.soumission;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.dépensecourrante)
+                                            @{ dépensecourrante += item.dépensecourrante;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.budgetcourant)
+                                            @{ budgetcourant += item.budgetcourant;}
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="card-header text-primary text-center">
+                                <tr>
+                                    <th>Total</th>
+                                    <th>@soumission</th>
+                                    <th>@dépensecourrante</th>
+                                    <th>@budgetcourant</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-			<div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-lg" role="form">
-					@{
-						Html.RenderPartial("Partiel/_partielExpense", ViewData["Expense"]);@* va chercher le modal des depenses*@
-					}
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="form">
 
-	<div class="col-xl-6">
-		<!--table des estimers-->
-		<div>
+                    
+                    <form method="post" asp-action="AddExpense">
+                        <input type='hidden' Name='id' value="@ViewData["id"]">
+                        <div class="modal-content">
+                            <!-- DataTales Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-2">
+                                    <h6 class="m-0 font-weight-bold text-primary">Dépenses</h6>
+                                </div>
+                                <div class="card-body py-2">
+                                    <div class="table-responsive" style="height:auto">
 
-			<!-- DataTales Example -->
-			<div class="card shadow mb-4">
-				<div class="card-header py-2">
-					<h6 class="m-0 font-weight-bold text-primary">Estimation</h6>
-				</div>
-				<div class="card-body py-2">
-					<div class="table-responsive" style="height:auto">
-						<table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
-							<thead class="card-header text-primary text-center">
-								<tr>
-									<th></th>
-									<th>Dépenses prévues</th>
-									<th>Budget estimé</th>
-									<th>Dépenses finales estimées</th>
-								</tr>
-							</thead>
+                                        <table class="table table-hover table-sm border shadow" id="TableRows" width="100%" cellspacing="0">
+                                            <thead class="card-header text-primary text-left">
+                                                <tr>
+                                                    <th>Nom</th>
+                                                    <th>Montant $</th>
+                                                    <th>Options</th>
+                                                </tr>
+                                            </thead>
 
-							<tbody style="font-size:small" class="text-center">
+                                            <tbody style="font-size:small" class="text-left">
+                                                @{int count = 1; }
+                                                @foreach (var item in Expense)
+                                                {
+                                                    <tr class="table-row">
+                                                        <td colspan="1">
+                                                            <input type='hidden' name="@item.Spending" value="@item.Spending">
+                                                            @item.Spending
+                                                        </td>
+                                                        <td colspan="1">
+                                                            @item.amount
+                                                        </td>
+                                                        <td colspan="1">
+                                                            <a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#SubExpenses@{@item.Spending}">Consulter</a>
+                                                        </td>
+                                                    </tr>
 
-								@{
-									double totaldepenceP = 0;
-									double budgetestime = 0;
-									double depenseFinaleE = 0;
+                                                    <tr>
+                                                        <td colspan="6" class="hiddenRow">
+                                                            <div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
+                                                                <table class="table" id="Table@{@item.Spending}">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Dépense
+                                                                            </th>
+                                                                            <th>
+                                                                                Coût
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
 
-								}
+                                                                        @{int counter = 1;}
+                                                                        @foreach (var subitem in item.subExpenses)
+                                                                        {
+                                                                            <tr id="tablerow@{@counter}">
+                                                                                <td>
+                                                                                    <input class="form-control" id="subName@(counter)@(item.Spending)" name="subName@{@counter}" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input class="form-control" id="subCost@(counter)@(item.Spending)" name="subCost@{@counter}" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            counter = counter + 1;
+                                                                        }
+                                                                        @{counter = counter - 1;}
+                                                                        <input type='hidden' id='@("rows"+count)' value="@counter">
+                                                                        <input type='hidden' id='@("item"+count)' value="@item.Spending">
+                                                                    </tbody>
+                                                                </table>
+                                                                <p>
+                                                                    <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending', @count)">Ajouter</button>
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
-								@foreach (var item in Model)
-								{
-									<tr class="table-row">
-										<td>
-											@Html.DisplayFor(modelItem => item.spending)
-										</td>
-										<td>
-											@Html.DisplayFor(modelItem => item.depenceP)
-											@{ totaldepenceP += item.depenceP;}
-										</td>
-										<td>
-											@Html.DisplayFor(modelItem => item.budgetestime)
-											@{ budgetestime += item.budgetestime;}
-										</td>
-										<td>
-											@Html.DisplayFor(modelItem => item.depenseFinaleE)
-											@{ depenseFinaleE += item.depenseFinaleE;}
-										</td>
-									</tr>
-								}
-							</tbody>
-							<tfoot class="card-header text-primary text-center">
-								<tr>
-									<th>Total</th>
-									<th>@totaldepenceP</th>
-									<th id="budjet">@budgetestime</th>
-									<th>@depenseFinaleE</th>
-								</tr>
-							</tfoot>
-						</table>
-					</div>
-				</div>
-			</div>
+                                                    count =count+1;
+                                                }
 
-		</div>
-	</div>
+                                            </tbody>
+                                        </table>
+                                        <input type='hidden' id='numberofrow' value="@count">
+                                        <table id="TEST" name="TEST">
+                                        </table>
+                                        <div class="modal-footer">
+                                            <input type="submit" onclick="sendData()" class="btn btn-success" data-dismiss="modal" value="Save" />
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                            <input type="submit" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <!--table des estimers-->
+        <div>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <h6 class="m-0 font-weight-bold text-primary">Estimation</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="table-responsive" style="height:auto">
+                        <table class="table table-hover table-sm border shadow" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="card-header text-primary text-center">
+                                <tr>
+                                    <th></th>
+                                    <th>Dépenses prévues</th>
+                                    <th>Budget estimé</th>
+                                    <th>Dépenses finales estimées</th>
+                                </tr>
+                            </thead>
+
+                            <tbody style="font-size:small" class="text-center">
+
+                                @{
+                                    double totaldepenceP = 0;
+                                    double budgetestime = 0;
+                                    double depenseFinaleE = 0;
+
+                                }
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="table-row">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.spending)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.depenceP)
+                                            @{ totaldepenceP += item.depenceP;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.budgetestime)
+                                            @{ budgetestime += item.budgetestime;}
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.depenseFinaleE)
+                                            @{ depenseFinaleE += item.depenseFinaleE;}
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="card-header text-primary text-center">
+                                <tr>
+                                    <th>Total</th>
+                                    <th>@totaldepenceP</th>
+                                    <th id="budjet">@budgetestime</th>
+                                    <th>@depenseFinaleE</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div><!--fin de la rangé du milieu-->
 
 <div class="row">
-	<!--******************************************************************************************************-->
-	<!--Graphique a bandes-->
-	<!--******************************************************************************************************-->
-	<div class="col-xl-6">
-		<!--table des projets-->
-		<div>
+    <!--******************************************************************************************************-->
+    <!--Graphique a bandes-->
+    <!--******************************************************************************************************-->
+    <div class="col-xl-6">
+        <!--table des projets-->
+        <div>
 
-			<div class="card shadow mb-4">
-				<div class="card-header p-2 ">
-					<h6 class="m-0 font-weight-bold text-primary">Soumission vs Projection</h6>
-				</div>
-				<div class="card-body py-2">
-					<div class="chart-bar" style="height:300px">
-						<canvas id="myBarChart"></canvas>
-					</div>
-				</div>
+            <div class="card shadow mb-4">
+                <div class="card-header p-2 ">
+                    <h6 class="m-0 font-weight-bold text-primary">Soumission vs Projection</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="chart-bar" style="height:300px">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
+                </div>
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-		<!--************************fin de graphique a bandes**************************************************-->
-	</div>
+        <!--************************fin de graphique a bandes**************************************************-->
+    </div>
 
-	<!--******************************************************************************************************-->
-	<!--Tableau de bord-->
-	<!--******************************************************************************************************-->
-	<div class="col-xl-6">
-		<div>
+    <!--******************************************************************************************************-->
+    <!--Tableau de bord-->
+    <!--******************************************************************************************************-->
+    <div class="col-xl-6">
+        <div>
 
-			<div class="card shadow mb-4">
-				<div class="card-header p-2 ">
-					<h6 class="m-0 font-weight-bold text-primary">Tendance</h6>
-				</div>
-				<div class="card-body py-2">
-					<div class="chart-area" style="height:300px">
-						<canvas id="myAreaChart"></canvas>
-					</div>
-				</div>
+            <div class="card shadow mb-4">
+                <div class="card-header p-2 ">
+                    <h6 class="m-0 font-weight-bold text-primary">Tendance</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="chart-area" style="height:300px">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </div>
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-		<!--************************fin de graphique a bandes**************************************************-->
-	</div>
+        <!--************************fin de graphique a bandes**************************************************-->
+    </div>
 </div>
 
 
 <div class="modal" id="modalEstimates">
-	@{
-		Html.RenderPartial("Partiel/Projection", ViewData["Projection"]);
-	}
+    @{
+        Html.RenderPartial("Partiel/Projection", ViewData["Projection"]);
+    }
 </div>
 
 <div class="modal" id="modalConfirmFinish">
-	@{
-		Html.RenderPartial("Partiel/_ConfirmFinish", ViewData["Projection"]);
-	}
+    @{
+        Html.RenderPartial("Partiel/_ConfirmFinish", ViewData["Projection"]);
+    }
 </div>
 
 <!-- Page level plugins -->
 <script src="~/vendor/chart.js/Chart.min.js"></script>
 <script src="~/js/ExpenseTable.js"></script>
 <script>
-    $('#margeProjeter').text(((@soumission - @dépensecourrante) + @ViewData["margeS"])+"$");
+    var total = (@soumission - @dépensecourrante) + @ViewData["margeS"];
+    $('#margeProjeter').text(total + "$");
+    if (total <= @ViewData["margeS"]) {
+        $('#margecolor').addClass("border-left-danger");
+        $('#textColor').addClass("text-danger");
+    }
 
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';

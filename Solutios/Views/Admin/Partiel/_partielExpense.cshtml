@@ -1,88 +1,100 @@
 ﻿@*@model IEnumerable<Solutios.Models.ExpenseInfo>*@
 @model IEnumerable<Solutios.Models.ExpenseInfo>
 @using System.Linq;
-<div class="modal-content">
-	<!-- DataTales Example -->
-	<div class="card shadow mb-4" ">
-		<div class="card-header py-2">
-			<h6 class="m-0 font-weight-bold text-primary">Dépenses</h6>
-		</div>
-		<div class="card-body py-2">
-			<div class="table-responsive" style="height:auto">
-				<table class="table table-hover table-sm border shadow" id="" width="100%" cellspacing="0">
-					<thead class="card-header text-primary text-left">
-						<tr>
-							<th>Nom</th>
-							<th>Montant $</th>
-							<th>Options</th>
-						</tr>
-					</thead>
 
-					<tbody style="font-size:small" class="text-left">
-						<form method="post">
-							@foreach (var item in Model)
-							{
-								<tr class="table-row">
-									<td colspan="1">
-										@item.Spending
-									</td>
-									<td colspan="1">
-										@item.amount
-									</td>
-									<td colspan="1">
-										<a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#SubExpenses@{@item.Spending}">Consulter</a>
-									</td>
-								</tr>
+@{int numberofrow = 0; }
+    <form method="post" asp-action="AddExpense">
+        <input type='hidden' Name='id' value="">
+        <div class="modal-content">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <h6 class="m-0 font-weight-bold text-primary">Dépenses</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="table-responsive" style="height:auto">
 
-								<tr>
-									<td colspan="6" class="hiddenRow">
-										<div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
+                        <table class="table table-hover table-sm border shadow" id="TableRows" width="100%" cellspacing="0">
+                            <thead class="card-header text-primary text-left">
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Montant $</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
 
-											<form>
-												<table class="table" id="Table@{@item.Spending}">
-													<thead>
-														<tr>
-															<th>
-																Dépense
-															</th>
-															<th>
-																Coût
-															</th>
-														</tr>
-													</thead>
-													<tbody>
-														@foreach (var subitem in item.subExpenses)
-														{
-															<tr id="tablerow0">
-																<td>
-																	<input class="form-control" name="subName + 0" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
-																</td>
-																<td>
-																	<input class="form-control" name="subCost" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
-																</td>
+                            <tbody style="font-size:small" class="text-left">
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="table-row">
+                                        <td colspan="1">
+                                            @item.Spending
+                                        </td>
+                                        <td colspan="1">
+                                            @item.amount
+                                        </td>
+                                        <td colspan="1">
+                                            <a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#SubExpenses@{@item.Spending}">Consulter</a>
+                                        </td>
+                                    </tr>
 
-															</tr>
+                                    <tr>
+                                        <td colspan="6" class="hiddenRow">
+                                            <div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
 
-														}
-														
-													</tbody>
-												</table>
-												<p>
-													<button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending')">Ajouter</button>
-												</p>
-											</form>
-										</div>
-									</td>
-								</tr>
-							}
-						</form>
-					</tbody>
-				</table>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+                                                <form>
+                                                    <table class="table" id="Table@{@item.Spending}">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Dépense
+                                                                </th>
+                                                                <th>
+                                                                    Coût
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
 
+                                                            @{int counter = 0;}
+                                                            @foreach (var subitem in item.subExpenses)
+                                                            {
+                                                                <tr id="tablerow@{@counter}">
+                                                                    <td>
+                                                                        <input class="form-control" id="subName@{@counter}" name="subName@{@counter}" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input class="form-control" id="subCost@{@counter}" name="subCost@{@counter}" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
+                                                                    </td>
+                                                                </tr>
+                                                                counter++;
+                                                            }
+                                                            <input type='hidden' id='numberofrow@{@item.Spending}' value="">
+                                                        </tbody>
+                                                    </table>
+                                                    <p>
+                                                        <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending')">Ajouter</button>
+                                                    </p>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    numberofrow++;
+                                }
+
+                            </tbody>
+                        </table>
+                        <input type='hidden' id='numberofrow' value="@numberofrow">
+                        <table id="TEST" name="TEST">
+                        </table>
+                        <div class="modal-footer">
+                            <input type="submit" onclick="sendData()" class="btn btn-success" data-dismiss="modal" value="Save" />
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <input type="submit" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
