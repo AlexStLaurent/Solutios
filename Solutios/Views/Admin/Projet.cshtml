@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-auto">
                         <form>
-                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
+                            <input hidden="hidden" value=`@ViewData["id"]` name="id" />
 
                             <button type="button" data-toggle="modal" data-target="#modalConfirmFinish" class="fas fa-flag-checkered fa-2x text-gray-500" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: #36b9cc;"></button>
                         </form>
@@ -179,7 +179,7 @@
 
                     
                     <form method="post" asp-action="AddExpense">
-                        <input type='hidden' Name='id' value="@ViewData["id"]">
+                        <input type='hidden' Name="id" value="@ViewData["id"]">
                         <div class="modal-content">
                             <!-- DataTales Example -->
                             <div class="card shadow mb-4">
@@ -245,12 +245,12 @@
                                                                             counter = counter + 1;
                                                                         }
                                                                         @{counter = counter - 1;}
-                                                                        <input type='hidden' id='@("rows"+count)' value="@counter">
-                                                                        <input type='hidden' id='@("item"+count)' value="@item.Spending">
+                                                                        <input type='hidden' id="@("rows"+count)" value="@counter">
+                                                                        <input type='hidden' id="@("item"+count)" value="@item.Spending">
                                                                     </tbody>
                                                                 </table>
                                                                 <p>
-                                                                    <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending', @count)">Ajouter</button>
+                                                                    <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR("@item.Spending", @count)">Ajouter</button>
                                                                 </p>
                                                             </div>
                                                         </td>
@@ -261,7 +261,7 @@
 
                                             </tbody>
                                         </table>
-                                        <input type='hidden' id='numberofrow' value="@count">
+                                        <input type='hidden' id="numberofrow" value="@count">
                                         <table id="TEST" name="TEST">
                                         </table>
                                         <div class="modal-footer">
@@ -616,7 +616,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 		scales: {
 			xAxes: [{
 				time: {
-					unit: 'name'
+					unit: "name"
 				},
 				gridLines: {
 					display: false,

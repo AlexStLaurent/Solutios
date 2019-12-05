@@ -36,7 +36,7 @@ function removeTr(index) {
 
 function CheckTable(counter) {
     for (var i = 1; i <= counter; i++) {
-        subName = $("#subName" + i).val();
+        subName = $("#subName" + i).val().replace(/ /g,"_");
         subCost = $("#subCost" + i).val();
         if (subCost == "" || subName == "" ) {
             return true            
@@ -53,7 +53,7 @@ function sendData() {
         cellname = $("#item" + i).val();
 
         for (var j = 1; j <= numberofcell; j++) {
-            subName = $("#subName" + j + cellname).val();
+            subName = $("#subName" + j + cellname).val().replace(/ /g, "_");
             subCost = $("#subCost" + j + cellname).val();
             if (subCost != "" || subName != "") {
                 var tablestr = { Spending: subName, amount: subCost, color: "#FFFF" }
