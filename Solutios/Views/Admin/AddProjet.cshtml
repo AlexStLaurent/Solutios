@@ -7,7 +7,7 @@
 <h2>Ajouter un projet</h2>
 
 <script src="~/js/site.js"></script>
-<form asp-action="AddExpense" method="post">
+<form asp-action="Addprojet" method="post">
     <div class="row">
         <div class="col-lg-2">Nom du Projet:</div><div class="col-lg-4"><input id="txtNomProjet" name="ProjectName" required /></div>
         @{ Html.RenderPartial("Partiel/ChooseProjectManager", ViewData["Users"]); }

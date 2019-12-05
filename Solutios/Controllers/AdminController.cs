@@ -138,6 +138,7 @@ namespace Solutios.Controllers
                 ex.subExpenses = subex;
                 ex.amount = total;
                 expenseInfos.Add(ex);
+                counter++;
             }
 
             Expense saveEx = new Expense();

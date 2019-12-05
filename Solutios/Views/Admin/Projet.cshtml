@@ -43,11 +43,11 @@
 
     <!-- carte de Marge de profit Projectée -->
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+        <div id="margecolor" class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Projectée</div>
+                        <div id="textColor"class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Projectée</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800" id="margeProjeter">$ </div>
                     </div>
                     <div class="col-auto">
@@ -177,7 +177,7 @@
             <div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="form">
 
-                    @{int numberofrow = 0; }
+                    
                     <form method="post" asp-action="AddExpense">
                         <input type='hidden' Name='id' value="@ViewData["id"]">
                         <div class="modal-content">
@@ -199,6 +199,7 @@
                                             </thead>
 
                                             <tbody style="font-size:small" class="text-left">
+                                                @{int count = 1; }
                                                 @foreach (var item in Expense)
                                                 {
                                                     <tr class="table-row">
@@ -217,48 +218,50 @@
                                                     <tr>
                                                         <td colspan="6" class="hiddenRow">
                                                             <div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
-                                                                    <table class="table" id="Table@{@item.Spending}">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>
-                                                                                    Dépense
-                                                                                </th>
-                                                                                <th>
-                                                                                    Coût
-                                                                                </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
+                                                                <table class="table" id="Table@{@item.Spending}">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Dépense
+                                                                            </th>
+                                                                            <th>
+                                                                                Coût
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
 
-                                                                            @{int counter = 0;}
-                                                                            @foreach (var subitem in item.subExpenses)
-                                                                            {
-                                                                                <tr id="tablerow@{@counter}">
-                                                                                    <td>
-                                                                                        <input class="form-control" id="subName@{@counter}" name="subName@{@counter}" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input class="form-control" id="subCost@{@counter}" name="subCost@{@counter}" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
-                                                                                    </td>
-                                                                                </tr>
-                                                                                counter++;
-                                                                            }
-                                                                            <input type='hidden' id='numberofrow@{@item.Spending}' value="">
-                                                                        </tbody>
-                                                                    </table>
-                                                                    <p>
-                                                                        <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending')">Ajouter</button>
-                                                                    </p>
+                                                                        @{int counter = 1;}
+                                                                        @foreach (var subitem in item.subExpenses)
+                                                                        {
+                                                                            <tr id="tablerow@{@counter}">
+                                                                                <td>
+                                                                                    <input class="form-control" id="subName@(counter)@(item.Spending)" name="subName@{@counter}" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input class="form-control" id="subCost@(counter)@(item.Spending)" name="subCost@{@counter}" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            counter = counter + 1;
+                                                                        }
+                                                                        @{counter = counter - 1;}
+                                                                        <input type='hidden' id='@("rows"+count)' value="@counter">
+                                                                        <input type='hidden' id='@("item"+count)' value="@item.Spending">
+                                                                    </tbody>
+                                                                </table>
+                                                                <p>
+                                                                    <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR('@item.Spending', @count)">Ajouter</button>
+                                                                </p>
                                                             </div>
                                                         </td>
                                                     </tr>
 
-                                                    numberofrow++;
+                                                    count =count+1;
                                                 }
 
                                             </tbody>
                                         </table>
-                                        <input type='hidden' id='numberofrow' value="@numberofrow">
+                                        <input type='hidden' id='numberofrow' value="@count">
                                         <table id="TEST" name="TEST">
                                         </table>
                                         <div class="modal-footer">
@@ -410,7 +413,12 @@
 <script src="~/vendor/chart.js/Chart.min.js"></script>
 <script src="~/js/ExpenseTable.js"></script>
 <script>
-    $('#margeProjeter').text(((@soumission - @dépensecourrante) + @ViewData["margeS"])+"$");
+    var total = (@soumission - @dépensecourrante) + @ViewData["margeS"];
+    $('#margeProjeter').text(total + "$");
+    if (total <= @ViewData["margeS"]) {
+        $('#margecolor').addClass("border-left-danger");
+        $('#textColor').addClass("text-danger");
+    }
 
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';

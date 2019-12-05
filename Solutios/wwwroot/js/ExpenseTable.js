@@ -1,22 +1,23 @@
 ﻿var counter = 1;
 var fakecounter = 2;
-function addTR(name) {
+function addTR(name, id) {
 
     if (CheckTable(counter) != true) {   
+        numberofcell = $("#rows" + id).val();
+        numberofcell++;
 
-    $('<tr id="tablerow' + fakecounter + '">' +
+        $('<tr id="tablerow' + numberofcell + '">' +
 				'<td>' +
-        '<input class="form-control" id="subName' + fakecounter + '" name="subName' + fakecounter + '" type="text" placeholder="Entrer un nom..." />' +
+            '<input class="form-control" id="subName' + numberofcell + name + '" name="subName' + fakecounter + name+'" type="text" placeholder="Entrer un nom..." />' +
 				'</td>'+
 				'<td>' +
-        '<input  class="form-control" type="number" id="subCost' + fakecounter + '" name="subCost' + fakecounter + '" placeholder="Entrer un montant..." />' +
+            '<input  class="form-control" type="number" id="subCost' + numberofcell + name + '" name="subCost' + fakecounter + name+'" placeholder="Entrer un montant..." />' +
 				'</td>'+
 				/*'<td>'+
 					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
 				'</td>'+*/
         '</tr>').appendTo("#Table" + name);
-        $("#numberofrow" + name).val(counter);
-        fakecounter++;
+        $("#rows" + id).val(numberofcell);
         counter++;
     }
         return false;
@@ -34,8 +35,6 @@ function removeTr(index) {
 }
 
 function CheckTable(counter) {
-    
-
     for (var i = 1; i <= counter; i++) {
         subName = $("#subName" + i).val();
         subCost = $("#subCost" + i).val();
@@ -46,13 +45,16 @@ function CheckTable(counter) {
 }
 
 function sendData() {
-    var data = [];
-    numberofrow = $("#numberofrow").val();
-    numberofcell = $("#numberofrow" + name).val();
-    for (var i = 1; i <= numberofrow; i++) {
+    
+    numberofrow = $("#numberofrow").val();    
+    for (let i = 1; i < numberofrow; i++) {
+        var data = [];
+        numberofcell = $("#rows" + i).val();
+        cellname = $("#item" + i).val();
+
         for (var j = 1; j <= numberofcell; j++) {
-            subName = $("#subName" + i).val();
-            subCost = $("#subCost" + i).val();
+            subName = $("#subName" + j + cellname).val();
+            subCost = $("#subCost" + j + cellname).val();
             if (subCost != "" || subName != "") {
                 var tablestr = { Spending: subName, amount: subCost, color: "#FFFF" }
                 data.push(tablestr);
