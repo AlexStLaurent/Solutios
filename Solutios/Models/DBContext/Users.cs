@@ -9,7 +9,7 @@ namespace Solutios.Models
     {
         public int UserId { get; set; }
         [Required]
-       [MinLength(2)]
+        [MinLength(2)]
         public string UserName { get; set; }
         [Required]
         [MinLength(2)]
