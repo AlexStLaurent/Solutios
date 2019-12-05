@@ -43,6 +43,12 @@ namespace Solutios.Controllers
 
             }
         }
+        
+        //[HttpPost]
+        //public async Task<IActionResult> forgotPassword()
+        //{
+            
+        //}
 
     }    
 }
