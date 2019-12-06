@@ -325,5 +325,45 @@ namespace Solutios.Models
 
             return 0;
         }
+
+        public double getCompletion(int id)
+        {
+
+            Project p = getProjet(id);
+
+            DateTime pfin = (DateTime)p.ProjectFin;
+            DateTime pdebut = (DateTime)p.ProjectDebut;
+            double total = 1;
+            double today = 1;
+
+            if (pdebut != null && pfin != null)
+            {
+                double calcBusinessDays =
+                    1 + ((pfin - pdebut).TotalDays * 5 -
+                    (pdebut.DayOfWeek - pfin.DayOfWeek) * 2) / 7;
+
+                if (pfin.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
+                if (pfin.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+
+                total = Math.Round(calcBusinessDays, 2);
+            }
+
+
+            if (pfin != null)
+            {
+                double calcBusinessDays =
+                    1 + ((pfin - DateTime.Now).TotalDays * 5 -
+                    (DateTime.Now.DayOfWeek - pfin.DayOfWeek) * 2) / 7;
+
+                if (pfin.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
+                if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+
+                today = Math.Round(calcBusinessDays);
+            }
+
+            return Math.Round(((today * 100) / total), 2);
+
+        }
+
     }
 }
