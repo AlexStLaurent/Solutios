@@ -73,12 +73,14 @@ namespace Solutios.Controllers
             Project p = projectmanager.getProjet(Convert.ToInt32(formCollection["id"]));
             string[] Spending = formCollection["Spending"];
             string[] montant = formCollection["Montant"];
+            string[] color = formCollection["Color"];
             int count = 0;
             foreach (var item in p.listProjectSoumission())
             {
                 FollowInfo f = new FollowInfo();
                 f.amount = Convert.ToDouble(montant[count]);
                 f.Spending = Spending[count];
+                f.color = color[count];
                 list.Add(f);
                 count++;
             }
@@ -295,6 +297,7 @@ namespace Solutios.Controllers
             ViewData["Nomdepense"] = projectmanager.nomdépense(id);
             ViewData["margeS"] = projectmanager.Getmarge(id);
             ViewData["margeE"] = projectmanager.GetmargeEstime(id);
+            ViewData["completion"] = projectmanager.getCompletion(id);
             if (projectmanager.GetLastProjection(id) != null)
             {
                 ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);

@@ -95,7 +95,7 @@ namespace Solutios.Models
 
             List<FollowInfo> f = JsonConvert.DeserializeObject<List<FollowInfo>>(follows.FuInfo);
 
-            string[] test = new string[(f.Count-2)];
+            string[] test = new string[(f.Count - 2)];
             foreach (var items in f)
             {
                 if ((items.Spending != "MargeSoumis") && (items.Spending != "MargeProjeter"))
@@ -155,19 +155,19 @@ namespace Solutios.Models
             {
                 if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
                 {
-                    
-                    colorsoumi = colorsoumi + '"'+item.color+'"' + ",";
+
+                    colorsoumi = colorsoumi + '"' + item.color + '"' + ",";
                 }
             }
 
             colorsoumi += end;
 
             string colorbar = "[";
-            for(int i = 0; i < soumis.Count; i++)
+            for (int i = 0; i < soumis.Count; i++)
             {
                 if ((soumis[i].Spending != "MargeSoumis") && (soumis[i].Spending != "MargeProjeter"))
                 {
-                    if(soumis[i].amount == infos[i].amount)
+                    if (soumis[i].amount == infos[i].amount)
                     {
                         colorbar = colorbar + '"' + "#f4b30d" + '"' + ",";
                     }
@@ -246,7 +246,7 @@ namespace Solutios.Models
             FollowUp follow = solutiosContext.FollowUp.LastOrDefault(c => c.FuId == pfu.PfFollowUpId);
             List<FollowInfo> soumission = p.listProjectSoumission();
             List<FollowInfo> estimation = follow.deinfo();
-            ProjectExpense pex=solutiosContext.ProjectExpense.LastOrDefault(c => c.PeProjectId == id);
+            ProjectExpense pex = solutiosContext.ProjectExpense.LastOrDefault(c => c.PeProjectId == id);
             Expense ex = solutiosContext.Expense.LastOrDefault(c => c.ExpenseId == pex.PeExpenseId);
             List<ExpenseInfo> expenseInfos = ex.Listexpenses();
             for (int i = 0; i < estimation.Count; i++)
@@ -290,6 +290,45 @@ namespace Solutios.Models
             }
 
             return 0;
+        }
+
+        public double getCompletion(int id)
+        {
+
+            Project p = getProjet(id);
+
+            DateTime pfin = (DateTime)p.ProjectFin;
+            DateTime pdebut = (DateTime)p.ProjectDebut;
+            double total = 1;
+            double today = 1;
+
+            if (pdebut != null && pfin != null)
+            {
+                double calcBusinessDays =
+                    1 + ((pfin - pdebut).TotalDays * 5 -
+                    (pdebut.DayOfWeek - pfin.DayOfWeek) * 2) / 7;
+
+                if (pfin.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
+                if (pfin.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+
+                total = Math.Round(calcBusinessDays, 2);
+            }
+            
+
+            if (pfin != null)
+            {
+                double calcBusinessDays =
+                    1 + ((pfin - DateTime.Now).TotalDays * 5 -
+                    (DateTime.Now.DayOfWeek - pfin.DayOfWeek) * 2) / 7;
+
+                if (pfin.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
+                if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+
+                today = Math.Round(calcBusinessDays);
+            }
+
+            return Math.Round(((today * 100) / total), 2);
+
         }
     }
 }
