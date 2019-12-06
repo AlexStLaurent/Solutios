@@ -6,14 +6,16 @@ myarray = [,];
 var test = [];
 id = 0; 
 
+
 $(document).ready(function () {
     $(".add-row").click(function () {
-        d = $('#depense').val();
+        d = $('#depense').val().replace(/ /g, "_");
+        d = d.replace(/'/g,"_")
         p = $('#prix').val();
         c = $('#color').val();
         id += 1;
 
-        var t = { Spending: d, amount: p, color:c }
+        var t = { Spending: d, amount: p, color: c }
         test.push(t);
 
         myarray.push(parseInt(p));        

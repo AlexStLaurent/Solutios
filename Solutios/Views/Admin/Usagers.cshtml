@@ -26,32 +26,40 @@
                                     <th>Adresse courriel</th>
                                     <th>Numéro de téléphone</th>
                                     <th>Rôle</th>
+                                    <th>Changer le mot de passe</th>
                                 </tr>
                             </thead>
                             <tfoot>
-								<tr>
-									<th>Nom</th>
-									<th>Adresse courriel</th>
-									<th>Numero de téléphone</th>
-									<th>Rôle</th>
-								</tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Adresse courriel</th>
+                                    <th>Numero de téléphone</th>
+                                    <th>Rôle</th>
+                                    <th>Changer le mot de passe</th>
+                                </tr>
                             </tfoot>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UserFirstName)  @Html.DisplayFor(modelItem => item.UserName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UserEmail)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.UserPhone)
-                                    </td>
-									<td>
-										@Html.DisplayFor(modalItem =>item.UserRole)
-									</td>
-                                </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserFirstName)  @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserEmail)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserPhone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modalItem => item.UserRole)
+                            </td>
+                            <td>
+                                <form>
+                                    <input hidden="hidden" value="@item.UserId" name="Id" />
+                                    <button class="btn btn-success" formaction="ChangePasswordAdmin" formmethod="post">Changement de mot de passe</button>
+                                </form>
+                            </td>
+                        </tr>
                             }
                         </table>
                     </div>
@@ -65,6 +73,7 @@
 </div>
 
 <button class="btn btn-primary" data-toggle="modal" data-target="#NewUserModal">Ajouter un usager</button>
+
 
 <div class="modal rounded-0" id="NewUserModal">
     @{ Html.RenderPartial("Partiel/AddUser", new Solutios.Models.Users()); }
