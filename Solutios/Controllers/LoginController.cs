@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Solutios.Models;
+using Solutios.Models.ViewModel;
 
 namespace Solutios.Controllers
 {
@@ -43,12 +44,5 @@ namespace Solutios.Controllers
 
             }
         }
-        
-        //[HttpPost]
-        //public async Task<IActionResult> forgotPassword()
-        //{
-            
-        //}
-
     }    
 }
