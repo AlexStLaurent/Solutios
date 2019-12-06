@@ -369,6 +369,31 @@ namespace Solutios.Controllers
             return View("Error", new ErrorViewModel());
         }
 
+        public IActionResult ChangePasswordAdmin(IFormCollection form)
+        {
+            if (form != null)
+            {
+                ViewData["Id"] = form["Id"];
+                return View(ViewData);
+            }
+
+            return Error();
+        }
+
+        public IActionResult ChangerMdPAdmin(IFormCollection form)
+        {
+            Users user = usermanager.FindUserByID(form["id"]);
+         
+
+                if (form["NewPassword"] == form["ConfirmPassword"])
+                {
+                    user.UserMdp = form["NewPassword"];
+                    usermanager.UpdateUser(user);
+                    return RedirectToAction("Usagers");
+                }
+            return RedirectToAction("Usagers");
+        }
+
         public IActionResult ChangerMdP(IFormCollection form)
         {
             Users user = usermanager.FindUserByID(form["id"]);

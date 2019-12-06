@@ -10,9 +10,9 @@ namespace Solutios.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult LostPassword()
+        public PartialViewResult LostPassword()
         {
-            return View();
+            return PartialView("_PartielLogin");
         }
         public IActionResult Index()
         {
@@ -21,7 +21,7 @@ namespace Solutios.Controllers
 
         public IActionResult Login()
         {
-            return View(); 
+            return View();
         }
 
         public IActionResult About()
