@@ -351,6 +351,10 @@ namespace Solutios.Models
 
             if (pfin != null)
             {
+                double calcBusinessDaysTotal =
+                  1 + ((pfin - pdebut).TotalDays * 5 -
+                    (pdebut.DayOfWeek - pfin.DayOfWeek) * 2) / 7;
+
                 double calcBusinessDays =
                     1 + ((pfin - DateTime.Now).TotalDays * 5 -
                     (DateTime.Now.DayOfWeek - pfin.DayOfWeek) * 2) / 7;
@@ -358,7 +362,7 @@ namespace Solutios.Models
                 if (pfin.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
                 if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
 
-                today = Math.Round(calcBusinessDays);
+                today = Math.Round(calcBusinessDaysTotal - calcBusinessDays);
             }
 
             return Math.Round(((today * 100) / total), 2);
