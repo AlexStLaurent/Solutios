@@ -51,6 +51,9 @@ namespace Solutios.Models.ViewModel
         public string Lastupdate { get; set; }
 
         public string graph { get; set; }
+        public string colorgraph { get; set; }
+        public string graphSoumis { get; set; }
+
         public string label { get; set; }
 
         public double completion { get { return complétion(); } set { } }

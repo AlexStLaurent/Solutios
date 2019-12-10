@@ -39,10 +39,10 @@ function load() {
                 backgroundColor: "#424242",
                 hoverBackgroundColor: "#666666",
                 borderColor: "#4e73df",
-                data: graph,//valeurs des colonnes
+                data: graphsoumis,//valeurs des colonnes
             }, {
                 label: "Projection",
-                backgroundColor: "#319163",
+                backgroundColor: colorgraph,
                 hoverBackgroundColor: "#40b97e",
                 borderColor: "#4e73df",
                 data: graph//valeurs des colonnes

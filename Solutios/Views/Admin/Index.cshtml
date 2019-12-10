@@ -139,6 +139,8 @@
                                                 $("#completion").text("@item.completion");
                                                 $("#completionW").width("@item.completion%");
                                                 graph = @Html.DisplayFor(modelItem => item.graph);
+                                                graphsoumis = @Html.DisplayFor(modelItem => item.graphSoumis);
+                                                colorgraph = @Html.Raw(item.colorgraph);
                                                 label =  @Html.Raw(item.label);
                                                 load();
                                                 $(this).css("background-color", "rgba(54, 185, 204, 0.48)");

@@ -9,20 +9,27 @@ id = 0;
 
 $(document).ready(function () {
     $(".add-row").click(function () {
-        d = $('#depense').val().replace(/ /g, "_");
-        d = d.replace(/'/g,"_")
-        p = $('#prix').val();
-        c = $('#color').val();
-        id += 1;
+        if ($('#depense').val() != "" && $('#prix').val() != "") {
+            if (!isNaN($('#prix').val())) {
+                d = $('#depense').val().replace(/ /g, "_");
+                d = d.replace(/'/g, "_");
+                p = $('#prix').val();
+                c = $('#color').val();
+                id += 1;
 
-        var t = { Spending: d, amount: p, color: c }
-        test.push(t);
+                var t = { Spending: d, amount: p, color: c }
+                test.push(t);
 
-        myarray.push(parseInt(p));        
-        var markup = "<tr><td>" + d + " <input type='hidden' value=" + d + "> </td><td>" + p + "$ <input type='hidden' value=" + p + "><td>" + c + " <input type='hidden' value=" + c +"></td></td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Supprimer</button></td></tr>";
-        $("table tbody").append(markup);
-        showtotal();
-        formClear();
+                myarray.push(parseInt(p));
+                var markup = "<tr><td>" + d + " <input type='hidden' value=" + d + "> </td><td>" + p + "$ <input type='hidden' value=" + p + "><td>" + c + " <input type='hidden' value=" + c + "></td></td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Supprimer</button></td></tr>";
+                $("table tbody").append(markup);
+                showtotal();
+                formClear();
+            }
+        }
+        else {
+            alert("Veuillez remplir les champs");
+        }
     });
 });
 

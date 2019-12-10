@@ -47,7 +47,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div id="textColor"class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Réel</div>
+                        <div id="textColor" class="text-xs font-weight-bold text-success text-uppercase mb-1">Marge de profit Réel</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800" id="margeProjeter">$ </div>
                     </div>
                     <div class="col-auto">
@@ -87,7 +87,7 @@
                     </div>
                     <div class="col-auto">
                         <form>
-                            <input hidden="hidden" value="@ViewData["id"]" name="id" />
+                            <input hidden="hidden" value="@ViewData[" id"]" name="id" />
                             <button type="button" class="fas fa-folder-plus fa-2x text-gray-300" data-toggle="modal" data-target="#modalEstimates" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: #f6c23e;">
                             </button>
 
@@ -177,7 +177,7 @@
             <div class="modal fade rounded-0" id="ExpenseModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="form">
 
-                    
+
                     <form method="post" asp-action="AddExpense">
                         <input type='hidden' Name="id" value="@ViewData["id"]">
                         <div class="modal-content">
@@ -202,61 +202,65 @@
                                                 @{int count = 1; }
                                                 @foreach (var item in Expense)
                                                 {
-                                                    <tr class="table-row">
-                                                        <td colspan="1">
-                                                            <input type='hidden' name="@item.Spending" value="@item.Spending">
-                                                            @item.Spending
-                                                        </td>
-                                                        <td colspan="1">
-                                                            @item.amount
-                                                        </td>
-                                                        <td colspan="1">
-                                                            <a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#SubExpenses@{@item.Spending}">Consulter</a>
-                                                        </td>
-                                                    </tr>
 
-                                                    <tr>
-                                                        <td colspan="6" class="hiddenRow">
-                                                            <div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
-                                                                <table class="table" id="Table@{@item.Spending}">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>
-                                                                                Dépense
-                                                                            </th>
-                                                                            <th>
-                                                                                Coût
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
+                                                        <tr class="table-row">
+                                                            <td colspan="1">
+                                                                <input type='hidden' name="@item.Spending" value="@item.Spending">
+                                                                @item.Spending
+                                                            </td>
+                                                            <td colspan="1">
+                                                                @item.amount
+                                                            </td>
+                                                            <td colspan="1">
+                                                                <a class="btn btn-primary text-white dropdown-toggle" data-toggle="collapse" data-target="#SubExpenses@{@item.Spending}">Consulter</a>
+                                                            </td>
+                                                        </tr>
 
-                                                                        @{int counter = 1;}
-                                                                        @foreach (var subitem in item.subExpenses)
-                                                                        {
-                                                                            <tr id="tablerow@{@counter}">
-                                                                                <td>
-                                                                                    <input class="form-control" id="subName@(counter)@(item.Spending)" name="subName@{@counter}" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input class="form-control" id="subCost@(counter)@(item.Spending)" name="subCost@{@counter}" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
-                                                                                </td>
+                                                        <tr>
+                                                            <td colspan="6" class="hiddenRow">
+                                                                <div class="accordian-body collapse" id="SubExpenses@{@item.Spending}">
+                                                                    <table class="table" id="Table@{@item.Spending}">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>
+                                                                                    Dépense
+                                                                                </th>
+                                                                                <th>
+                                                                                    Coût
+                                                                                </th>
                                                                             </tr>
-                                                                            counter = counter + 1;
-                                                                        }
-                                                                        @{counter = counter - 1;}
-                                                                        <input type='hidden' id="@("rows"+count)" value="@counter">
-                                                                        <input type='hidden' id="@("item"+count)" value="@item.Spending">
-                                                                    </tbody>
-                                                                </table>
-                                                                <p>
-                                                                    <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR("@item.Spending", @count)">Ajouter</button>
-                                                                </p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                                        </thead>
+                                                                        <tbody>
 
-                                                    count =count+1;
+                                                                            @{int counter = 1;}
+                                                                            @foreach (var subitem in item.subExpenses)
+                                                                            {
+
+                                                                                <tr id="tablerow@{@counter}">
+                                                                                    <td>
+                                                                                        <input class="form-control" id="subName@(counter)@(item.Spending)" name="subName@{@counter}" type="text" value="@Html.DisplayFor(modelItem => subitem.Spending)" />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input class="form-control" id="subCost@(counter)@(item.Spending)" name="subCost@{@counter}" type="number" value="@Html.DisplayFor(modelItem => subitem.amount)" />
+                                                                                    </td>
+                                                                                </tr>
+                                                                                counter = counter + 1;
+
+                                                                            }
+                                                                            @{counter = counter - 1;}
+                                                                            <input type='hidden' id="@("rows"+count)" value="@counter">
+                                                                            <input type='hidden' id="@("item"+count)" value="@item.Spending">
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <p>
+                                                                        <button class="btn btn-primary text-white" style="width:100%" id="btnadd@{@item.Spending}" type="button" onclick="addTR(@item.Spending,@count)">Ajouter</button>
+                                                                    </p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        count = count + 1;
+                                                    
                                                 }
 
                                             </tbody>
@@ -398,7 +402,7 @@
     <!--******************************************************************************************************-->
     <!--Tableau de bord-->
     <!--******************************************************************************************************-->
-    
+
 </div>
 
 <div class="row">
