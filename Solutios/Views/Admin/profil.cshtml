@@ -1,92 +1,109 @@
 ﻿@model Solutios.Models.Users
 @{
-    ViewData["Title"] = "profil";
-    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-    string zip = Model.UserZipcode;
-    string address = Model.UserAddress;
-    string address2 = Model.UserAddress2;
-    string city = Model.UserCity;
-    string province = Model.UserProvince;
+	ViewData["Title"] = "profil";
+	Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+	string zip = Model.UserZipcode;
+	string address = Model.UserAddress;
+	string address2 = Model.UserAddress2;
+	string city = Model.UserCity;
+	string province = Model.UserProvince;
 
-    if (zip == null)
-    {
-        zip = "Aucun Défini";
-    }
-    if (address == null)
-    {
-        address = "Aucune Définie";
-    }
-    if (address2 == null)
-    {
-        address2 = "Aucune Définie";
-    }
-    if (city == null)
-    {
-        city = "Aucune Définie";
-    }
-    if (province == null)
-    {
-        province = "Aucun Défini";
-    }
+	if (zip == null)
+	{
+		zip = "Aucun Défini";
+	}
+	if (address == null)
+	{
+		address = "Aucune Définie";
+	}
+	if (address2 == null)
+	{
+		address2 = "Aucune Définie";
+	}
+	if (city == null)
+	{
+		city = "Aucune Définie";
+	}
+	if (province == null)
+	{
+		province = "Aucun Défini";
+	}
 
 }
 
-<h2>Profil</h2>
 
-<div class="container">
+<div class="">
+	<div class="col-lg-8 col-md-10 col-sm-12">
+		<h2>Votre Profil</h2>
+		<div class="card row">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-2 text-center py-2">
+						<img class="img-profile rounded-circle" src="https://ui-avatars.com/api/?name=P">
+					</div>
+					<div class="col-lg-8 col-xs-12 text-left">
+						<div class="row"><h5>@Model.UserFirstName @Model.UserName</h5></div>
+						<div class="row"><a>@Model.UserEmail</a></div>
+						<div class="row"><a>@Model.UserPhone</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class="card row">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-2 text-center py-2">
+						<i class="fas fa-home fa-2x"></i>
+					</div>
+					<div class="col-lg-10 ">
+						<div class="row">
+							<div class="col">
+								<div class="row border-bottom py-1">
+									<div class="col-md-3 col-lg-3 col-sm-5">Adresse: </div>
+									<div class="col-8 col-sm-6">@address</div>
+								</div>
+								<div class="row border-bottom py-1">
+									<div class="col-md-3 col-lg-3 col-sm-5">Adresse 2: </div>
+									<div class="col-8 col-sm-6">@address2</div>
+								</div>
+								<div class="row border-bottom py-1">
+									<div class="col-md-3 col-lg-3 col-sm-5">Code Postal: </div>
+									<div class="col-8 col-sm-6">@zip</div>
+								</div>
+								<div class="row border-bottom py-1">
+									<div class="col-md-3 col-lg-3 col-sm-5">Ville: </div>
+									<div class="col-8 col-sm-6">@city</div>
+								</div>
+								<div class="row border-bottom py-1">
+									<div class="col-md-3 col-lg-3 col-sm-5">Province: </div>
+									<div class="col-8 col-sm-6">@province</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@*<div class="col-10 container">
+			<div class="row">
+				<div class="=col-5">
+					<div class="row">Adresse: </div>
+					<div class="row">Adressse 2: </div>
+					<div class="row">Code Postal: </div>
+					<div class="row">Ville: </div>
+					<div class="row">Province: </div>
+				</div>
+				<div class="" style="width:50px"></div>
+				<div class="=col-5">
+					<div class="row"><a>@address</a></div>
+					<div class="row">@address2</div>
+					<div class="row">@zip</div>
+					<div class="row">@city</div>
+					<div class="row">@province</div>
+				</div>
+			</div>
+		</div>*@
+				</div>
+			</div>
+		</div>
 
-    <div class="col-md-12 border-0 shadow-lg my-5" style="background-color: white">
-        <div class="p-5">
-          
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="txtSurname">Prénom :</label>
-                        <label id="txtSurname">@Model.UserFirstName</label>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="txtName">Nom :</label>
-                        <label­ id="txtName">@Model.UserName</label­>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6  form-group">
-                        <label for="txtEmail4">Courriel :</label>
-                        <label id="txtEmail4">@Model.UserEmail</label>
-                    </div>                 
-                </div>
-                <div class="form-group">
-                    <label for="txtAddress1">Addresse :</label>
-                    <label id="txtAddress1">@address</label>
-</div>
-                <div class="form-group">
-                    <label for="txtAddress2">Addresse 2 :</label>
-                    <label id="txtAddress2"> @address2 </label>
-                </div>
-                <div class="row">
-                    <div class="col-md-4"­>
-                        <label for="inputCity">Ville :</label>
-                        <label id="txtCity">@city</label>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="txtProvince">Province :</label>
-                        <label>@province</label>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="txtZip">Code Postal :</label>
-                        <label id="txtZip">@zip</label>
-                    </div>
-                </div>
-
-                
-
-
-
-        </div>
-    </div>
-
-
-
-
-
-
+	</div>
 </div>

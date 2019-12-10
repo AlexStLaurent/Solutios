@@ -31,14 +31,17 @@ namespace Solutios.Models.ViewModel
         {
             if (ProjectFin != null)
             {
-                double calcBusinessDays =
+                double CalcBusinessDayTotal = 1 + ((ProjectFin - ProjectDebut).TotalDays * 5 -
+                    (ProjectDebut.DayOfWeek - ProjectFin.DayOfWeek) * 2) / 7;
+
+                double calcBusinessDays = 
                     1 + ((ProjectFin - DateTime.Now).TotalDays * 5 -
                     (DateTime.Now.DayOfWeek - ProjectFin.DayOfWeek) * 2) / 7;
 
                 if (ProjectFin.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
                 if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
 
-                return Math.Round(calcBusinessDays); 
+                return Math.Round( CalcBusinessDayTotal - calcBusinessDays); 
             }
             return 0;
         }
