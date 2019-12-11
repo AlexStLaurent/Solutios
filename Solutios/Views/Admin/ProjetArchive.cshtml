@@ -9,8 +9,8 @@
     @model List<ViewProject>;
 
     double soumission = 0;
-                                    double dépensecourrante = 0;
-                                    
+    double dépensecourrante = 0;
+
 
 }
 
@@ -35,6 +35,11 @@
                         </div>
                     </div>
                     <div class="col-auto">
+                        <form>
+                            <input hidden="hidden" value=`@ViewData["id"]` name="id" />
+
+                            <button type="button" data-toggle="modal" data-target="#modalConfirmSuppression" class="fas fa-flag-checkered fa-2x text-danger" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: darkred;"></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -186,6 +191,27 @@
     </div>
 </div>
 
+<div class="modal" id="modalConfirmSuppression">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmer la suppression du projet?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Confirmer la suppression du projet. Ce projet cessera d'exister. Ce procédé est irréversible</div>
+            <form method="post">
+                <input hidden name="id" value="@ViewData["id"]" />
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary" asp-controller="Admin" asp-action="SupressionProjet">Confirmer la suppression</button>
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Page level plugins -->
 <script src="~/vendor/chart.js/Chart.min.js"></script>
@@ -193,10 +219,10 @@
 <script>
     var total = (@soumission - @dépensecourrante)  + 0;
     $('#margeProjeter').text(total + "$");
-     
+
         $('#margecolor').addClass("border-left-danger");
         $('#textColor').addClass("text-danger");
-    
+
 
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';

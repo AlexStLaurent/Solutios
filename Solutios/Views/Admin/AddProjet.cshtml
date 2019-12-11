@@ -17,8 +17,8 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-lg-2">Date de début</div><input type="date" id="dtDateDebut" name="project_debut" required/>
-        <div class="col-lg-2">Échéance:</div> <input type="date" id="dtDateFin" name="project-fin" required/>
+        <div class="col-lg-2">Date de début</div><input type="date" id="dtDateDebut" name="project_debut" required />
+        <div class="col-lg-2">Échéance:</div> <input type="date" id="dtDateFin" name="project-fin" required />
     </div>
     <div class="card-body">
 
@@ -45,7 +45,7 @@
                 </tr>
                 <tr>
                     <th>Marge</th>
-                    <th><input type="text" id='marge'></th>
+                    <th><input type="text" required id='marge'></th>
                 </tr>
                 <tr>
                     <th>Total</th>
@@ -56,7 +56,25 @@
             </tbody>
         </table>
 
-        <button class="btn btn-success" type="submit" id="btnAjouterProjet">Terminer</button>
+        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#modalConfirmFinish">Terminer</button>
     </div>
 
+    <div class="modal" id="modalConfirmFinish">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Créer votre projet?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Veuillez vérifier les informations du projet avant de confirmer la création de votre projet. Ces informations ne peuvent pas être modifiés.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary" id="btnAjouterProjet">Créer le projet</button>
+                    </div>
+            </div>
+        </div>
+
+    </div>
 </form>
