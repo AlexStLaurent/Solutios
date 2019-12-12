@@ -2,21 +2,21 @@
 var fakecounter = 2;
 function addTR(name, id) {
 
-    if (CheckTable(counter) != true) {   
+    if (CheckTable(counter, name) != true) {   
         numberofcell = $("#rows" + id).val();
         numberofcell++;
 
         $('<tr id="tablerow' + numberofcell + '">' +
 				'<td>' +
-            '<input class="form-control" id="subName' + numberofcell + name + '" name="subName' + fakecounter + name+'" type="text" placeholder="Entrer un nom..." />' +
+            '<input class="form-control" id="subName' + numberofcell + name.defaultValue + '" name="subName' + fakecounter + name.defaultValue+'" type="text" placeholder="Entrer un nom..." />' +
 				'</td>'+
 				'<td>' +
-            '<input  class="form-control" type="number" id="subCost' + numberofcell + name + '" name="subCost' + fakecounter + name+'" placeholder="Entrer un montant..." />' +
+            '<input  class="form-control" type="number" id="subCost' + numberofcell + name.defaultValue + '" name="subCost' + fakecounter + name.defaultValue+'" placeholder="Entrer un montant..." />' +
 				'</td>'+
 				/*'<td>'+
 					'<a class="btn btn-success text-white" name="modifybtn">Sauvegarder/Modifier</a>'+
 				'</td>'+*/
-        '</tr>').appendTo("#Table" + name);
+        '</tr>').appendTo("#Table" + name.defaultValue);
         $("#rows" + id).val(numberofcell);
         counter++;
     }
@@ -34,10 +34,10 @@ function removeTr(index) {
 	return false;
 }
 
-function CheckTable(counter) {
+function CheckTable(counter, name) {
     for (var i = 1; i <= counter; i++) {
-        subName = $("#subName" + i).val().replace(/ /g,"_");
-        subCost = $("#subCost" + i).val();
+        subName = $("#subName" + i + name.defaultValue).val();
+        subCost = $("#subCost" + i + name.defaultValue).val();
         if (subCost == "" || subName == "" ) {
             return true            
         }

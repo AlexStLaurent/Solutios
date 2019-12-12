@@ -383,6 +383,16 @@ namespace Solutios.Controllers
             return Error();
         }
 
+        public IActionResult SupressionProjet(int id)
+        {
+
+            Project projet = projectmanager.getProjet(id);
+
+            _context.Remove(projet);
+            _context.SaveChanges();
+            return RedirectToAction("Archive");
+
+        }
         public IActionResult ChangerMdPAdmin(IFormCollection form)
         {
             Users user = usermanager.FindUserByID(form["id"]);

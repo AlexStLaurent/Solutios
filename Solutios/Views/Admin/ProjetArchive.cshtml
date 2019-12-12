@@ -3,10 +3,19 @@
 
     ViewData["Title"] = "Projet Archivé";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-    List<string> tendance = ViewData["tendance"] as List<string>;
+    List<ViewGraph> graphligne = ViewData["tendance"] as List<ViewGraph>;
+    List<ExpenseInfo> Expense = ViewData["Expense"] as List<ExpenseInfo>;
+    ViewGraph graphbar = ViewData["graphbar"] as ViewGraph;
+    @model List<ViewProject>;
+
+    double soumission = 0;
+    double dépensecourrante = 0;
+
+
 }
 
 <h2>ProjetArchive</h2>
+
 
 <div class="row">
     <!-- carte de Complétion -->
@@ -26,6 +35,11 @@
                         </div>
                     </div>
                     <div class="col-auto">
+                        <form>
+                            <input hidden="hidden" value=`@ViewData["id"]` name="id" />
+
+                            <button type="button" data-toggle="modal" data-target="#modalConfirmSuppression" class="fas fa-flag-checkered fa-2x text-danger" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: darkred;"></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -77,7 +91,7 @@
                         <div class="h6 font-weight-bold text-warning text-uppercase mb-1">Ajouter une projection</div>
                     </div>
                     <div class="col-auto">
-                       
+
                     </div>
                 </div>
             </div>
@@ -115,11 +129,11 @@
 
             <div class="card shadow mb-4">
                 <div class="card-header p-2 ">
-                    <h6 class="m-0 font-weight-bold text-primary">Soumission vs Projection</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Coût Réel</h6>
                 </div>
                 <div class="card-body py-2">
                     <div class="chart-bar" style="height:300px">
-                        <canvas id="myBarChart"></canvas>
+                        <canvas id="GraphDepense"></canvas>
                     </div>
                 </div>
 
@@ -134,6 +148,29 @@
     <!--Tableau de bord-->
     <!--******************************************************************************************************-->
     <div class="col-xl-6">
+        <!--table des projets-->
+        <div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header p-2 ">
+                    <h6 class="m-0 font-weight-bold text-primary">Projection</h6>
+                </div>
+                <div class="card-body py-2">
+                    <div class="chart-bar" style="height:300px">
+                        <canvas id="GraphProjection"></canvas>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--************************fin de graphique a bandes**************************************************-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
         <div>
 
             <div class="card shadow mb-4">
@@ -154,11 +191,39 @@
     </div>
 </div>
 
-
+<div class="modal" id="modalConfirmSuppression">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmer la suppression du projet?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Confirmer la suppression du projet. Ce projet cessera d'exister. Ce procédé est irréversible</div>
+            <form method="post">
+                <input hidden name="id" value="@ViewData["id"]" />
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary" asp-controller="Admin" asp-action="SupressionProjet">Confirmer la suppression</button>
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Page level plugins -->
 <script src="~/vendor/chart.js/Chart.min.js"></script>
+<script src="~/js/ExpenseTable.js"></script>
 <script>
+    var total = (@soumission - @dépensecourrante)  + 0;
+    $('#margeProjeter').text(total + "$");
+
+        $('#margecolor').addClass("border-left-danger");
+        $('#textColor').addClass("text-danger");
+
+
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
@@ -195,23 +260,23 @@ var myLineChart = new Chart(ctxx, {
 	data: {
         labels: @Html.Raw((ViewData["date"])),
             datasets: [
-            @foreach(var item in tendance)
+            @foreach(var item in graphligne)
             {
             <text>
             {
-            label: "Tendance",
+            label: "@item.label",
 			lineTension: 0.3,
-			backgroundColor: "rgba(78, 115, 223, 0.05)",
-			borderColor: "rgba(78, 115, 223, 1)",
+			backgroundColor: "rgba(78, 115, 223, 0)",
+			borderColor: "@item.color",
 			pointRadius: 3,
-			pointBackgroundColor: "rgba(78, 115, 223, 1)",
-			pointBorderColor: "rgba(78, 115, 223, 1)",
+			pointBackgroundColor: "@item.color",
+			pointBorderColor: "@item.color",
 			pointHoverRadius: 3,
-			pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-			pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+			pointHoverBackgroundColor: "@item.color",
+			pointHoverBorderColor: "@item.color",
 			pointHitRadius: 10,
             pointBorderWidth: 2,
-                data: @item,
+                data: @item.data,
             },
             </text>
             }
@@ -318,27 +383,28 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Valeurs
-    var ctx = document.getElementById("myBarChart");
+    var ctx = document.getElementById("GraphDepense");
 
     var Nomdepense = @Html.Raw((ViewData["Nomdepense"]));
     var myBarChart = new Chart(ctx, {
-	type: 'bar',
-    data: {
-        labels: Nomdepense,//nom des colonnes
-		datasets: [{
-			label: "Soumission",
-			backgroundColor: "#424242",
-			hoverBackgroundColor: "#666666",
-            borderColor: "#4e73df",
-            data: @Html.Raw((ViewData["soumission"])),//valeurs des colonnes
-        }, {
-			label: "Projection",
-			backgroundColor: "#319163",
-			hoverBackgroundColor: "#40b97e",
+        type: 'bar',
+        data: {
+            labels: Nomdepense,//nom des colonnes
+            datasets: [{
+                label: "Soumission",
+                backgroundColor:@Html.Raw(graphbar.soumissionColor),
+                hoverBackgroundColor: @Html.Raw(graphbar.soumissionColor),
                 borderColor: "#4e73df",
-                data: @Html.Raw((ViewData["graphbar"]))//valeurs des colonnes
-		}
-		],
+                data: @graphbar.soumission,//valeurs des colonnes
+            },
+            {
+                label: "Projection",
+                backgroundColor: @Html.Raw(graphbar.colordepense),
+                hoverBackgroundColor: @Html.Raw(graphbar.colordepense),
+                borderColor: "#4e73df",
+                data: @graphbar.dépense //valeurs des colonnes
+		    }
+        ],
 	},
 	options: {
 		maintainAspectRatio: false,
@@ -355,6 +421,99 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 			xAxes: [{
 				time: {
 					unit: 'name'
+				},
+				gridLines: {
+					display: false,
+					drawBorder: false
+				},
+				ticks: {
+					maxTicksLimit: 6
+				},
+				maxBarThickness: 25,
+			}],
+			yAxes: [{
+				//chiffres sur le coté
+				ticks: {
+					min: 0,
+					maxTicksLimit: 10,
+					padding: 10,
+					// Include a dollar sign in the ticks
+					callback: function (value, index, values) {
+						return '$' + number_format(value);
+					}
+				},
+				gridLines: {
+					color: "rgb(234, 236, 244)",
+					zeroLineColor: "rgb(234, 236, 244)",
+					drawBorder: false,
+					borderDash: [2],
+					zeroLineBorderDash: [2]
+				}
+			}],
+		},
+		legend: {
+			display: false
+		},
+		//affichage des informations
+		tooltips: {
+			titleMarginBottom: 10,
+			titleFontColor: '#6e707e',
+			titleFontSize: 14,
+			backgroundColor: "rgb(255,255,255)",
+			bodyFontColor: "#858796",
+			borderColor: '#dddfeb',
+			borderWidth: 1,
+			xPadding: 15,
+			yPadding: 15,
+			displayColors: false,
+			caretPadding: 10,
+			callbacks: {
+				label: function (tooltipItem, chart) {
+					var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+					return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+				}
+			}
+		},
+	}
+    });
+
+    var graph = document.getElementById("GraphProjection");
+
+    var myBarChartt = new Chart(graph, {
+        type: 'bar',
+        data: {
+            labels: Nomdepense,//nom des colonnes
+            datasets: [{
+                label: "Soumission",
+                backgroundColor:@Html.Raw(graphbar.soumissionColor),
+                hoverBackgroundColor: @Html.Raw(graphbar.soumissionColor),
+                borderColor: "#4e73df",
+                data: @graphbar.soumission,//valeurs des colonnes
+            },
+            {
+                label: "Projection",
+                backgroundColor: @Html.Raw(graphbar.color),
+                hoverBackgroundColor: @Html.Raw(graphbar.color),
+                borderColor: "#4e73df",
+                data: @graphbar.data //valeurs des colonnes
+		    }
+        ],
+	},
+	options: {
+		maintainAspectRatio: false,
+		layout: {
+			//distances de la table comparé au "container"
+			padding: {
+				left: 10,
+				right: 25,
+				top: 25,
+				bottom: 0
+			}
+		},
+		scales: {
+			xAxes: [{
+				time: {
+					unit: "name"
 				},
 				gridLines: {
 					display: false,

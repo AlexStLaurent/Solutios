@@ -162,7 +162,9 @@ namespace Solutios.Models
                 view.margesoumis = ProjectManager.Getmarge(item.ProjectId);
                 view.Lastupdate = Convert.ToDateTime(ProjectManager.GetLastProjection(item.ProjectId).FuDate).ToShortDateString();
                 view.echeance = view.ProjectFin.ToShortDateString();
-                view.graph = ProjectManager.graphbar(item.ProjectId).data;
+                view.graph = ProjectManager.graphbar(item.ProjectId).dépense;
+                view.graphSoumis = ProjectManager.graphbar(item.ProjectId).soumission;
+                view.colorgraph = ProjectManager.graphbar(item.ProjectId).colordepense;
                 view.label = ProjectManager.nomdépense(item.ProjectId);
 
                 viewIndexs.Add(view);
