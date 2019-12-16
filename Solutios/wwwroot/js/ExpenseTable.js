@@ -66,6 +66,9 @@ function sendData() {
     }
 }
 
+$(document).ready(function () {
     $('#btnsaveExpense').click(function () {
         sendData();
     });
+});
+    
