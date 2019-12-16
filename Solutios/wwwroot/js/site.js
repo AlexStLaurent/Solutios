@@ -74,6 +74,14 @@ $(document).ready(function () {
     });
 });
 
+function calculatetotal() {
+    var marge = $("#marge").val();
+    total = 0;
+    total = myarray.reduce((a, b) => a + b, 0);
+    totalMarger = total + marge;
+    $('#totalfinal').text(totalMarger.toString());
+}
+
 
 /*function addTR(name) {
 

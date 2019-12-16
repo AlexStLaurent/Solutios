@@ -62,10 +62,10 @@ function sendData() {
         }
         objectArray = JSON.stringify(data);
         var markup = "<tr><td><input type='hidden' name='"+i+"' value = " + objectArray + " required></td></tr>";
-        $("#TEST").append(markup);
+        $("#Expensedata").append(markup);
     }
 }
 
-    //$('#btnAjouterProjet').click(function () {
-    //    senddepense();
-    //});
+    $('#btnsaveExpense').click(function () {
+        sendData();
+    });
