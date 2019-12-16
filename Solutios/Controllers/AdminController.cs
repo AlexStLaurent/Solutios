@@ -110,6 +110,7 @@ namespace Solutios.Controllers
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //WIP  WIP  WIP
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        [Authorize]
         [HttpPost]
         public IActionResult AddExpense(IFormCollection formCollection)
         {
@@ -178,7 +179,7 @@ namespace Solutios.Controllers
 
 
 
-
+        [Authorize]
         [HttpPost]
         public IActionResult Addprojet(IFormCollection formCollection)
         {
@@ -334,6 +335,7 @@ namespace Solutios.Controllers
             return View(usermanager.listeUser());
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddUsers(Users user)
         {
@@ -348,6 +350,7 @@ namespace Solutios.Controllers
             else return RedirectToAction("Error");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult EditUsers(Users user)
         {
@@ -359,6 +362,8 @@ namespace Solutios.Controllers
             }
             else return RedirectToAction("Error");
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult Saveee(string objectArray)
         {
@@ -372,6 +377,7 @@ namespace Solutios.Controllers
             return View("Error", new ErrorViewModel());
         }
 
+        [Authorize]
         public IActionResult ChangePasswordAdmin(IFormCollection form)
         {
             if (form != null)
@@ -383,6 +389,7 @@ namespace Solutios.Controllers
             return Error();
         }
 
+        [Authorize]
         public IActionResult SupressionProjet(int id)
         {
 
@@ -393,6 +400,8 @@ namespace Solutios.Controllers
             return RedirectToAction("Archive");
 
         }
+
+        [Authorize]
         public IActionResult ChangerMdPAdmin(IFormCollection form)
         {
             Users user = usermanager.FindUserByID(form["id"]);
@@ -407,6 +416,7 @@ namespace Solutios.Controllers
             return RedirectToAction("Usagers");
         }
 
+        [Authorize]
         public IActionResult ChangerMdP(IFormCollection form)
         {
             Users user = usermanager.FindUserByID(form["id"]);
