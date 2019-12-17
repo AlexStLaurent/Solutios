@@ -37,6 +37,8 @@ namespace Solutios.Models
         {
             List<ViewGraph> graph = new List<ViewGraph>();
             Project p = solutiosContext.Project.Find(id);
+
+            //Creation de liste de liste des informations de PROJECTION
             List<ProjectFollowUp> PfollowUps = solutiosContext.ProjectFollowUp.Where(c => c.PfProjectId == id).ToList();
             List<FollowUp> follows = new List<FollowUp>();
             foreach (var item in PfollowUps)
@@ -49,6 +51,22 @@ namespace Solutios.Models
                 List<FollowInfo> f = JsonConvert.DeserializeObject<List<FollowInfo>>(item.FuInfo);
                 infos.Add(f);
             }
+
+            //Creation de liste de liste des informations de DÉPENSE
+            List<ProjectExpense> pfExpense = solutiosContext.ProjectExpense.Where(c => c.PeProjectId == id).ToList();
+            List<Expense> expenses = new List<Expense>();
+            foreach (var exp in pfExpense)
+            {
+                expenses.Add(solutiosContext.Expense.Find(exp.PeExpenseId));
+            }
+            List<List<ExpenseInfo>> Exinfo = new List<List<ExpenseInfo>>();
+            foreach (var item in expenses)
+            {
+                List<ExpenseInfo> f = JsonConvert.DeserializeObject<List<ExpenseInfo>>(item.JsonExpenseInfo);
+                Exinfo.Add(f);
+            }
+
+            //creation de la string pour le graphique
             int counterColor = 0;
             foreach (var soumis in p.listProjectSoumission())
             {
@@ -57,16 +75,16 @@ namespace Solutios.Models
                     counterColor += 10;
                     ViewGraph vg = new ViewGraph();
                     string test = "[";
-                    foreach (var item in infos)
+                    for(int i = 0; i< infos.Count; i++)
                     {
                         double total = 0;
-                        foreach (var items in item)
+                        for (int j = 0; j < infos[i].Count; j++)
                         {
-                            if (soumis.Spending == items.Spending)
+                            if (soumis.Spending == infos[i][j].Spending)
                             {
-                                vg.label = items.Spending;
-                                vg.color = items.color;
-                                total += items.amount;
+                                vg.label = infos[i][j].Spending;
+                                vg.color = infos[i][j].color;
+                                total = infos[i][j].amount + Exinfo[i][j].amount + total;
                             }
                         }
                         test = test + total.ToString() + ",";
@@ -148,6 +166,17 @@ namespace Solutios.Models
 
             string end = "]";
 
+            string projectionEX = "[";
+            for (int i = 0; i < infos.Count; i++)
+            {
+                if ((infos[i].Spending != "MargeSoumis") && (infos[i].Spending != "MargeProjeter"))
+                {
+                    double depense = soumis[i].amount - expinfo[i].amount;
+                    projectionEX = projectionEX + depense.ToString() + ",";
+                }
+            }
+            projectionEX += end;
+
             string graphprojection = "[";
             foreach (var item in infos)
             {
@@ -186,15 +215,15 @@ namespace Solutios.Models
             {
                 if ((soumis[i].Spending != "MargeSoumis") && (soumis[i].Spending != "MargeProjeter"))
                 {
-                    if(soumis[i].amount == infos[i].amount)
+                    if((soumis[i].amount - expinfo[i].amount) == infos[i].amount)
                     {
                         colorbar = colorbar + '"' + "#f4b30d" + '"' + ",";
                     }
-                    else if (soumis[i].amount < infos[i].amount)
+                    else if ((soumis[i].amount - expinfo[i].amount) < infos[i].amount)
                     {
                         colorbar = colorbar + '"' + "#e02d1b" + '"' + ",";
                     }
-                    else if (soumis[i].amount > infos[i].amount)
+                    else if ((soumis[i].amount - expinfo[i].amount) > infos[i].amount)
                     {
                         colorbar = colorbar + '"' + "#1cc88a" + '"' + ",";
                     }
@@ -220,6 +249,7 @@ namespace Solutios.Models
             vg.soumission = soumission(id);
             vg.soumissionColor = colorsoumi;
             vg.data = graphprojection;
+            vg.projectionEX = projectionEX;
             vg.color = colorbar;
             vg.dépense = graphreel;
             vg.colordepense = colorbarexpense;
@@ -368,6 +398,132 @@ namespace Solutios.Models
             return Math.Round(((today * 100) / total), 2);
 
         }
+
+        public List<FollowUp> GetAllProjection(int id)
+        {
+            if (solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == id) != null)
+            {
+                List<ProjectFollowUp> p = solutiosContext.ProjectFollowUp.Where(e => e.PfProjectId == id).ToList<ProjectFollowUp>();
+
+                List<FollowUp> followUps = new List<FollowUp>();
+                foreach(var item in p)
+                {
+                    followUps.Add(solutiosContext.FollowUp.Where(c => c.FuId == item.PfFollowUpId).First());                    
+                }
+                return followUps;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        public ViewGraph OldGraph(int id, int fuid)
+        {
+            ViewGraph vg = new ViewGraph();
+            Project p = solutiosContext.Project.Find(id);
+            ProjectFollowUp PfollowUps = solutiosContext.ProjectFollowUp.LastOrDefault(c => c.PfProjectId == id);
+            FollowUp follows = solutiosContext.FollowUp.Find(fuid);
+            ProjectExpense projectExpense = solutiosContext.ProjectExpense.LastOrDefault(c => c.PeProjectId == id);
+            Expense expense = solutiosContext.Expense.Find(projectExpense.PeExpenseId);
+
+            List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(follows.FuInfo);
+            List<FollowInfo> soumis = p.listProjectSoumission();
+            List<ExpenseInfo> expinfo = JsonConvert.DeserializeObject<List<ExpenseInfo>>(expense.JsonExpenseInfo);
+
+            string end = "]";
+
+            string projectionEX = "[";
+            for (int i = 0; i < infos.Count; i++)
+            {
+                if ((infos[i].Spending != "MargeSoumis") && (infos[i].Spending != "MargeProjeter"))
+                {
+                    double depense = soumis[i].amount - expinfo[i].amount;
+                    projectionEX = projectionEX + depense.ToString() + ",";
+                }
+            }
+            projectionEX += end;
+
+            string graphprojection = "[";
+            foreach (var item in infos)
+            {
+                if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
+                {
+                    graphprojection = graphprojection + item.amount.ToString() + ",";
+                }
+            }
+            graphprojection += end;
+
+            string graphreel = "[";
+            foreach (var item in expinfo)
+            {
+                if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
+                {
+                    graphreel = graphreel + item.amount.ToString() + ",";
+                }
+            }
+            graphreel += end;
+
+            string colorsoumi = "[";
+            foreach (var item in soumis)
+            {
+                if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
+                {
+
+                    colorsoumi = colorsoumi + '"' + item.color + '"' + ",";
+                }
+            }
+
+            colorsoumi += end;
+
+            string colorbar = "[";
+            string colorbarexpense = "[";
+            for (int i = 0; i < soumis.Count; i++)
+            {
+                if ((soumis[i].Spending != "MargeSoumis") && (soumis[i].Spending != "MargeProjeter"))
+                {
+                    if ((soumis[i].amount - expinfo[i].amount) == infos[i].amount)
+                    {
+                        colorbar = colorbar + '"' + "#f4b30d" + '"' + ",";
+                    }
+                    else if ((soumis[i].amount - expinfo[i].amount) < infos[i].amount)
+                    {
+                        colorbar = colorbar + '"' + "#e02d1b" + '"' + ",";
+                    }
+                    else if ((soumis[i].amount - expinfo[i].amount) > infos[i].amount)
+                    {
+                        colorbar = colorbar + '"' + "#1cc88a" + '"' + ",";
+                    }
+
+                    if (soumis[i].amount == expinfo[i].amount)
+                    {
+                        colorbarexpense = colorbarexpense + '"' + "#f4b30d" + '"' + ",";
+                    }
+                    else if (soumis[i].amount < expinfo[i].amount)
+                    {
+                        colorbarexpense = colorbarexpense + '"' + "#e02d1b" + '"' + ",";
+                    }
+                    else if (soumis[i].amount > expinfo[i].amount)
+                    {
+                        colorbarexpense = colorbarexpense + '"' + "#1cc88a" + '"' + ",";
+                    }
+
+                }
+            }
+            colorbarexpense += end;
+            colorbar += end;
+
+            vg.soumission = soumission(id);
+            vg.soumissionColor = colorsoumi;
+            vg.data = graphprojection;
+            vg.projectionEX = projectionEX;
+            vg.color = colorbar;
+            vg.dépense = graphreel;
+            vg.colordepense = colorbarexpense;
+            return vg;
+        }
+
 
     }
 }

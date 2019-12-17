@@ -58,13 +58,13 @@ function showtotal() {
 }
 
 function sendtable() {
-    margee = $('#marge').val();
+    margee = $('#margeprice').val();
     var marge = { Spending: "MargeSoumis", amount: margee, color: "#FFFF" }
     var margep = { Spending: "MargeProjeter", amount: margee, color: "#FFFFF" }
     test.push(marge);
     test.push(margep);
     objectArray = JSON.stringify(test);
-    var markup = "<tr><td><input type='hidden' name='table' value = " + objectArray +" required></td></tr>";
+    var markup = "<input type='hidden' name='table' value = " + objectArray +" required>";
     $("table tbody").append(markup);
 }
 
@@ -72,15 +72,17 @@ $(document).ready(function () {
     $('#btnAjouterProjet').click(function () {
         sendtable();
     });
+
+    $("#margeprice").change(function () {
+        var marge = parseFloat($("#margeprice").val());
+        total = 0;
+        total = myarray.reduce((a, b) => a + b, 0);
+        totalMarger = total + marge;
+        $('#totalmarge').text(totalMarger.toString());
+    });
 });
 
-function calculatetotal() {
-    var marge = $("#marge").val();
-    total = 0;
-    total = myarray.reduce((a, b) => a + b, 0);
-    totalMarger = total + marge;
-    $('#totalfinal').text(totalMarger.toString());
-}
+
 
 
 /*function addTR(name) {

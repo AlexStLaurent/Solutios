@@ -126,7 +126,7 @@ namespace Solutios.Controllers
             Project p = projectmanager.getProjet(Convert.ToInt32(formCollection["id"]));//va chercher le bon projet dans la BD
             List<ExpenseInfo> expenseInfos = new List<ExpenseInfo>();
             int counter = 1;
-            foreach(var expense in p.listProjectSoumission())
+            foreach (var expense in p.listProjectSoumission())
             {
                 ExpenseInfo ex = new ExpenseInfo();
                 FollowInfo[] follwlist = new JavaScriptSerializer().Deserialize<FollowInfo[]>(formCollection[counter.ToString()]);
@@ -150,7 +150,7 @@ namespace Solutios.Controllers
 
             ProjectExpense projectExpense = new ProjectExpense();
             projectExpense.PeExpenseId = Convert.ToInt32(formCollection["id"]);
-            
+
 
             _context.Add(saveEx);
             _context.SaveChanges();
@@ -299,6 +299,7 @@ namespace Solutios.Controllers
             ViewData["margeS"] = projectmanager.Getmarge(id);
             ViewData["margeE"] = projectmanager.GetmargeEstime(id);
             ViewData["completion"] = projectmanager.getCompletion(id);
+            ViewData["Test"] = projectmanager.GetAllProjection(id);
             if (projectmanager.GetLastProjection(id) != null)
             {
                 ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
@@ -319,6 +320,41 @@ namespace Solutios.Controllers
 
             return View(projectmanager.viewProjet(id));
         }
+
+        //[Authorize]
+        //[HttpGet("/{id}/{projection}")]
+        //public IActionResult ProjectionProjet(int id, int projection)
+        //{
+        //    Project p = projectmanager.getProjet(id);
+        //    ViewData["tendance"] = projectmanager.graphiqueLigne(id);
+        //    ViewData["date"] = projectmanager.date(id);
+        //    ViewData["id"] = id;
+        //    ViewData["graphbar"] = projectmanager.OldGraph(id,projection);
+        //    ViewData["Nomdepense"] = projectmanager.nomdépense(id);
+        //    ViewData["margeS"] = projectmanager.Getmarge(id);
+        //    ViewData["margeE"] = projectmanager.GetmargeEstime(id);
+        //    ViewData["completion"] = projectmanager.getCompletion(id);
+        //    ViewData["Test"] = projectmanager.GetAllProjection(id);
+        //    if (projectmanager.GetLastProjection(id) != null)
+        //    {
+        //        ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
+        //    }
+        //    else
+        //    {
+        //        ViewData["Projection"] = p.listProjectSoumission();
+        //    }
+        //    if (projectmanager.GetLastExpense(id) != null)
+        //    {
+        //        ViewData["Expense"] = JsonConvert.DeserializeObject<List<ExpenseInfo>>(projectmanager.GetLastExpense(id).JsonExpenseInfo);
+        //    }
+        //    else
+        //    {
+        //        ViewData["Expense"] = p.ListProjectExpense();
+        //    }
+
+
+        //    return View("Projet",projectmanager.viewProjet(id));
+        //}
 
         [Authorize]
         public IActionResult profil()

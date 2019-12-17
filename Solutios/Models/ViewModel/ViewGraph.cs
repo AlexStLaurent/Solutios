@@ -14,5 +14,6 @@ namespace Solutios.Models.ViewModel
         public string color { get; set; }
         public string soumissionColor { get; set; }
         public string soumission { get; set; }
+        public string projectionEX { get; set; }
     }
 }
