@@ -1,5 +1,5 @@
-﻿var counter = 1;
-var fakecounter = 2;
+﻿//var counter = 1;
+//var fakecounter = 2;
 function addTR(name, id) {
 
     if (CheckTable(counter, name) != true) {   

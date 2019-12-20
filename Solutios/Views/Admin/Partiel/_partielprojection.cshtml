@@ -27,6 +27,8 @@
 
                             @foreach (var item in Model)
                             {
+                                if ((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
+                                {
                                 <tr class="table-row">
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Spending)
@@ -41,6 +43,7 @@
                                         @Html.DisplayFor(modelItem => item.amount)
                                     </td>
                                 </tr>
+                                }
                             }
                         </tbody>
                     </table>

@@ -64,17 +64,15 @@ namespace Solutios.Models
                 return "null";
         }
 
-        public void logoutUser()
+        public void logoutUser(HttpContext context)
         {
-
+            context.SignOutAsync();
         }
+
         public void AddUser(Users user)
         {
-
             solutiosContext.Add(user);
             solutiosContext.SaveChanges();
-
-
         }
 
         public void UpdateUser(Users user)

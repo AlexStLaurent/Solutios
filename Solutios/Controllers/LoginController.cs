@@ -17,7 +17,7 @@ namespace Solutios.Controllers
         private UserManager usermanager;
         private readonly ProjetSolutiosContext _context;
         private readonly IConfiguration Configuration;
-        public LoginController( ProjetSolutiosContext context)
+        public LoginController(ProjetSolutiosContext context)
         {
 
             _context = context;
@@ -25,6 +25,11 @@ namespace Solutios.Controllers
 
         }
 
+        /// <summary>
+        /// Login l'usager
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Login(Users user)
         {

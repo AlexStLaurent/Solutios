@@ -15,35 +15,48 @@
         </div>
     <br>
     <div class="row">
-        <div class="col-lg-2">Date de début</div><input type="date" id="dtDateDebut" name="project_debut" required/>
-        <div class="col-lg-2">Échéance:</div> <input type="date" id="dtDateFin" name="project-fin" required/>
+       
+        <div class="input-group input-group-lg">
+            <div class="col-lg-2 text-right">Date de début :</div>
+            <div class="col-xs-3">
+                <input type="date" class="form-control" id="dtDateDebut" name="project_debut" required />
+            </div>
+            <div class="col-lg-2 text-right">Échéance :</div>
+            <div class="col-xs-3">
+                <input type="date" class="form-control col-xs-3" id="dtDateFin" name="project-fin" required />
+            </div>            
+        </div>  
+        
     </div>
+
     <div class="card-body">
+
+        <input type="button" id="add-row" value="Ajouter un élément" class="btn btn-dark" style="margin-bottom:10px" />
 
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Dépense</th>
+                    <th>Nom</th>
                     <th>Montant</th>
-                    <th> <hidden></hidden></th>
                 </tr>
             </thead>
             <tfoot>
-                <tr class="table-row">
-
-                    <th><input type="text" id="depense"></th>
-                    <th><input type="text" id='prix'></th>
-                    <th><input type="color" id="color" /></th>
-                    <th><input type="button" class="add-row btn btn-secondary" value="Confirmer"></th>
-
-                </tr>
                 <tr>
                     <th>Total avant marge</th>
                     <th><span id="total"></span></th>
                 </tr>
                 <tr>
                     <th>Marge</th>
-                    <th><input type="number" id="margeprice"></th>
+                    <th>
+                        <div class="form-group row">
+                            <div class="col-xs-2">
+                                <input class="form-control" type="number" placeholder="Nombre" id="margeprice">
+                            </div>
+                            <div class="col-xs-2">
+                                <input class="form-control" type="text" placeholder="Pourcentage" id="margepourcent">
+                            </div>
+                        </div>
+                    </th>
                 </tr>
                 <tr>
                     <th>Total</th>
@@ -51,10 +64,34 @@
                 </tr>
             </tfoot>
             <tbody>
+                <tr>
+                    <td><input class='form-control' type='text' id='depense0' value="Main d'oeuvre"></td>
+                    <td> <input class='form-control' type='number' id='prix0' onchange='calculTotal()'></td>
+                    <td><input class='form-control' type='color' id='color0' /></td>
+                    <td>
+                        <button type='button' onclick='Delete(0)' name='delete-row-0' class='delete btn btn-secondary'><i class='fas fa-trash - alt'></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input class='form-control' type='text' id='depense1' value="Matériaux"></td>
+                    <td> <input class='form-control' type='number' id='prix1' onchange='calculTotal()'></td>
+                    <td><input class='form-control' type='color' id='color1' /></td>
+                    <td>
+                        <button type='button' onclick='Delete(1)' name='delete-row-1' class='delete btn btn-secondary'><i class='fas fa-trash - alt'></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input class='form-control' type='text' id='depense2' value="Sous-Traitant"></td>
+                    <td> <input class='form-control' type='number' id='prix2' onchange='calculTotal()'></td>
+                    <td><input class='form-control' type='color' id='color2' /></td>
+                    <td>
+                        <button type='button' onclick='Delete(2)' name='delete-row-2' class='delete btn btn-secondary'><i class='fas fa-trash - alt'></i></button>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
         <button class="btn btn-success" type="submit" id="btnAjouterProjet">Terminer</button>
     </div>
-
+    <input type="hidden" id="numberofrows" value="3" />
 </form>

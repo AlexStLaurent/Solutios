@@ -22,17 +22,31 @@ namespace Solutios.Models
             solutiosContext = context;
         }
 
+        /// <summary>
+        /// Trouve un projet avec son ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Project getProjet(int id)
         {
             return solutiosContext.Project.Find(id);
         }
 
+        /// <summary>
+        /// Ajoute un projet à la DB
+        /// </summary>
+        /// <param name="p"></param>
         public void addProjet(Project p)
         {
             solutiosContext.Add(p);
             solutiosContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Va chercher les informations necessaire pour afficher le graphique a ligne briser
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Liste d'élément ViewGraph </returns>
         public List<ViewGraph> graphiqueLigne(int id)
         {
             List<ViewGraph> graph = new List<ViewGraph>();
@@ -78,13 +92,16 @@ namespace Solutios.Models
                     for(int i = 0; i< infos.Count; i++)
                     {
                         double total = 0;
+                        double totalsoumis = 0;
                         for (int j = 0; j < infos[i].Count; j++)
                         {
                             if (soumis.Spending == infos[i][j].Spending)
                             {
                                 vg.label = infos[i][j].Spending;
                                 vg.color = infos[i][j].color;
+                                totalsoumis = soumis.amount + totalsoumis;
                                 total = infos[i][j].amount + Exinfo[i][j].amount + total;
+                                total = (total * 100) / totalsoumis;
                             }
                         }
                         test = test + total.ToString() + ",";
@@ -99,6 +116,11 @@ namespace Solutios.Models
             return graph;
         }
 
+        /// <summary>
+        /// Crée la string pour les labels du graphique fait en JS
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string nomdépense(int id)
         {
             Project p = solutiosContext.Project.Find(id);
@@ -127,6 +149,11 @@ namespace Solutios.Models
             return jsonTest;
         }
 
+        /// <summary>
+        /// Crée la string de date à afficher en JS
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string date(int id)
         {
             Project p = solutiosContext.Project.Find(id);
@@ -146,8 +173,9 @@ namespace Solutios.Models
 
             return test;
         }
+
         /// <summary>
-        /// 
+        /// Crée les éléments pour afficher les graphiques
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -256,6 +284,11 @@ namespace Solutios.Models
             return vg;
         }
 
+        /// <summary>
+        /// Crée la string de la soumission pour les graphiques en JS
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string soumission(int id)
         {
             Project p = solutiosContext.Project.Find(id);
@@ -273,6 +306,11 @@ namespace Solutios.Models
             return soumission;
         }
 
+        /// <summary>
+        /// Va chercher les éléments des dernières Projections
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public FollowUp GetLastProjection(int id)
         {
             if (solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == id) != null)
@@ -286,7 +324,12 @@ namespace Solutios.Models
                 return null;
             }
         }
-        //WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP
+
+        /// <summary>
+        /// Va chercher les éléments des dernières dépenses
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
         public Expense GetLastExpense(int i)
         {
             if (solutiosContext.ProjectExpense.LastOrDefault(e => e.PeProjectId == i) != null)
@@ -300,8 +343,13 @@ namespace Solutios.Models
                 return null;
             }
         }
-        //WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP//WIP
-
+        
+        /// <summary>
+        /// Va chercher les éléments des projets et le mets dans la classe
+        /// approprier pour les affichers par la suite
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public List<ViewProject> viewProjet(int id)
         {
             List<ViewProject> ListVP = new List<ViewProject>();
@@ -328,6 +376,43 @@ namespace Solutios.Models
             return ListVP;
         }
 
+        /// <summary>
+        /// Va chercher les éléments des projets et de l'historique et le mets dans la classe
+        /// approprier pour les affichers par la suite 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="projection_id"></param>
+        /// <returns></returns>
+        public List<ViewProject> viewProjetHistorique(int id, int projection_id)
+        {
+            List<ViewProject> ListVP = new List<ViewProject>();
+            Project p = solutiosContext.Project.Find(id);
+            FollowUp follow = solutiosContext.FollowUp.Find(projection_id);
+            List<FollowInfo> soumission = p.listProjectSoumission();
+            List<FollowInfo> estimation = follow.deinfo();
+            ProjectExpense pex = solutiosContext.ProjectExpense.LastOrDefault(c => c.PeProjectId == id);
+            Expense ex = solutiosContext.Expense.LastOrDefault(c => c.ExpenseId == pex.PeExpenseId);
+            List<ExpenseInfo> expenseInfos = ex.Listexpenses();
+            for (int i = 0; i < estimation.Count; i++)
+            {
+                if ((soumission[i].Spending != "MargeSoumis") && (soumission[i].Spending != "MargeProjeter"))
+                {
+                    ViewProject vp = new ViewProject("", 0, 0, 0);
+                    vp.spending = soumission[i].Spending;
+                    vp.soumission = soumission[i].amount;
+                    vp.depenceP = estimation[i].amount;
+                    vp.dépensecourrante = expenseInfos[i].amount;
+                    ListVP.Add(vp);
+                }
+            }
+            return ListVP;
+        }
+
+        /// <summary>
+        /// Va chercher la valeur de la marge soumis
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public double Getmarge(int id)
         {
             List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(GetLastProjection(id).FuInfo);
@@ -342,6 +427,11 @@ namespace Solutios.Models
             return 0;
         }
 
+        /// <summary>
+        /// Va chercher la valeur de la marge projeter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public double GetmargeEstime(int id)
         {
             List<FollowInfo> infos = JsonConvert.DeserializeObject<List<FollowInfo>>(GetLastProjection(id).FuInfo);
@@ -356,6 +446,11 @@ namespace Solutios.Models
             return 0;
         }
 
+        /// <summary>
+        /// Calcul le nombre de jour avant la fin du projet pour l'afficher en %
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public double getCompletion(int id)
         {
 
@@ -399,6 +494,11 @@ namespace Solutios.Models
 
         }
 
+        /// <summary>
+        /// Va chercher toute les projections
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public List<FollowUp> GetAllProjection(int id)
         {
             if (solutiosContext.ProjectFollowUp.LastOrDefault(e => e.PfProjectId == id) != null)
@@ -418,7 +518,12 @@ namespace Solutios.Models
             }
         }
 
-
+        /// <summary>
+        /// Va chercher les informations pour afficher les vieux graphiques de l'historique
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="fuid"></param>
+        /// <returns></returns>
         public ViewGraph OldGraph(int id, int fuid)
         {
             ViewGraph vg = new ViewGraph();

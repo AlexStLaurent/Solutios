@@ -2,34 +2,40 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-myarray = [,];
-var test = [];
-id = 0; 
 
 
 $(document).ready(function () {
-    $(".add-row").click(function () {
-        if ($('#depense').val() != "" && $('#prix').val() != "") {
-            if (!isNaN($('#prix').val())) {
-                d = $('#depense').val().replace(/ /g, "_");
-                d = d.replace(/'/g, "_");
-                p = $('#prix').val();
-                c = $('#color').val();
-                id += 1;
+    $("#add-row").click(function () {
+        //if ($('#depense').val() != "" && $('#prix').val() != "") {
+        //    if (!isNaN($('#prix').val())) {
+        //        d = $('#depense').val().replace(/ /g, "_");
+        //        d = d.replace(/'/g, "_");
+        //        p = $('#prix').val();
+        //        c = $('#color').val();
+        //        id += 1;
 
-                var t = { Spending: d, amount: p, color: c }
-                test.push(t);
+        //        var t = { Spending: d, amount: p, color: c }
+        //        test.push(t);
 
-                myarray.push(parseInt(p));
-                var markup = "<tr><td>" + d + " <input type='hidden' value=" + d + "> </td><td>" + p + "$ <input type='hidden' value=" + p + "><td>" + c + " <input type='hidden' value=" + c + "></td></td><td><button type='button' onclick='Delete(" + id + ")' name= 'delete-row-" + id + "' class='delete btn btn-secondary'>Supprimer</button></td></tr>";
-                $("table tbody").append(markup);
-                showtotal();
-                formClear();
-            }
-        }
-        else {
-            alert("Veuillez remplir les champs");
-        }
+        //        myarray.push(parseInt(p));
+        var numberofitems = parseInt($("#numberofrows").val());
+        var markup = "<tr>" +
+            "<td><input class='form-control' type='text' id='depense" + numberofitems+"'></td>"+
+            "<td> <input class='form-control' type='number' id='prix" + numberofitems +"' onchange='calculTotal()' ></td>"+
+            "<td><input class='form-control' type='color' id='color" + numberofitems+"' /></td>" +
+            "<td>" +
+            "<button type='button' onclick='Delete(" + numberofitems + ")' name= 'delete-row-" + numberofitems + "' class='delete btn btn-secondary'><i class='fas fa-trash - alt'></i></button></td>" +
+                    "</tr>";
+        $("table tbody").append(markup);
+        numberofitems += 1;
+        $("#numberofrows").val(numberofitems);
+        //        showtotal();
+        //        formClear();
+        //    }
+        ////}
+        //else {
+        //    alert("Veuillez remplir les champs");
+        //}
     });
 });
 
@@ -40,31 +46,48 @@ function Delete(id) {
         delete myarray[id];
         delete test[id];
         showtotal();
-        });
-    }
-
-function formClear() {
-    $('#comment').val('');
-    $('#prix').val('');
-    $('#depense').val('');
+     });
 }
 
+function calculTotal() {
 
+    var total = 0;
+    var numberofrow = $("#numberofrows").val();    
+    for (let i = 0; i < numberofrow; i++) {
+        prix = $("#prix" + i).val();
 
-function showtotal() {
-    total = 0;
-    total = myarray.reduce((a, b) => a + b, 0);
+        if (prix != "") {
+            prix = parseFloat(prix);
+            total += prix;
+        }
+    }
     $('#total').text(total.toString());
 }
 
 function sendtable() {
+    
+    var data = [];
+    numberofrow = $("#numberofrows").val();
+
+    for (let i = 0; i < numberofrow; i++) {
+        depence = $("#depense" + i).val().replace(/ /g, "_");
+        depence = depence.replace(/'/g, "_");
+        prix = $("#prix" + i).val();
+        color = $("#color" + i).val();
+
+        if (depence != "" || prix != "") {
+            var tablestr = { Spending: depence, amount: prix, color: color }
+            data.push(tablestr);
+        }
+    }
+
     margee = $('#margeprice').val();
     var marge = { Spending: "MargeSoumis", amount: margee, color: "#FFFF" }
     var margep = { Spending: "MargeProjeter", amount: margee, color: "#FFFFF" }
-    test.push(marge);
-    test.push(margep);
-    objectArray = JSON.stringify(test);
-    var markup = "<input type='hidden' name='table' value = " + objectArray +" required>";
+    data.push(marge);
+    data.push(margep);
+    objectArray = JSON.stringify(data);
+    var markup = "<input type='hidden' name='table' value = " + objectArray + " required>";
     $("table tbody").append(markup);
 }
 
@@ -75,11 +98,23 @@ $(document).ready(function () {
 
     $("#margeprice").change(function () {
         var marge = parseFloat($("#margeprice").val());
-        total = 0;
-        total = myarray.reduce((a, b) => a + b, 0);
+        total = parseFloat($('#total').text());
+        pourcentage = (marge * 100) / total;
         totalMarger = total + marge;
         $('#totalmarge').text(totalMarger.toString());
+        $('#margepourcent').val(pourcentage);
     });
+
+    $("#margepourcent").change(function () {
+        var pourcentage = parseFloat($("#margepourcent").val());
+        total = parseFloat($('#total').text());
+        marge = (pourcentage * total) / 100;
+        totalMarger = total + marge;
+        $('#totalmarge').text(totalMarger.toString());
+        $('#margeprice').val(marge);
+    });
+
+    
 });
 
 

@@ -16,23 +16,44 @@ namespace Solutios.Controllers
 {
     public class AdminController : Controller
     {
+        //Variable commune
         const int Archived = 5;
         private readonly ProjetSolutiosContext _context;
         UserManager usermanager;
         ProjectManager projectmanager = new ProjectManager();
 
+        /// <summary>
+        /// database context
+        /// </summary>
+        /// <param name="context"></param>
         public AdminController(ProjetSolutiosContext context)
         {
             this._context = context;
             usermanager = new UserManager(_context);
             projectmanager = new ProjectManager(_context);
         }
+
+        //Page d'accueil pour admin
         [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
         {
             return View(usermanager.showIndexProjet(usermanager.showAllProject()));
         }
 
+        /// <summary>
+        /// Logout du Admin
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Logout()
+        {
+            usermanager.logoutUser(this.HttpContext);
+            return RedirectToAction("Index", "Home");
+        }
+
+        /// <summary>
+        /// Voir les paramêtre du compte
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Param()
         {
@@ -43,6 +64,11 @@ namespace Solutios.Controllers
             return View(user);
         }
 
+        /// <summary>
+        /// Voir les projection et en ajouter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Projection(int id)
         {
@@ -56,6 +82,10 @@ namespace Solutios.Controllers
         }
 
 
+        /// <summary>
+        /// Ajouter un projet
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public IActionResult AddProjet()
         {
@@ -65,6 +95,11 @@ namespace Solutios.Controllers
         }
 
 
+        /// <summary>
+        /// Ajoute une projection dans un projet
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult AddProjection(IFormCollection formCollection)
@@ -106,10 +141,11 @@ namespace Solutios.Controllers
 
 
 
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //WIP  WIP  WIP
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        /// <summary>
+        /// Ajouter une dépense
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult AddExpense(IFormCollection formCollection)
@@ -161,24 +197,17 @@ namespace Solutios.Controllers
             _context.ProjectExpense.Add(projectExpense);
             _context.SaveChanges();
 
-            //foreach (var item in subName)
-            //{
-            //    subExpense sub = new subExpense();//objet de type sous-depense qui va etre ajouter a la liste
-            //    sub.name = subName[count];//nom de l'item
-            //    sub.cost = Convert.ToDouble(subCost[count]);//prix de l'item
-            //    subExpenses.Add(sub);//ajout a la liste subExpenses
-
-            //    count++;//augment le compteur
-            //    costTotal += sub.cost;
-            //}
 
             return RedirectToAction("Projet", new { id = formCollection["id"] });
         }
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 
-
+        /// <summary>
+        /// POST Ajouter un projet dans la DB
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult Addprojet(IFormCollection formCollection)
@@ -246,6 +275,10 @@ namespace Solutios.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Voir les archives
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public IActionResult Archive()
         {
@@ -273,6 +306,11 @@ namespace Solutios.Controllers
             return View(projectmanager.viewProjet(id));
         }
 
+        /// <summary>
+        /// Archive un projet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public IActionResult ArchiverProjet(int id)
@@ -285,7 +323,11 @@ namespace Solutios.Controllers
 
         }
 
-
+        /// <summary>
+        /// Voir les détails d'un projet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet]
         public IActionResult Projet(int id)
@@ -321,56 +363,82 @@ namespace Solutios.Controllers
             return View(projectmanager.viewProjet(id));
         }
 
-        //[Authorize]
-        //[HttpGet("/{id}/{projection}")]
-        //public IActionResult ProjectionProjet(int id, int projection)
-        //{
-        //    Project p = projectmanager.getProjet(id);
-        //    ViewData["tendance"] = projectmanager.graphiqueLigne(id);
-        //    ViewData["date"] = projectmanager.date(id);
-        //    ViewData["id"] = id;
-        //    ViewData["graphbar"] = projectmanager.OldGraph(id,projection);
-        //    ViewData["Nomdepense"] = projectmanager.nomdépense(id);
-        //    ViewData["margeS"] = projectmanager.Getmarge(id);
-        //    ViewData["margeE"] = projectmanager.GetmargeEstime(id);
-        //    ViewData["completion"] = projectmanager.getCompletion(id);
-        //    ViewData["Test"] = projectmanager.GetAllProjection(id);
-        //    if (projectmanager.GetLastProjection(id) != null)
-        //    {
-        //        ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(id).FuInfo);
-        //    }
-        //    else
-        //    {
-        //        ViewData["Projection"] = p.listProjectSoumission();
-        //    }
-        //    if (projectmanager.GetLastExpense(id) != null)
-        //    {
-        //        ViewData["Expense"] = JsonConvert.DeserializeObject<List<ExpenseInfo>>(projectmanager.GetLastExpense(id).JsonExpenseInfo);
-        //    }
-        //    else
-        //    {
-        //        ViewData["Expense"] = p.ListProjectExpense();
-        //    }
+        /// <summary>
+        /// Voir les anciennes projection d'un projet
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost]
+        public IActionResult ProjectionProjet(IFormCollection formCollection)
+        {
+            Project p = projectmanager.getProjet(Convert.ToInt32(formCollection["id"]));
+            ViewData["tendance"] = projectmanager.graphiqueLigne(Convert.ToInt32(formCollection["id"]));
+            ViewData["date"] = projectmanager.date(Convert.ToInt32(formCollection["id"]));
+            ViewData["id"] = Convert.ToInt32(formCollection["id"]);
+            ViewData["graphbar"] = projectmanager.OldGraph(Convert.ToInt32(formCollection["id"]), Convert.ToInt32(formCollection["projection"]));
+            ViewData["Nomdepense"] = projectmanager.nomdépense(Convert.ToInt32(formCollection["id"]));
+            ViewData["margeS"] = projectmanager.Getmarge(Convert.ToInt32(formCollection["id"]));
+            ViewData["margeE"] = projectmanager.GetmargeEstime(Convert.ToInt32(formCollection["id"]));
+            ViewData["completion"] = projectmanager.getCompletion(Convert.ToInt32(formCollection["id"]));
+            ViewData["Test"] = projectmanager.GetAllProjection(Convert.ToInt32(formCollection["id"]));
+            if (projectmanager.GetLastProjection(Convert.ToInt32(formCollection["id"])) != null)
+            {
+                ViewData["Projection"] = JsonConvert.DeserializeObject<List<FollowInfo>>(projectmanager.GetLastProjection(Convert.ToInt32(formCollection["id"])).FuInfo);
+            }
+            else
+            {
+                ViewData["Projection"] = p.listProjectSoumission();
+            }
+            if (projectmanager.GetLastExpense(Convert.ToInt32(formCollection["id"])) != null)
+            {
+                ViewData["Expense"] = JsonConvert.DeserializeObject<List<ExpenseInfo>>(projectmanager.GetLastExpense(Convert.ToInt32(formCollection["id"])).JsonExpenseInfo);
+            }
+            else
+            {
+                ViewData["Expense"] = p.ListProjectExpense();
+            }
 
 
-        //    return View("Projet",projectmanager.viewProjet(id));
-        //}
+            return View("Projet", projectmanager.viewProjetHistorique(Convert.ToInt32(formCollection["id"]), Convert.ToInt32(formCollection["projection"])));
+        }
 
+        /// <summary>
+        /// Voir le profil
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public IActionResult profil()
         {
             string user = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View(usermanager.FindUserByID(user));
         }
+
+        /// <summary>
+        /// VOir l'activity log
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
         public IActionResult Activitylog()
         {
             return View();
         }
+
+        /// <summary>
+        /// Voir les usagers
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
         public IActionResult Usagers()
         {
             return View(usermanager.listeUser());
         }
 
+        /// <summary>
+        /// Ajouter un usager 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult AddUsers(Users user)
@@ -386,6 +454,11 @@ namespace Solutios.Controllers
             else return RedirectToAction("Error");
         }
 
+        /// <summary>
+        /// Modifier un Usager
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public IActionResult EditUsers(Users user)
@@ -399,20 +472,20 @@ namespace Solutios.Controllers
             else return RedirectToAction("Error");
         }
 
-        [Authorize]
-        [HttpPost]
-        public IActionResult Saveee(string objectArray)
-        {
-            List<FollowInfo> followInfo = new List<FollowInfo>();
-            followInfo = JsonConvert.DeserializeObject<List<FollowInfo>>(objectArray);
-            return Redirect("/Admin/Usagers");
-        }
-
+        /// <summary>
+        /// Page d'erreur
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Error()
         {
             return View("Error", new ErrorViewModel());
         }
 
+        /// <summary>
+        /// Changer le password
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult ChangePasswordAdmin(IFormCollection form)
         {
@@ -425,6 +498,11 @@ namespace Solutios.Controllers
             return Error();
         }
 
+        /// <summary>
+        /// Supprimer un projet de la DB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult SupressionProjet(int id)
         {
@@ -437,6 +515,11 @@ namespace Solutios.Controllers
 
         }
 
+        /// <summary>
+        /// POST Changer le mot de passe d'un admin
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult ChangerMdPAdmin(IFormCollection form)
         {
@@ -452,6 +535,11 @@ namespace Solutios.Controllers
             return RedirectToAction("Usagers");
         }
 
+        /// <summary>
+        /// POST Changer le mot de passe d'un non-admin
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
         [Authorize]
         public IActionResult ChangerMdP(IFormCollection form)
         {

@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-auto">
                             <form>
-                                <input hidden="hidden" value="@ViewData[" id"]" name="id" />
+                                <input hidden="hidden" value="@ViewData["id"]" name="id" />
                                 <button type="button" class="fas fa-folder-plus fa-2x text-gray-300" data-toggle="modal" data-target="#modalEstimates" style="background-color:Transparent;  border:solid 2px; border-radius: 12px; border-color: #f6c23e;">
                                 </button>
 
@@ -106,10 +106,11 @@
                             <div class="h6 font-weight-bold text-warning text-uppercase mb-1">Voir les projections</div>
                         </div>
                         <div class="col-auto">
-                            <form>
-                                <input hidden="hidden" value="@ViewData[" id"]" name="id" />
+                            <form method="post" asp-action="ProjectionProjet">
+                                <input hidden="hidden" value="@ViewData["id"]" name="id" />
 
-                                <select class="form-control">
+                                <select class="form-control" onchange="this.form.submit()" name="projection">
+                                    <option>Choisir une Estimation</option>
                                     @foreach (var item in vprojection)
                                     {
                                         <option value="@item.FuId">@item.FuDate</option>
@@ -205,7 +206,7 @@
 
 
                         <form method="post" asp-action="AddExpense">
-                            <input type='hidden' Name="id" value="@ViewData[" id"]">
+                            <input type='hidden' Name="id" value="@ViewData["id"]">
                             <div class="modal-content">
                                 <!-- DataTales Example -->
                                 <div class="card shadow mb-4">
@@ -225,10 +226,12 @@
                                                 </thead>
 
                                                 <tbody style="font-size:small" class="text-left">
-                                                    @{int count = 1; }
+                                                    @{int count = 1;}
                                                     @foreach (var item in Expense)
                                                     {
-
+                                                        if((item.Spending != "MargeSoumis") && (item.Spending != "MargeProjeter"))
+                                                        {
+                                                            
                                                         <tr class="table-row">
                                                             <td colspan="1">
                                                                 <input type='hidden' name="@item.Spending" value="@item.Spending">
@@ -274,8 +277,8 @@
 
                                                                             }
                                                                             @{counter = counter - 1;}
-                                                                            <input type='hidden' id="@(" rows"+count)" value="@counter">
-                                                                            <input type='hidden' id="@(" item"+count)" value="@item.Spending">
+                                                                            <input type='hidden' id="@("rows"+count)" value="@counter">
+                                                                            <input type='hidden' id="@("item"+count)" value="@item.Spending">
                                                                         </tbody>
                                                                     </table>
                                                                     <p>
@@ -284,9 +287,9 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-
+                                                        
+                                                        }
                                                         count = count + 1;
-
                                                     }
 
                                                 </tbody>
@@ -469,12 +472,32 @@
     <script src="~/vendor/chart.js/Chart.min.js"></script>
     <script src="~/js/ExpenseTable.js"></script>
     <script>
-    var total = (@soumission - @dépensecourrante) + @ViewData["margeS"];
-    $('#margeProjeter').text(total + "$");
-    if (total <= @ViewData["margeS"]) {
-        $('#margecolor').addClass("border-left-danger");
-        $('#textColor').addClass("text-danger");
-    }
+
+        
+        var total = (@soumission - @dépensecourrante) + @ViewData["margeS"];
+         $('#margeProjeter').text(total + "$");
+         if (total <= @ViewData["margeS"]) {
+            $('#margecolor').addClass("border-left-danger");
+            $('#textColor').addClass("text-danger");
+         }
+
+        $(document).ready(function () {
+            $("#margeprice").change(function () {
+            var projection = $("#margeprice").val();
+        @foreach(var item in Model){
+        
+            <text>
+            if (projection == @ViewData["margeS"]) {
+            $('#margecolor').addClass("border-left-danger");
+            $('#textColor').addClass("text-danger");
+            }
+            </text>
+
+         }
+            });
+        });
+
+        
 
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
@@ -564,7 +587,7 @@ var myLineChart = new Chart(ctxx, {
                     min:0,
 					// Include a dollar sign in the ticks
 					callback: function (value, index, values) {
-						return '$' + number_format(value);
+						return  number_format(value)+'%';
                     }
 				},
 				gridLines: {
@@ -596,7 +619,7 @@ var myLineChart = new Chart(ctxx, {
 			callbacks: {
 				label: function (tooltipItem, chart) {
 					var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-					return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+					return datasetLabel + ': ' + number_format(tooltipItem.yLabel)+ '%';
 				}
 			}
 		}

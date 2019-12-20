@@ -33,7 +33,7 @@ Go
 
 Create Table FollowUp(
 FU_id int PRIMARY KEY identity(1,1),
-FU_Date date,
+FU_Date DateTime,
 FU_Info nvarchar(max)
 )
 GO
@@ -47,7 +47,7 @@ GO
 
 Create Table Expense(
 Expense_id int PRIMARY KEY identity(1,1),
-Expense_Date date,
+Expense_Date DateTime,
 Expense_Info nvarchar(max)
 )
 GO

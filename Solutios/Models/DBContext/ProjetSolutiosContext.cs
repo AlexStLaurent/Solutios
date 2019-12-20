@@ -44,7 +44,7 @@ namespace Solutios.Models
 
                 entity.Property(e => e.ExpenseDate)
                     .HasColumnName("Expense_Date")
-                    .HasColumnType("date");
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.JsonExpenseInfo).HasColumnName("Expense_Info");
             });
@@ -61,7 +61,7 @@ namespace Solutios.Models
 
                 entity.Property(e => e.FuDate)
                     .HasColumnName("FU_Date")
-                    .HasColumnType("date");
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.FuInfo).HasColumnName("FU_Info");
             });
